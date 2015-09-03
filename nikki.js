@@ -320,6 +320,7 @@ function refreshShoppingCart() {
 
 function drawLevelInfo() {
   var info = "";
+  var $skill = $("#skillInfo");
   if (currentLevel) {
     var log = [];
     if (currentLevel.filter) {
@@ -344,6 +345,25 @@ function drawLevelInfo() {
         log.push(match + ": [" + bonus.note + " " + bonus.param + "]");
       }
     }
+    if (currentLevel.skills) {
+		var $shaonv;
+		var $gongzhu;
+		var shaonvSkill = "";
+		var gongzhuSkill = "";
+		if(currentLevel.skills[1]){
+			$shaonv = $("<font>").text("少女级:  ").addClass("shaonvSkill");
+			$gongzhu = $("<font>").text("公主级:  ").addClass("gongzhuSkill");
+		}
+		for (var i in currentLevel.skills[0]) {
+			shaonvSkill += (currentLevel.skills[0][i] + "  ");
+		}
+		for (var i in currentLevel.skills[1]) {
+			gongzhuSkill += (currentLevel.skills[1][i] + "  ");
+		}
+		$skill.empty().append($shaonv).append(shaonvSkill)
+			.append($gongzhu).append(gongzhuSkill);
+	}
+	
     info = log.join(" ");
   }
   $("#tagInfo").text(info);

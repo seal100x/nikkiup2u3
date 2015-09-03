@@ -175,6 +175,14 @@
     td.deps [tooltip]:after {
       background-color: #fbb;
     }
+	.shaonvSkill{
+		color: red;
+		font-weight:bold;
+	}
+	.gongzhuSkill{
+		color: fuchsia;
+		font-weight:bold;
+	}
   </style>
     
   </head>
@@ -200,8 +208,11 @@
           <input type="radio" name="mode" value="filtering" onClick="changeMode(true)" checked/> 筛选
           <input type="radio" name="mode" value="ranking" onClick="changeMode(false)" /> 计分
           <select id="theme" onChange="changeTheme()" style="display: none"></select>
-          <span id="tagInfo"></span>
-        </div>
+          </div>
+		<div>
+			<span id="tagInfo"></span>
+			<span id="skillInfo"></span>
+		</div>
         <div class='facet'>
           <div>
             <input type="radio" name="simple" value="0" onClick="changeFilter()" /> 皆可

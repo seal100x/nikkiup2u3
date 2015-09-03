@@ -520,11 +520,6 @@ function addBonusInfo(base, weight, tag) {
    '8-支1': [addBonusInfo('A', 0.5, "侠客联盟")],
    '8-支2': [],
    '8-支3': [addBonusInfo('A', 0.5, "欧式古典")],
-   '仲夏夜之梦1': [addBonusInfo('S', 1, "童话系")],
-   '仲夏夜之梦2': [replaceBonusInfo('SS', 1, "和风")],
-   '仲夏夜之梦3': [],
-   '仲夏夜之梦4': [replaceBonusInfo('S', 1, "摇滚风")],
-   '仲夏夜之梦5': [replaceBonusInfo('S', 1, "睡衣"), replaceBonusInfo('A', 1, "小动物")],
    '清秀佳人': [addBonusInfo('A', 1, "中式现代")],
    '绝色无双': [addBonusInfo('A', 1, "中式现代")],//
    '保育员面试': [addBonusInfo('B', 1, "小动物")],
@@ -544,6 +539,11 @@ var additionalLevelInfo = {
   "4-2": [swimsuitFactory()],
   "4-3": [swimsuitFactory()],
   '7-6': [specialFactory76A(), specialFactory76B()]
+};
+
+var addSkillsInfo = {
+  "1-1": [["暖暖的微笑"],["暖暖的微笑","挑剔的目光","灰姑娘时钟","沉睡魔咒"]],
+  "1-2": [["暖暖的微笑"]]
 };
 
 function parseCriteriaList(criteria) {
@@ -573,12 +573,19 @@ function level(name, criteria) {
       additionalBonus.push(additionalLevelInfo[name][i](criteria));
     }
   }
+  var skills = [];
+  if (addSkillsInfo[name]) {
+    for (var i in addSkillsInfo[name]) {
+      skills.push(addSkillsInfo[name][i]);
+    }
+  }
   return {
     name: name, // useful?
     weight: criteria,
     filter: filter,
     bonus: bonusFilter,
-    additionalBonus: additionalBonus
+    additionalBonus: additionalBonus,
+	skills: skills
   }
 }
 
