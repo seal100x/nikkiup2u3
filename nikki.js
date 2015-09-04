@@ -321,6 +321,9 @@ function refreshShoppingCart() {
 function drawLevelInfo() {
   var info = "";
   var $skill = $("#skillInfo");
+  var $hint = $("#hintInfo");
+  $skill.empty();
+  $hint.empty();
   if (currentLevel) {
     var log = [];
     if (currentLevel.filter) {
@@ -351,8 +354,8 @@ function drawLevelInfo() {
 		var shaonvSkill = "";
 		var gongzhuSkill = "";
 		if(currentLevel.skills[1]){
-			$shaonv = $("<font>").text("少女级:  ").addClass("shaonvSkill");
-			$gongzhu = $("<font>").text("公主级:  ").addClass("gongzhuSkill");
+			$shaonv = $("<font>").text("少女级技能:  ").addClass("shaonvSkill");
+			$gongzhu = $("<font>").text("公主级技能:  ").addClass("gongzhuSkill");
 		}
 		for (var i in currentLevel.skills[0]) {
 			shaonvSkill += (currentLevel.skills[0][i] + "  ");
@@ -360,8 +363,12 @@ function drawLevelInfo() {
 		for (var i in currentLevel.skills[1]) {
 			gongzhuSkill += (currentLevel.skills[1][i] + "  ");
 		}
-		$skill.empty().append($shaonv).append(shaonvSkill)
+		$skill.append($shaonv).append(shaonvSkill)
 			.append($gongzhu).append(gongzhuSkill);
+	}
+    if (currentLevel.hint) {
+		var $hintInfo = $("<font>").text("过关提示:  ").addClass("hintInfo");
+		$hint.append($hintInfo).append(currentLevel.hint);
 	}
 	
     info = log.join(" ");

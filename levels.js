@@ -14,8 +14,6 @@ var competitionsRaw = {
   '运动进行时': [1, 1, 1.33, 1.33, 1],
   '春天在哪里': [0.66, 1.33, 1.33, 1.33, 1],
   '夏日物语': [1.33, 0.66, -1.33, 1, 1.33],
-  '穿越进行时': [1, -1, -1, 1, -1],
-  '艳阳当空照': [1, 1, -1, 1, 1],
   '年轻的春游': [1.33, 1.33, 1.33, 1, 0.66],
   '清秀佳人': [1.33, 0.66, -1.33, 1.33, 1],
   '绝色无双': [-1, -1, -1.33, 1, -0.66]
@@ -547,7 +545,22 @@ function addBonusInfo(base, weight, tag) {
    '话剧甄选会': [addBonusInfo('S', 1, "欧式古典")],//
    '云端汉服': [addBonusInfo('S', 1, "中式古典")],//
    '运动饮料推广': [addBonusInfo('S', 1, "运动系")],//
-   '睡衣派对': [addBonusInfo('SS', 1, "睡衣"), addBonusInfo('S', 1, "居家服")]//
+   '睡衣派对': [addBonusInfo('SS', 1, "睡衣"), addBonusInfo('S', 1, "居家服")],//
+	'9-1': [],
+	'9-2': [addBonusInfo('A', 1, "哥特风")],
+	'9-3': [],
+	'9-4': [addBonusInfo('A', 1, "中式古典")],
+	'9-5': [],
+	'9-6A': [],
+	'9-6B': [],
+	'9-7': [],
+	'9-8': [],
+	'9-9A': [],
+	'9-9B': [],
+	'9-9C': [],
+	'9-支1': [],
+	'9-支2': [],
+	'9-支3': [] 
  };
 
 var additionalLevelInfo = {
@@ -557,8 +570,30 @@ var additionalLevelInfo = {
 };
 
 var addSkillsInfo = {
-  "1-1": [["暖暖的微笑"],["暖暖的微笑","挑剔的目光","灰姑娘时钟","沉睡魔咒"]],
-  "1-2": [["暖暖的微笑"]]
+  '1-1': [["暖暖的微笑"],["暖暖的微笑","挑剔的目光","灰姑娘时钟","沉睡魔咒"]],
+  '1-2': [["暖暖的微笑"]],
+	'9-1': [["暖暖的微笑"],[""]],
+	'9-2': [[],[]],
+	'9-3': [[],[]],
+	'9-4': [],
+	'9-5': [],
+	'9-6A': [],
+	'9-6B': [],
+	'9-7': [],
+	'9-8': [],
+	'9-9A': [],
+	'9-9B': [],
+	'9-9C': [],
+	'9-支1': [],
+	'9-支2': [],
+	'9-支3': [] 
+};
+
+var addHintInfo = {
+	'9-3': "枫叶套装",
+	'9-5': "游鲤套装",
+	'9-7': "未来套装限定",
+	'9-9A': "特工套装"
 };
 
 function parseCriteriaList(criteria) {
@@ -594,13 +629,18 @@ function level(name, criteria) {
       skills.push(addSkillsInfo[name][i]);
     }
   }
+  var hint;
+  if(addHintInfo[name]) {
+	hint = addHintInfo[name];
+  }
   return {
     name: name, // useful?
     weight: criteria,
     filter: filter,
     bonus: bonusFilter,
     additionalBonus: additionalBonus,
-	skills: skills
+	skills: skills,
+	hint: hint
   }
 }
 
