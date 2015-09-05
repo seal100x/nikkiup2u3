@@ -304,12 +304,34 @@ function refreshTable() {
   drawTable(filtering(criteria, uiFilter), "clothes", false);
 }
 
+function clone(obj) {
+	var o;
+	if (typeof obj == "object") {
+		if (obj === null) {
+			o = null;
+		} else {
+			if (obj instanceof Array) {
+				o = [];
+				for (var i = 0, len = obj.length; i < len; i++) {
+					o.push(clone(obj[i]));
+				}
+			} else {
+				o = {};
+				for (var j in obj) {
+					o[j] = clone(obj[j]);
+				}
+			}
+		}
+	} else {
+		o = obj;
+	}
+	return o;
+}
+
 function chooseAccessories(accfilters) {
-  var accCate = CATEGORY_HIERARCHY['饰品'];
-  for (var i in accCate) {
-    shoppingCart.remove(accCate[i]);
-  }
-  shoppingCart.putAll(filterTopAccessories(accfilters));
+  shoppingCart.clear();
+  shoppingCart.putAll(filterTopAccessories(clone(accfilters)));
+  shoppingCart.putAll(filterTopClothes(clone(accfilters)));
   refreshShoppingCart();
 }
 
@@ -425,6 +447,34 @@ function filterTopAccessories(filters) {
     total += toSort[i].tmpScore;
   }
   return toSort.slice(0, i);
+}
+
+function filterTopClothes(filters) {
+  filters['own'] = true;
+  //var accCate = CATEGORY_HIERARCHY['饰品'];
+  for (var i in CATEGORY_HIERARCHY) {
+	if(i == "袜子"){
+		filters[CATEGORY_HIERARCHY[i][0]] = true;	
+		filters[CATEGORY_HIERARCHY[i][1]] = true;	
+	}
+	if(i != "饰品"){
+		filters[CATEGORY_HIERARCHY[i]] = true;	
+	}
+  }
+  var result = {};
+  for (var i in clothes) {
+    if (matches(clothes[i], {}, filters)) {
+      if (!isFilteringMode) {
+        clothes[i].calc(filters);
+        if (!result[clothes[i].type.type]) {
+          result[clothes[i].type.type] = clothes[i];
+        } else if (clothes[i].tmpScore > result[clothes[i].type.type].tmpScore) {
+          result[clothes[i].type.type] = clothes[i];
+        }
+      }
+    }
+  }
+  return result;
 }
 
 function filtering(criteria, filters) {
