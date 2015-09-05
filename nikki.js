@@ -748,6 +748,7 @@ function init() {
   global.float.floatThead({
     useAbsolutePositioning: false
   });
+  changeMode(false);
 }
 $(document).ready(function() {
   init()
