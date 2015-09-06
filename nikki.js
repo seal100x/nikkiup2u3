@@ -512,7 +512,7 @@ function toggleAll(c) {
 function drawFilter() {
   out = "<ul class='nav nav-tabs nav-justified' id='categoryTab'>";
   for (var c in CATEGORY_HIERARCHY) {
-    out += '<li id="' + c + '"><a href="#dummy" onClick="switchCate(\'' + c + '\')">' + c + '&nbsp;&nbsp;<span class="badge">aaa</span></a></li>';
+    out += '<li id="' + c + '"><a href="#dummy" onClick="switchCate(\'' + c + '\')">' + c + '&nbsp;&nbsp;<span class="badge">0</span></a></li>';
   }
   out += "</ul>";
   for (var c in CATEGORY_HIERARCHY) {
