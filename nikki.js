@@ -13,19 +13,15 @@ var CATEGORY_HIERARCHY = function() {
 }();
 
 // for table use
-function thead(isShoppingCart, score) {
+function thead(score) {
   var ret = "<tr>";
-  /*
-  if (!isShoppingCart) {
-    ret += "<th>拥有</th>";
-  }*/
   if (score) {
     ret += "<th class='score'>分数</th>";
   }
   
   ret += "<th class='name'>名称</th>\
   <th class='category'>类别</th>\
-  <th>编号</th>\
+  <th class='th_number'>编号</th>\
   <th>心级</th>\
   <th>简约</th>\
   <th>华丽</th>\
@@ -37,13 +33,9 @@ function thead(isShoppingCart, score) {
   <th>性感</th>\
   <th>清凉</th>\
   <th>保暖</th>\
-  <th>特殊属性</th>\
-  <th>来源</th>";
-  if (!isShoppingCart) {
-    ret += "<th><span class='paging'></span></th><th class='top'></th>";
-  } else {
-    ret += "<th>&nbsp;</th>";
-  }
+  <th class='th_tag'>特殊属性</th>\
+  <th class='th_from'>来源</th>\
+  <th class='th_nbsp'>&nbsp;</th>";
   return ret + "</tr>\n";
 }
 
@@ -66,12 +58,12 @@ function inventoryCheckbox(type, id, own) {
 }
 
 function shoppingCartButton(type, id) {
-  return "<button onClick='addShoppingCart(\"" + type + "\",\"" + id
-      + "\")'>加入购物车</button>";
+  return "<button class='glyphicon glyphicon-shopping-cart btn' onClick='addShoppingCart(\"" + type + "\",\"" + id
+      + "\")'></button>";
 }
 
 function removeShoppingCartButton(detailedType) {
-  return "<button onClick='removeShoppingCart(\"" + detailedType + "\")'>删除</button>";
+  return "<button class='glyphicon glyphicon-trash' onClick='removeShoppingCart(\"" + detailedType + "\")'></button>";
 }
 
 function addShoppingCart(type, id) {
@@ -179,34 +171,15 @@ function list(rows, isShoppingCart) {
 function drawTable(data, div, isShoppingCart) {
   if ($('#' + div + ' table').length == 0) {
     if (isShoppingCart) {
-      $('#' + div).html("<table><thead></thead><tbody></tbody></table>");
+      $('#' + div).html("<table id='tb_"+div+"'><thead></thead><tbody></tbody></table>");
     } else {
-      $('#' + div).html("<table class='mainTable'><thead></thead><tbody></tbody></table>");
+      $('#' + div).html("<table id='tb_"+div+"' class='mainTable'><thead></thead><tbody></tbody></table>");
     }
   }
-  $('#' + div + ' table thead').html(thead(isShoppingCart, !isFilteringMode));
+  $('#' + div + ' table thead').html(thead(!isFilteringMode));
   $('#' + div + ' table tbody').html(list(data, isShoppingCart));
   if (!isShoppingCart) {
-    $('span.paging').html("<button class='destoryFloat'></button>");
     redrawThead();
-    $('button.destoryFloat').click(function() {
-      //var $label = $(this);
-      if (global.floating) {
-        //$label.text('打开浮动');
-        global.float.floatThead('destroy');
-        global.floating = false;
-      } else {
-        //$label.text('关闭浮动');
-        global.floating = true;
-        global.float.floatThead({
-          useAbsolutePositioning: false
-        });
-      }
-      redrawThead();
-    });
-  }
-  if (global.floating) {
-    $('#clothes table').floatThead('reflow');
   }
 }
 
@@ -235,11 +208,7 @@ function onChangeCriteria() {
     criteria.bonus = global.additionalBonus;
   }
   if (!isFilteringMode){
-    if ($('#accessoriesHelper')[0].checked) {
-      chooseAccessories(criteria);
-    } else {
-      refreshShoppingCart();
-    }
+    chooseAccessories(criteria);
   }
   drawLevelInfo();
   refreshTable();
@@ -541,22 +510,20 @@ function toggleAll(c) {
 }
 
 function drawFilter() {
-  out = "<ul class='tabs' id='categoryTab'>";
+  out = "<ul class='nav nav-tabs nav-justified' id='categoryTab'>";
   for (var c in CATEGORY_HIERARCHY) {
-    out += '<li id="' + c + '"><a href="#dummy" onClick="switchCate(\'' + c + '\')">' + c + '</a></li>';
+    out += '<li id="' + c + '"><a href="#dummy" onClick="switchCate(\'' + c + '\')">' + c + '&nbsp;&nbsp;<span class="badge">aaa</span></a></li>';
   }
   out += "</ul>";
   for (var c in CATEGORY_HIERARCHY) {
     out += '<div id="category-' + c + '">';
     if (CATEGORY_HIERARCHY[c].length > 1) {
       // draw a select all checkbox...
-      out += "<input type='checkbox' id='all-" + c + "' onClick='toggleAll(\"" + c + "\")' checked>"
-          + "<label for='all-" + c + "'>全选</label><br/>";
+      out += "<label><input type='checkbox' id='all-" + c + "' onClick='toggleAll(\"" + c + "\")' checked>全选</label><br/>";
       // draw sub categories
       for (var i in CATEGORY_HIERARCHY[c]) {
-        out += "<input type='checkbox' name='category-" + c + "' value='" + CATEGORY_HIERARCHY[c][i]
-            + "'' id='" + CATEGORY_HIERARCHY[c][i] + "' onClick='onChangeUiFilter()' checked /><label for='"
-            + CATEGORY_HIERARCHY[c][i] + "'>" + CATEGORY_HIERARCHY[c][i] + "</label>\n";
+        out += "<label style='width:180px'><input type='checkbox' name='category-" + c + "' value='" + CATEGORY_HIERARCHY[c][i]
+            + "'' id='" + CATEGORY_HIERARCHY[c][i] + "' onClick='onChangeUiFilter()' checked />" + CATEGORY_HIERARCHY[c][i] + "</label>\n";
       }
     }
     out += '</div>';
@@ -567,7 +534,7 @@ function drawFilter() {
 var currentCategory;
 function switchCate(c) {
   currentCategory = c;
-  $("ul.tabs li").removeClass("active");
+  $("ul#categoryTab li").removeClass("active");
   $("#category_container div").removeClass("active");
   $("#" + c).addClass("active");
   $("#category-" + c).addClass("active");
@@ -695,7 +662,7 @@ function updateSize(mine) {
     subcount[type] += mine.mine[type].length;
   }
   for (c in subcount) {
-    $("#" + c + ">a").text(c + "(" + subcount[c] + ")");
+    $("#" + c + ">a span").text(subcount[c]);
   }
 }
 
@@ -739,15 +706,10 @@ function init() {
   drawFilter();
   drawTheme();
   drawImport();
-  changeMode(true);
   switchCate(category[0]);
   updateSize(mine);
   refreshShoppingCart();
-
-  global.float = $('table.mainTable');
-  global.float.floatThead({
-    useAbsolutePositioning: false
-  });
+  $("#tb_clothes").freezeHeader();
   changeMode(false);
 }
 $(document).ready(function() {
