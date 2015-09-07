@@ -341,21 +341,21 @@ function drawLevelInfo() {
     }
     if (currentLevel.skills) {
 		var $shaonv, $gongzhu, $normal, shaonvSkill, gongzhuSkill, normalSkill;
-		if(currentLevel.skills[0].length > 0){
+		if(currentLevel.skills[0].length){
 			$shaonv = $("<font>").text("少女级技能:  ").addClass("shaonvSkill");
 			shaonvSkill = "";
 			for (var i in currentLevel.skills[0]) {
 				shaonvSkill += (currentLevel.skills[0][i] + "  ");
 			}
 		}
-		if(currentLevel.skills[1].length > 0){
+		if(currentLevel.skills[1].length){
 			$gongzhu = $("<font>").text("公主级技能:  ").addClass("gongzhuSkill");
 			gongzhuSkill = "";
 			for (var i in currentLevel.skills[1]) {
 				gongzhuSkill += (currentLevel.skills[1][i] + "  ");
 			}
 		}
-		if(currentLevel.skills[2].length > 0){
+		if(currentLevel.skills[2].length){
 			$normal = $("<font>").text("技能:  ").addClass("normalSkill");
 			normalSkill = "";
 			for (var i in currentLevel.skills[2]) {
