@@ -545,7 +545,7 @@ function addBonusInfo(base, weight, tag) {
   '9-8': [addBonusInfo('A', 1, "森女系列")],
   '9-9-1': [addBonusInfo('A', 1, "侠客联盟")],
   '9-9-2': [],
-  '9-9-3': [addBonusInfo('A', 1, "欧式古典")],
+  '9-9-3': [],
   '9-支1': [addBonusInfo('S', 1, "泳装")],
   '9-支2': [addBonusInfo('S', 1, "旗袍")],
   '9-支3': [],
