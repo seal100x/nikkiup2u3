@@ -13,7 +13,7 @@ var CATEGORY_HIERARCHY = function() {
 }();
 
 // for table use
-function thead(score) {
+function thead(score, isShoppingCart) {
   var ret = "<tr>";
   if (score) {
     ret += "<th class='score'>分数</th>";
@@ -34,8 +34,11 @@ function thead(score) {
   <th>清凉</th>\
   <th>保暖</th>\
   <th class='th_tag'>特殊属性</th>\
-  <th class='th_from'>来源</th>\
-  <th class='th_nbsp'>&nbsp;</th>";
+  <th class='th_from'>来源</th>"
+  if(isShoppingCart)
+	  ret += "<th class='th_nbsp'></th>";
+  else
+	  ret += "<th class='th_nbsp gotop' onclick='goTop()'></th>";	  
   return ret + "</tr>\n";
 }
 
@@ -176,7 +179,7 @@ function drawTable(data, div, isShoppingCart) {
       $('#' + div).html("<table id='tb_"+div+"' class='mainTable'><thead></thead><tbody></tbody></table>");
     }
   }
-  $('#' + div + ' table thead').html(thead(!isFilteringMode));
+  $('#' + div + ' table thead').html(thead(!isFilteringMode, isShoppingCart));
   $('#' + div + ' table tbody').html(list(data, isShoppingCart));
   if (!isShoppingCart) {
     redrawThead();
@@ -457,6 +460,7 @@ function filterTopClothes(filters) {
 
 function filtering(criteria, filters) {
   var result = [];
+  var result2 = [];
   for (var i in clothes) {
     if (matches(clothes[i], criteria, filters)) {
       if (!isFilteringMode) {
@@ -467,9 +471,29 @@ function filtering(criteria, filters) {
   }
   if (isFilteringMode) {
     result.sort(byId);
+  } else if(filters.toplevel){
+    result.sort(byCategoryAndScore);  
   } else {
     result.sort(byCategoryAndScore);
-  } 
+  }
+  if(filters.toplevel){
+	  var size = 10;
+	  if(result[0].type.mainType == "饰品")
+		  size = 5;
+	  var tsize = size;
+	for(var i in result){		
+		if(i>0 && result[i].type.type != result[i-1].type.type)
+			tsize = size;
+		if(tsize > 0)
+			result2.push(result[i]);
+		tsize--;
+	}
+	if(filters.sortbyscore)
+		result2.sort(byScore);
+	else 
+		result.sort(byCategoryAndScore);		
+	return result2;
+  }
   return result;
 }
 
@@ -707,6 +731,10 @@ function doImport() {
     refreshTable();
     clearImport();
   }
+}
+
+function goTop(){	
+   $("html,body").animate({scrollTop:0}, 500);
 }
 
 function init() {
