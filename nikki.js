@@ -627,6 +627,14 @@ function setFilters(level) {
   for (var i in FEATURES) {
     var f = FEATURES[i];
     var weight = weights[f];
+	if(uiFilter["balance"]){
+		if(weight > 0){
+			weight = 1;
+		}
+		else if (weight < 0){
+			weight = -1;
+		}
+	}
     $('#' + f + 'Weight').val(Math.abs(weight));
     var radios = $('input[name=' + f + ']:radio');
     for (var j in radios) {
