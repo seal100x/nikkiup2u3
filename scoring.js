@@ -1,75 +1,92 @@
 // Ivan's Workshop
 // in pairs of lower bound, upper bound
+var base = {
+  'SS': 2612.7,
+  'S': 2089.35,
+  'A': 1690.65,
+  'B': 1309.8,
+  'C': 817.5,
+}
+
+var hairSize = 0.5;
 var hairScoring = {
-  'SS': [1250, 1250], // est
-  'S': [950, 1150],
-  'A': [750, 900],
-  'B': [550, 750],
-  'C': [550, 550]  // est
-};
+  'SS': base['SS'] * hairSize,
+  'S': base['S'] * hairSize,
+  'A': base['A'] * hairSize,
+  'B': base['B'] * hairSize,
+  'C': base['C'] * hairSize
+}
 
+var dressSize = 2;
 var dressScoring = {
-  'SS': [5000, 5200], // est
-  'S': [3800, 4200],
-  'A': [3000, 3800],
-  'B': [2500, 3000],
-  'C': [1900, 2500]  // est
+  'SS': base['SS'] * dressSize,
+  'S': base['S'] * dressSize,
+  'A': base['A'] * dressSize,
+  'B': base['B'] * dressSize,
+  'C': base['C'] * dressSize
 };
 
+var coatSize = 0.2;
 var coatScoring = {
-  'SS': [490, 520], // based on dianashusy's data
-  'S': [370, 450],
-  'A': [300, 360],
-  'B': [230, 280],
-  'C': [190, 210]  // highly est
+  'SS': base['SS'] * coatSize,
+  'S': base['S'] * coatSize,
+  'A': base['A'] * coatSize,
+  'B': base['B'] * coatSize,
+  'C': base['C'] * coatSize
 };
 
+var topSize = 1;
 var topScoring = {
-  'SS': [2725, 2725], // est
-  'S': [1750, 2100],
-  'A': [1400, 1700],
-  'B': [1250, 1400],
-  'C': [800, 1200]  // est
+  'SS': base['SS'] * topSize,
+  'S': base['S'] * topSize,
+  'A': base['A'] * topSize,
+  'B': base['B'] * topSize,
+  'C': base['C'] * topSize
 };
 
+var bottomSize = 1;
 var bottomScoring = {
-  'SS': [2725, 2725], // est
-  'S': [1800, 2100],
-  'A': [1400, 1800],
-  'B': [1250, 1400],
-  'C': [800, 1200]  // est
+  'SS': base['SS'] * bottomSize,
+  'S': base['S'] * bottomSize,
+  'A': base['A'] * bottomSize,
+  'B': base['B'] * bottomSize,
+  'C': base['C'] * bottomSize
 };
 
+var sockSize = 0.3;
 var sockScoring = {
-  'SS': [860, 860], // based on dianashusy's data
-  'S': [570, 650],
-  'A': [440, 550],
-  'B': [400, 440],
-  'C': [270, 300]  // ased on dianashusy's data
+  'SS': base['SS'] * sockSize,
+  'S': base['S'] * sockSize,
+  'A': base['A'] * sockSize,
+  'B': base['B'] * sockSize,
+  'C': base['C'] * sockSize
 };
 
+var shoeSize = 0.4;
 var shoeScoring = {
-  'SS': [1000, 1200], // highly est
-  'S': [770, 950],
-  'A': [640, 750],
-  'B': [530, 580],
-  'C': [380, 450]  // est
+  'SS': base['SS'] * shoeSize,
+  'S': base['S'] * shoeSize,
+  'A': base['A'] * shoeSize,
+  'B': base['B'] * shoeSize,
+  'C': base['C'] * shoeSize
 };
 
+var accessoriesSize = 0.2;
 var accessoriesScoring = {
-  'SS': [470, 500], // est
-  'S': [370, 450],
-  'A': [290, 370],
-  'B': [220, 280],
-  'C': [190, 210]  // est
+  'SS': base['SS'] * accessoriesSize,
+  'S': base['S'] * accessoriesSize,
+  'A': base['A'] * accessoriesSize,
+  'B': base['B'] * accessoriesSize,
+  'C': base['C'] * accessoriesSize
 };
 
+var makeupSize = 0.1;
 var makeupScoring = {
-  'SS': [250, 280], // est
-  'S': [190, 190], // est
-  'A': [130, 130], // est
-  'B': [120, 120], // est
-  'C': [100, 100]  // no data, purely mocking
+  'SS': base['SS'] * makeupSize,
+  'S': base['S'] * makeupSize,
+  'A': base['A'] * makeupSize,
+  'B': base['B'] * makeupSize,
+  'C': base['C'] * makeupSize
 };
 
 function avg(score) {
@@ -89,15 +106,27 @@ function sigma(score) {
 }
 
 var scoring = {
-  '发型': avg(hairScoring),
-  '连衣裙': avg(dressScoring),
-  '外套': avg(coatScoring),
-  '上装': avg(topScoring),
-  '下装': avg(bottomScoring),
-  '袜子': avg(sockScoring),
-  '鞋子': avg(shoeScoring),
-  '饰品': avg(accessoriesScoring),
-  '妆容': avg(makeupScoring)
+  '发型': hairScoring,
+  '连衣裙': dressScoring,
+  '外套': coatScoring,
+  '上装': topScoring,
+  '下装': bottomScoring,
+  '袜子': sockScoring,
+  '鞋子': shoeScoring,
+  '饰品': accessoriesScoring,
+  '妆容': makeupScoring
+}
+
+var scoringSize = {
+  '发型': hairSize,
+  '连衣裙': dressSize,
+  '外套': coatSize,
+  '上装': topSize,
+  '下装': bottomSize,
+  '袜子': sockSize,
+  '鞋子': shoeSize,
+  '饰品': accessoriesSize,
+  '妆容': makeupSize
 }
 
 var deviation = {
