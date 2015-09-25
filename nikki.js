@@ -755,6 +755,10 @@ function init() {
   updateSize(mine);
   refreshShoppingCart();
   $("#tb_clothes").freezeHeader();
+  $("#show_history").click(function(){
+	$("#update_history").show();
+	$("#show_history").hide();
+  })
   changeMode(false);
 }
 $(document).ready(function() {
