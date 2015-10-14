@@ -257,18 +257,19 @@
 	  0925update2: 修复:怪盗下装*华丽, 广寒精灵*白, 添加:锁扣包<br/>
 	  0925update3: 添加:灵幔, 漫纱轻舞, 纱舞, 漫纱舞鞋(今天更新好多次<br/>
 	  0925update4: 修复:乐园气球(会不会有5<br/>
-	  </div>
 	  0929update1: 国庆更新第一发, 添加梦恋奇迹5关权重<br/>
 	  0929update2: 修复活动第三关权重<br/>
 	  0929update3: 添加3套婚纱, 添加蓝冰瞳<br/>
 	  0929update4: 添加幻阁限定, 仙履屋及染色 ps:魔幻领结是挎包..是挎包..挎包..包..<br/>
 	  0929update5: 修复部分服装错误<br/>
 	  0930update: 添加鸡米包, 玩趣*嘻嘻<br/>
+	  </div>
+	  长假的某天update: 易用性优化<br/>
   
     </div>
     <hr/>
     <div id='filtersTop'>
-      <form name="filter_form">
+      <form name="filter_form" class="form-inline">
         <div>
           <input style="display:none" type="radio" name="mode" value="ranking" onClick="changeMode(false)" checked/> 计分
           <select id="theme" onChange="changeTheme()" style="display: none"></select>
@@ -280,41 +281,41 @@
 		</div>
         <div class='facet'>
           <div>
-            <input type="radio" name="simple" value="0" onClick="changeFilter()" /> 皆可
-            <input type="radio" name="simple" value="1" onClick="changeFilter()" /> 简约
-            <input type="radio" name="simple" value="-1" onClick="changeFilter()" /> 华丽
+            <div class="radio"><label><input type="radio" name="simple" value="0" onClick="changeFilter()" /> 皆可</label></div>
+            <div class="radio"><label><input type="radio" name="simple" value="1" onClick="changeFilter()" /> 简约</label></div>
+            <div class="radio"><label><input type="radio" name="simple" value="-1" onClick="changeFilter()" /> 华丽</label></div>
             <div class='weightContainer' style="display: none" id = "simpleWeightContainer">
             	&nbsp;&nbsp;权重 <input type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" />
           	</div>
           </div>
           <div>
-            <input type="radio" name="cute" value="0" onClick="changeFilter()" /> 皆可
-            <input type="radio" name="cute" value="1" onClick="changeFilter()" /> 可爱
-            <input type="radio" name="cute" value="-1" onClick="changeFilter()" /> 成熟
+            <div class="radio"><label><input type="radio" name="cute" value="0" onClick="changeFilter()" /> 皆可</label></div>
+            <div class="radio"><label><input type="radio" name="cute" value="1" onClick="changeFilter()" /> 可爱</label></div>
+            <div class="radio"><label><input type="radio" name="cute" value="-1" onClick="changeFilter()" /> 成熟</label></div>
             <div class='weightContainer' style="display: none" id = "cuteWeightContainer">
             	&nbsp;&nbsp;权重 <input type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" />
             </div>
           </div>
           <div>
-            <input type="radio" name="active" value="0" onClick="changeFilter()" /> 皆可
-            <input type="radio" name="active" value="1" onClick="changeFilter()" /> 活泼
-            <input type="radio" name="active" value="-1" onClick="changeFilter()" /> 优雅
+            <div class="radio"><label><input type="radio" name="active" value="0" onClick="changeFilter()" /> 皆可</label></div>
+            <div class="radio"><label><input type="radio" name="active" value="1" onClick="changeFilter()" /> 活泼</label></div>
+            <div class="radio"><label><input type="radio" name="active" value="-1" onClick="changeFilter()" /> 优雅</label></div>
             <div class='weightContainer' style="display: none" id = "activeWeightContainer">
               &nbsp;&nbsp;权重 <input type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" />
             </div>
           </div>
           <div>
-            <input type="radio" name="pure" value="0" onClick="changeFilter()" /> 皆可
-            <input type="radio" name="pure" value="1" onClick="changeFilter()" /> 清纯
-            <input type="radio" name="pure" value="-1" onClick="changeFilter()" /> 性感
+            <div class="radio"><label><input type="radio" name="pure" value="0" onClick="changeFilter()" /> 皆可</label></div>
+            <div class="radio"><label><input type="radio" name="pure" value="1" onClick="changeFilter()" /> 清纯</label></div>
+            <div class="radio"><label><input type="radio" name="pure" value="-1" onClick="changeFilter()" /> 性感</label></div>
             <div class='weightContainer' style="display: none" id = "pureWeightContainer">
               &nbsp;&nbsp;权重 <input type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" />
             </div>
           </div>
           <div>
-            <input type="radio" name="cool" value="0" onClick="changeFilter()" /> 皆可
-            <input type="radio" name="cool" value="1" onClick="changeFilter()" /> 清凉
-            <input type="radio" name="cool" value="-1" onClick="changeFilter()" /> 保暖
+            <div class="radio"><label><input type="radio" name="cool" value="0" onClick="changeFilter()" /> 皆可</label></div>
+            <div class="radio"><label><input type="radio" name="cool" value="1" onClick="changeFilter()" /> 清凉</label></div>
+            <div class="radio"><label><input type="radio" name="cool" value="-1" onClick="changeFilter()" /> 保暖</label></div>
             <div class='weightContainer' style="display: none" id = "coolWeightContainer">
               &nbsp;&nbsp;权重 <input type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" />
             </div>
@@ -323,8 +324,8 @@
             Tag1
             <input type="text" id="tag1" name="tag1" onChange="changeFilter()" />
             <div class='tagContainer weightContainer' style="display: none" id = "tag1Container">
-              <input type="radio" name="tag1method" value="add" onClick="changeFilter()" checked/> 加分
-              <input type="radio" name="tag1method" value="replace" onClick="changeFilter()" /> 替换
+              <div class="radio"><label><input type="radio" name="tag1method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
+              <div class="radio"><label><input type="radio" name="tag1method" value="replace" onClick="changeFilter()" /> 替换</label></div>
               <select id="tag1base" onChange="changeFilter()">
                 <option>SS</option>
                 <option>S</option>
@@ -339,8 +340,8 @@
             Tag2
             <input type="text" id="tag2" name="tag2" onChange="changeFilter()" />
             <div class='tagContainer weightContainer' style="display: none" id = "tag2Container">
-              <input type="radio" name="tag2method" value="add" onClick="changeFilter()" checked/> 加分
-              <input type="radio" name="tag2method" value="replace" onClick="changeFilter()" /> 替换
+              <div class="radio"><label><input type="radio" name="tag2method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
+              <div class="radio"><label><input type="radio" name="tag2method" value="replace" onClick="changeFilter()" /> 替换</label></div>
               <select id="tag2base" onChange="changeFilter()">
                 <option>SS</option>
                 <option>S</option>
@@ -354,13 +355,12 @@
           </div>
         </div>
         <div>
-          <input type="checkbox" name="inventory" value="own" onClick="onChangeUiFilter()" checked />拥有
-          <span id='inventoryCount'> </span>
-          <input type="checkbox" name="inventory" value="missing" onClick="onChangeUiFilter()" checked /> 没有
-          <input type="checkbox" name="inventory" value="toplevel" onClick="onChangeUiFilter()" checked /> 顶配模式
-		  <input type="checkbox" name="inventory" value="sortbyscore" onClick="onChangeUiFilter()"/> 饰品分数排序
-          <input type="checkbox" name="inventory" value="balance" onClick="onChangeUiFilter();changeTheme()"/> 均衡权重
-        </div>
+		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
+		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
+		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="toplevel" checked /> 顶配模式</label></div>
+		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数排序</label></div>
+		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
+		</div>
       </form>
     </div>
     <hr>

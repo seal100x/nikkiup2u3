@@ -50,16 +50,6 @@ function td(data, cls) {
   return "<td class='" + cls + "'>" + data + "</td>";
 }
 
-function inventoryCheckbox(type, id, own) {
-  var ret = "<input type = 'checkbox' name = 'inventory' id = '" + (type + id)
-      + "' onClick='toggleInventory(\"" + type + "\",\"" + id + "\")'";
-  if (own) {
-    ret += "checked";
-  }
-  ret += "/>";
-  return ret;
-}
-
 function shoppingCartButton(type, id) {
   return "<button class='glyphicon glyphicon-shopping-cart btn' onClick='addShoppingCart(\"" + type + "\",\"" + id
       + "\")'></button>";
@@ -114,7 +104,6 @@ function clickableTd(piece) {
 }
 
 function row(piece, isShoppingCart) {
-  //var ret = isShoppingCart ? "" : td(inventoryCheckbox(piece.type.mainType, piece.id, piece.own), "");
   var ret = "";
   if (!isFilteringMode) {
     ret += td(piece.tmpScore);
@@ -256,7 +245,7 @@ function bonusToTag(idx, info) {
 var uiFilter = {};
 function onChangeUiFilter() {
   uiFilter = {};
-  $('input[name=inventory]:checked').each(function() {
+  $('.fliter:checked').each(function() {
     uiFilter[$(this).val()] = true;
   });
 
@@ -739,6 +728,20 @@ function goTop(){
    $("html,body").animate({scrollTop:0}, 500);
 }
 
+function initEvent(){	
+  $("#tb_clothes").freezeHeader();
+  $("#show_history").click(function(){
+	$("#update_history").show();
+	$("#show_history").hide();
+  });
+  $(".fliter").change(function(){
+	  onChangeUiFilter();
+	  if(this.value == "balance"){
+		  changeTheme();
+	  }
+  });
+}
+
 function init() {
   var mine = loadFromStorage();
   calcDependencies();
@@ -748,11 +751,7 @@ function init() {
   switchCate(category[0]);
   updateSize(mine);
   refreshShoppingCart();
-  $("#tb_clothes").freezeHeader();
-  $("#show_history").click(function(){
-	$("#update_history").show();
-	$("#show_history").hide();
-  })
+  initEvent();
   changeMode(false);
 }
 $(document).ready(function() {
