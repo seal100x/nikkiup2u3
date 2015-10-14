@@ -457,8 +457,9 @@ function filtering(criteria, filters) {
   if(haveCriteria){
     result.sort(byCategoryAndScore);
   }
-  else{	  
-	result.sort(byId);
+  else{
+    result.sort(byCategoryAndScore);
+	//result.sort(byId);
   }
   
   if(filters.toplevel){
