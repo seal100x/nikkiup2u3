@@ -375,7 +375,9 @@ function byScore(a, b) {
 }
 
 function byId(a, b) {
-  return a.id - b.id;
+  var cata = category.indexOf(a.type.type);
+  var catb = category.indexOf(b.type.type);
+  return (cata - catb == 0) ? a.id - b.id : cata - catb;
 }
 
 function filterTopAccessories(filters) {
@@ -458,8 +460,7 @@ function filtering(criteria, filters) {
     result.sort(byCategoryAndScore);
   }
   else{
-    result.sort(byCategoryAndScore);
-	//result.sort(byId);
+    result.sort(byId);
   }
   
   if(filters.toplevel){
