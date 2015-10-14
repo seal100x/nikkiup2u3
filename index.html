@@ -266,6 +266,7 @@
 	  </div>
 	  长假的某天update: 易用性优化<br/>
 	  1014update1: 第10章属性添加, 部分提示添加, 技能懒得写了=.=<br/>
+	  1014update2: 修复了一下排序, 可能会有bug<br/>
 	  第十章缓慢更新中<br/>
   
     </div>
@@ -273,8 +274,7 @@
     <div id='filtersTop'>
       <form name="filter_form" class="form-inline">
         <div>
-          <input style="display:none" type="radio" name="mode" value="ranking" onClick="changeMode(false)" checked/> 计分
-          <select id="theme" onChange="changeTheme()" style="display: none"></select>
+          <select id="theme" onChange="changeTheme()"></select>
           </div>
 		<div>
 			<div id="tagInfo"></div>
@@ -286,7 +286,7 @@
             <div class="radio"><label><input type="radio" name="simple" value="0" onClick="changeFilter()" /> 皆可</label></div>
             <div class="radio"><label><input type="radio" name="simple" value="1" onClick="changeFilter()" /> 简约</label></div>
             <div class="radio"><label><input type="radio" name="simple" value="-1" onClick="changeFilter()" /> 华丽</label></div>
-            <div class='weightContainer' style="display: none" id = "simpleWeightContainer">
+            <div class='weightContainer' id = "simpleWeightContainer">
             	&nbsp;&nbsp;权重 <input type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" />
           	</div>
           </div>
@@ -294,7 +294,7 @@
             <div class="radio"><label><input type="radio" name="cute" value="0" onClick="changeFilter()" /> 皆可</label></div>
             <div class="radio"><label><input type="radio" name="cute" value="1" onClick="changeFilter()" /> 可爱</label></div>
             <div class="radio"><label><input type="radio" name="cute" value="-1" onClick="changeFilter()" /> 成熟</label></div>
-            <div class='weightContainer' style="display: none" id = "cuteWeightContainer">
+            <div class='weightContainer' id = "cuteWeightContainer">
             	&nbsp;&nbsp;权重 <input type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" />
             </div>
           </div>
@@ -302,7 +302,7 @@
             <div class="radio"><label><input type="radio" name="active" value="0" onClick="changeFilter()" /> 皆可</label></div>
             <div class="radio"><label><input type="radio" name="active" value="1" onClick="changeFilter()" /> 活泼</label></div>
             <div class="radio"><label><input type="radio" name="active" value="-1" onClick="changeFilter()" /> 优雅</label></div>
-            <div class='weightContainer' style="display: none" id = "activeWeightContainer">
+            <div class='weightContainer' id = "activeWeightContainer">
               &nbsp;&nbsp;权重 <input type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" />
             </div>
           </div>
@@ -310,7 +310,7 @@
             <div class="radio"><label><input type="radio" name="pure" value="0" onClick="changeFilter()" /> 皆可</label></div>
             <div class="radio"><label><input type="radio" name="pure" value="1" onClick="changeFilter()" /> 清纯</label></div>
             <div class="radio"><label><input type="radio" name="pure" value="-1" onClick="changeFilter()" /> 性感</label></div>
-            <div class='weightContainer' style="display: none" id = "pureWeightContainer">
+            <div class='weightContainer' id = "pureWeightContainer">
               &nbsp;&nbsp;权重 <input type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" />
             </div>
           </div>
@@ -318,14 +318,14 @@
             <div class="radio"><label><input type="radio" name="cool" value="0" onClick="changeFilter()" /> 皆可</label></div>
             <div class="radio"><label><input type="radio" name="cool" value="1" onClick="changeFilter()" /> 清凉</label></div>
             <div class="radio"><label><input type="radio" name="cool" value="-1" onClick="changeFilter()" /> 保暖</label></div>
-            <div class='weightContainer' style="display: none" id = "coolWeightContainer">
+            <div class='weightContainer' id = "coolWeightContainer">
               &nbsp;&nbsp;权重 <input type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" />
             </div>
           </div>
           <div id='tagFilter'>
             Tag1
             <input type="text" id="tag1" name="tag1" onChange="changeFilter()" />
-            <div class='tagContainer weightContainer' style="display: none" id = "tag1Container">
+            <div class='tagContainer weightContainer' id = "tag1Container">
               <div class="radio"><label><input type="radio" name="tag1method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
               <div class="radio"><label><input type="radio" name="tag1method" value="replace" onClick="changeFilter()" /> 替换</label></div>
               <select id="tag1base" onChange="changeFilter()">
@@ -341,7 +341,7 @@
             <br/>
             Tag2
             <input type="text" id="tag2" name="tag2" onChange="changeFilter()" />
-            <div class='tagContainer weightContainer' style="display: none" id = "tag2Container">
+            <div class='tagContainer weightContainer' id = "tag2Container">
               <div class="radio"><label><input type="radio" name="tag2method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
               <div class="radio"><label><input type="radio" name="tag2method" value="replace" onClick="changeFilter()" /> 替换</label></div>
               <select id="tag2base" onChange="changeFilter()">

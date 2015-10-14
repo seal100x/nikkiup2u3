@@ -105,9 +105,7 @@ function clickableTd(piece) {
 
 function row(piece, isShoppingCart) {
   var ret = "";
-  if (!isFilteringMode) {
-    ret += td(piece.tmpScore);
-  }
+  ret += td(piece.tmpScore);
   if (isShoppingCart) {
     ret += td(piece.name, '');
   } else {
@@ -168,7 +166,7 @@ function drawTable(data, div, isShoppingCart) {
       $('#' + div).html("<table id='tb_"+div+"' class='mainTable'><thead></thead><tbody></tbody></table>");
     }
   }
-  $('#' + div + ' table thead').html(thead(!isFilteringMode, isShoppingCart));
+  $('#' + div + ' table thead').html(thead(true, isShoppingCart));
   $('#' + div + ' table tbody').html(list(data, isShoppingCart));
   if (!isShoppingCart) {
     redrawThead();
@@ -199,9 +197,7 @@ function onChangeCriteria() {
   if (global.additionalBonus && global.additionalBonus.length > 0) {
     criteria.bonus = global.additionalBonus;
   }
-  if (!isFilteringMode){
-    chooseAccessories(criteria);
-  }
+  chooseAccessories(criteria);
   drawLevelInfo();
   refreshTable();
 }
@@ -379,7 +375,7 @@ function byScore(a, b) {
 }
 
 function byId(a, b) {
-  return a.id < b.id ? -1 : (a.id > b.id ? 1 : 0);
+  return a.id - b.id;
 }
 
 function filterTopAccessories(filters) {
@@ -391,14 +387,12 @@ function filterTopAccessories(filters) {
   var result = {};
   for (var i in clothes) {
     if (matches(clothes[i], {}, filters)) {
-      if (!isFilteringMode) {
         clothes[i].calc(filters);
         if (!result[clothes[i].type.type]) {
           result[clothes[i].type.type] = clothes[i];
         } else if (clothes[i].tmpScore > result[clothes[i].type.type].tmpScore) {
           result[clothes[i].type.type] = clothes[i];
         }
-      }
     }
   }
   var toSort = [];
@@ -434,14 +428,12 @@ function filterTopClothes(filters) {
   var result = {};
   for (var i in clothes) {
     if (matches(clothes[i], {}, filters)) {
-      if (!isFilteringMode) {
         clothes[i].calc(filters);
         if (!result[clothes[i].type.type]) {
           result[clothes[i].type.type] = clothes[i];
         } else if (clothes[i].tmpScore > result[clothes[i].type.type].tmpScore) {
           result[clothes[i].type.type] = clothes[i];
         }
-      }
     }
   }
   return result;
@@ -452,24 +444,28 @@ function filtering(criteria, filters) {
   var result2 = [];
   for (var i in clothes) {
     if (matches(clothes[i], criteria, filters)) {
-      if (!isFilteringMode) {
-        clothes[i].calc(criteria);
-      }
+      clothes[i].calc(criteria);
       result.push(clothes[i]);
     }
   }
-  if (isFilteringMode) {
-    result.sort(byId);
-  } else if(filters.toplevel){
-    result.sort(byCategoryAndScore);  
-  } else {
+  var haveCriteria = false;
+  for (var prop in criteria){
+	if(criteria[prop] != 0){
+		haveCriteria = true;
+	}
+  }
+  if(haveCriteria){
     result.sort(byCategoryAndScore);
   }
+  else{	  
+	result.sort(byId);
+  }
+  
   if(filters.toplevel){
-	  var size = 10;
-	  if(result[0].type.mainType == "饰品")
-		  size = 5;
-	  var tsize = size;
+	var size = 10;
+	if(result[0].type.mainType == "饰品")
+	  size = 5;
+	var tsize = size;
 	for(var i in result){		
 		if(i>0 && result[i].type.type != result[i-1].type.type)
 			tsize = size;
@@ -487,27 +483,6 @@ function filtering(criteria, filters) {
 }
 
 function matches(c, criteria, filters) {
-  // only filter by feature when filtering
-  if (isFilteringMode) {
-    for (var i in FEATURES) {
-      var f = FEATURES[i];
-      if (criteria[f] && criteria[f] * c[f][2] < 0) {
-        return false;
-      }
-    }
-  }
-  if (isFilteringMode && criteria.bonus) {
-    var matchedTag = false;
-    for (var i in criteria.bonus) {
-      if (tagMatcher(criteria.bonus[i].tagWhitelist, c)) {
-        matchedTag = true;
-        break;
-      }
-    }
-    if (!matchedTag) {
-      return false;
-    }
-  }
   return ((c.own && filters.own) || (!c.own && filters.missing)) && filters[c.type.type];
 }
 
@@ -561,29 +536,6 @@ function switchCate(c) {
   $("#" + c).addClass("active");
   $("#category-" + c).addClass("active");
   onChangeUiFilter();
-}
-
-var isFilteringMode = true;
-function changeMode(isFiltering) {
-  for (var i in FEATURES) {
-    var f = FEATURES[i];
-    if (isFiltering) {
-      $('#' + f + 'WeightContainer').hide();
-    } else {
-      $('#' + f + 'WeightContainer').show();
-    }
-  }
-  if (isFiltering) {
-    $("#theme").hide();
-    $("#tagInfo").hide();
-    $(".tagContainer").hide();
-  } else {
-    $("#theme").show();
-    $("#tagInfo").show();
-    $(".tagContainer").show();
-  }
-  isFilteringMode = isFiltering;
-  onChangeCriteria();
 }
 
 function changeFilter() {
@@ -752,7 +704,7 @@ function init() {
   updateSize(mine);
   refreshShoppingCart();
   initEvent();
-  changeMode(false);
+  onChangeCriteria();
 }
 $(document).ready(function() {
   init()
