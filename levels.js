@@ -589,8 +589,8 @@ function addBonusInfo(base, weight, tag) {
   '10-7': [addBonusInfo('A', 1, "洛丽塔")],
   '10-9-1': [addBonusInfo('A', 1, "原宿风")],
   '10-支1': [addBonusInfo('A', 1, "运动系")],
-  '10-支1': [addBonusInfo('A', 1, "碎花")],
-  '10-支1': [addBonusInfo('A', 1, "欧式古典")],
+  '10-支2': [addBonusInfo('A', 1, "碎花")],
+  '10-支3': [addBonusInfo('A', 1, "欧式古典")],
  };
 
 var additionalLevelInfo = {
