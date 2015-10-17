@@ -1,5 +1,9 @@
 var timeIndex = initTime();
-function initTime(){	
+function initTime(){
+	var d = new Date();
+	time_zone = -d.getTimezoneOffset()/60;
+    offset = 8 - time_zone;
+
 	var date = new Date();
 	var d;
 	if((date.getDay() > 2 || date.getDay() == 2 && date.getHours > 5) 
@@ -12,7 +16,7 @@ function initTime(){
 		else
 			d = 2 - date.getDay();
 	}
-	var h = d * 24 - date.getHours() - 1 + 5;
+	var h = d * 24 - date.getHours() - 1 + 5 - offset;
 	var m = 60 - date.getMinutes() - 1;
 	var s = 60 - date.getSeconds();
 	
