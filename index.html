@@ -10,6 +10,7 @@
     <script type='text/javascript' charset="UTF-8" src='model.js'></script>
     <script type='text/javascript' charset="UTF-8" src='pattern.js'></script>
     <script type='text/javascript' charset="UTF-8" src='nikki.js'></script>
+    <script type='text/javascript' charset="UTF-8" src='clock.js'></script>
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
     <style>
@@ -226,6 +227,10 @@
 	#update_history{
 		display: none;
 	}
+	red{
+		color: red;
+		font-weight:bold;		
+	}
   </style>
     
   </head>
@@ -238,8 +243,10 @@
 	  技能数据来自奇迹暖暖玉人@微博 20151006<br/>
 	  第十章数据来自流水喵&兔子@QQ群 20151014<br/><br/>
 	  
-	  <a href="http://seal100x.github.io/nikkiup2u3_m/">移动版</a>测试中=w= <br/>
-	  <a href="strategy.html">常用攻略</a><br/><br/>
+	  距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+	  <a href="strategy.html">常用攻略</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+	  <a href="http://seal100x.github.io/nikkiup2u3_m/">移动版</a>(测试中,无限坑的状态=w=)
+	  <br/><br/>
 	  
 	  <a href="#" id="show_history">历史更新</a><br/>
 	  <div id="update_history">
@@ -272,8 +279,9 @@
 	  更新第十章权重数据及过关提示为 流水喵&兔子@QQ群 20151014 (技能数据暂时没有文字版, 有需要可以去流水喵的微博查看)<br/>
 	  更正部分联盟委托技能<br/>
 	  本次更新后需要注意的衣服: 魔幻领结 颈饰-->项链，藤萝链 手饰左-->手持左<br/>
-	  本次更新后改名的衣服: 蓝宝石(下装)-->束腰蓝裙，甜心巧克力(袜子)-->甜心女仆袜, 晚霞(鞋子)-->绮霞景<br/>
-    </div>
+	  本次更新后改名的衣服: 蓝宝石(下装)-->束腰蓝裙，甜心巧克力(袜子)-->甜心女仆袜, 晚霞(鞋子)-->绮霞景, 月饼-->寒月<br/>
+	  1017update2: 添加了一个搭配赛提醒小时钟, 以纪念那离我而去的冰晶玫瑰...(暂不支持时差党)
+	</div>
     <hr/>
     <div id='filtersTop'>
       <form name="filter_form" class="form-inline">
