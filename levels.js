@@ -593,7 +593,7 @@ function addBonusInfo(base, weight, tag) {
   '10-支3': [addBonusInfo('B', 1, "欧式古典")],
   '精灵的月下舞会1': [addBonusInfo('C', 1, "欧式古典")],
   '精灵的月下舞会3': [addBonusInfo('B', 1, "欧式古典")],
-  '精灵的月下舞会5': [addBonusInfo('B', 1, "晚礼服")],
+  '精灵的月下舞会5': [addBonusInfo('B', 1, "晚礼服")]
 };
 
 var additionalLevelInfo = {
