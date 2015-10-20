@@ -224,6 +224,7 @@ function MyClothes() {
 var clothes = function() {
   var ret = [];
   for (var i in wardrobe) {
+//console.log(wardrobe[i]);
     ret.push(Clothes(wardrobe[i]));
   }
   return ret;

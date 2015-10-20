@@ -6,8 +6,8 @@ function initTime(){
 
 	var date = new Date();
 	var d;
-	if((date.getDay() > 2 || date.getDay() == 2 && date.getHours > 5) 
-		&& (date.getDay() < 6 || date.getDay() == 6 && date.getHours < 5)){
+	if((date.getDay() > 2 || date.getDay() == 2 && date.getHours() > 5) 
+		&& (date.getDay() < 6 || date.getDay() == 6 && date.getHours() < 5)){
 		d = 6 - date.getDay();
 	}
 	else{
