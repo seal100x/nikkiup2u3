@@ -20,7 +20,7 @@ function showStrategy(){
 		var $skill_ops = p($("#skillInfo").text().replace("公主", "        公主"), "skill_ops");
 		$strategy.append($skill_ops);
 	}
-	else{
+	else if($("#theme").val().indexOf("评选赛") < 0) {
 		var $skill_ops = p("这里需要一个关卡技能信息", "skill_ops");
 		$strategy.append($skill_ops);		
 	}
