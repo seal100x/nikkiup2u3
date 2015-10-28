@@ -9,9 +9,11 @@
     <script type='text/javascript' charset="UTF-8" src='levels.js'></script>
     <script type='text/javascript' charset="UTF-8" src='model.js'></script>
     <script type='text/javascript' charset="UTF-8" src='pattern.js'></script>
+    <script type='text/javascript' charset="UTF-8" src='onekeystrategy.js'></script>
     <script type='text/javascript' charset="UTF-8" src='nikki.js'></script>
     <script type='text/javascript' charset="UTF-8" src='clock.js'></script>
 	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="onekeystrategy.css">
 
     <style>
 	body{
@@ -238,7 +240,7 @@
     <div class='announcement'>
        奇迹暖暖在线配装器 by:黑的升华<br/>
       <font style="color:red">原始文件来自意念挖坟的ip君@ivangift's github 20151021</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版: http://ivangift.github.io/nikkiup2u3/</a><br/>
-      服装数据来自jillhx@QQ群 20151020, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">jillhx的新衣柜楼</a>汇报<br/>
+      服装数据来自<span id="wardrobeversion">jillhx@QQ群 20151020</span>, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">jillhx的新衣柜楼</a>汇报<br/>
       设计图数据来自amy_翡翠@QQ群 1.5.2<br/>
 	  技能数据来自奇迹暖暖玉人@微博 20151006<br/><br/>
 	  
@@ -283,21 +285,25 @@
 	  1020update2: 更新衣柜数据为 jillhx@QQ群 20151020, 修复小时钟<br/>
 	  1020update3: 更新设计图数据为 amy_翡翠@QQ群 1.5.2<br/>
 	  </div>
-	  1021update: 更新权重数据为 意念挖坟的ip君@ivangift's github 20151021<br/><br/>
+	  1021update: 更新权重数据为 意念挖坟的ip君@ivangift's github 20151021<br/>
+	  1029update: 更新第一个奇奇怪怪的东西:一键攻略, 仿流水喵攻略排版, 部分功能未实装, 有需要可以自己P上去=w=。<br/>
+	  未(you)来(sheng)预(zhi)定(nian)功能: 高分权重, 衣柜记录, 原材料计算, 筛选功能, 一键双倍攻略<br/><br/>
 	  
 	  ip君已回归, 需要准确数据的可以继续使用<a href="http://ivangift.github.io/nikkiup2u3/">IP君的原版</a>~ 这里会恢复划水状态做一些奇奇怪怪的东西<br/>
 	</div>
     <hr/>
+	<div id="StrategyInfo"></div>
+	
     <div id='filtersTop'>
-      <form name="filter_form" class="form-inline">
-        <div>
-          <select id="theme" onChange="changeTheme()"></select>
-          </div>
 		<div>
-			<div id="tagInfo"></div>
-			<div id="skillInfo"></div>
-			<div id="hintInfo"></div>
+			<select id="theme" onChange="changeTheme()"></select><button id="onekey">一键攻略</button>
 		</div>
+		<div>
+		<div id="tagInfo"></div>
+		<div id="skillInfo"></div>
+		<div id="hintInfo"></div>
+	</div>
+      <form name="filter_form" class="form-inline">
         <div class='facet'>
           <div>
             <div class="radio"><label><input type="radio" name="simple" value="0" onClick="changeFilter()" /> 皆可</label></div>

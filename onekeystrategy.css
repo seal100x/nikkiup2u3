@@ -1,0 +1,50 @@
+.strategy_info_div{
+	font-family:微软雅黑;
+	border: 1px solid grey;
+	width: 550px;
+	padding: 5px;
+}
+
+.stgy_author{
+	font-weight: bold;
+	font-style: italic;
+	margin-right: 200px;
+	text-align: right;
+}
+
+.stgy_title_eng{
+	font-size: 20;
+	font-family:Caflisch Script Pro Regular;
+}
+
+.stgy_title{
+	font-size: 22;
+	font-weight: bold;
+	font-style: italic;
+	color: DeepPink;
+}
+
+.stgy_skill_title,
+.stgy_criteria_title,
+.stgy_clotheslist_title{	
+	font-weight: bold;
+	color: Darkorange;
+}
+
+.stgy_hint_tiele{
+	font-weight: bold;
+	color: Red;	
+}
+.stgy_clothes_category{
+	font-weight: bold;
+}
+
+.stgy_author_sign_div{
+	text-align: center;
+}
+
+.stgy_author_sign_name{
+	font-size: 18;
+	font-family:Caflisch Script Pro Regular;
+}
+

@@ -694,6 +694,7 @@ function initEvent(){
 		  changeTheme();
 	  }
   });
+  initOnekey();
 }
 
 function init() {
