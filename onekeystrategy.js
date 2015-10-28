@@ -44,7 +44,7 @@ function showStrategy(){
 		var $hint = p($("#hintInfo").text().replace("过关提示:",""), "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
 	}
-	else{
+	else if($("#theme").val().indexOf("评选赛") < 0 && $("#theme").val().indexOf("联盟委托") < 0){
 		var $hint = p("这里需要一个高深的过关指导留白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白", "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
 	}
