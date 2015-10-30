@@ -10,7 +10,7 @@ function showStrategy(){
 	var $title_eng = p("zhe li you yi duan hao li hai de english", "title_eng");
 	$strategy.append($title_eng);
 	
-	var $title = p($("#theme").val(),"title");
+	var $title = p($("#theme").val() == "custom" ? "....." : $("#theme").val(),"title");
 	$strategy.append($title);
 	
 	var $author = p("作者: ......... & 黑的升华", "author");
@@ -37,10 +37,10 @@ function showStrategy(){
 	var $criteria_title = p("属性-" + (uiFilter["balance"]?"均衡权重":"真实权重") + ": ", "criteria_title");
 	$strategy.append($criteria_title);
 	
-	var $criteria = p(getStrCriteria(theme),"criteria");
+	var $criteria = p(getStrCriteria(filters),"criteria");
 	$strategy.append($criteria);
 	
-	var $tag = p(getstrTag(theme), "tag");
+	var $tag = p(getstrTag(filters), "tag");
 	$strategy.append($tag);
 	
 	if($("#hintInfo").text()){
@@ -53,8 +53,8 @@ function showStrategy(){
 	}
 	
 	var accCount = 9;
-	if(theme.bonus[0] && theme.bonus[0].base
-		&& (theme.bonus[0].base == "S" || theme.bonus[0].base == "SS" || theme.bonus[0].base == "A")){
+	if(filters.bonus && filters.bonus[0] && filters.bonus[0].base
+		&& (filters.bonus[0].base == "S" || filters.bonus[0].base == "SS" || filters.bonus[0].base == "A")){
 		accCount = 8;
 	}
 	
@@ -133,42 +133,37 @@ function ifCriteriaHighLow(theme){
 	var fangcha = (avg-a)*(avg-a) + (avg-b)*(avg-b) + (avg-c)*(avg-c) + (avg-d)*(avg-d) + (avg-e)*(avg-e);
 }
 
-function getStrCriteria(theme){
+function getStrCriteria(filters){
 	var strCriteria = "";
-	theme.weight["simple"] >= 0 ? strCriteria += "简约" : strCriteria += "华丽";
+	filters["simple"] >= 0 ? strCriteria += "简约" : strCriteria += "华丽";
 	strCriteria += " : ";
-	theme.weight["cute"] >= 0 ? strCriteria += "可爱" : strCriteria += "成熟";
+	filters["cute"] >= 0 ? strCriteria += "可爱" : strCriteria += "成熟";
 	strCriteria += " : ";
-	theme.weight["active"] >= 0 ? strCriteria += "活泼" : strCriteria += "优雅";
+	filters["active"] >= 0 ? strCriteria += "活泼" : strCriteria += "优雅";
 	strCriteria += " : ";
-	theme.weight["pure"] >= 0 ? strCriteria += "清纯" : strCriteria += "性感";
+	filters["pure"] >= 0 ? strCriteria += "清纯" : strCriteria += "性感";
 	strCriteria += " : ";
-	theme.weight["cool"] >= 0 ? strCriteria += "清凉" : strCriteria += "保暖";
+	filters["cool"] >= 0 ? strCriteria += "清凉" : strCriteria += "保暖";
 	strCriteria += " ≈ ";
+	filters["simple"] >= 0 ? strCriteria += filters["simple"] : strCriteria += -filters["simple"];
+	strCriteria += " : ";
+	filters["cute"] >= 0 ? strCriteria += filters["cute"] : strCriteria += -filters["cute"];
+	strCriteria += " : ";
+	filters["active"] >= 0 ? strCriteria += filters["active"] : strCriteria += -filters["active"];
+	strCriteria += " : ";
+	filters["pure"] >= 0 ? strCriteria += filters["pure"] : strCriteria += -filters["pure"];
+	strCriteria += " : ";
+	filters["cool"] >= 0 ? strCriteria += filters["cool"] : strCriteria += -filters["cool"];
 	
-	if(uiFilter["balance"]){
-		strCriteria += "1 : 1 : 1 : 1 : 1";
-	}
-	else{
-		theme.weight["simple"] >= 0 ? strCriteria += theme.weight["simple"] : strCriteria += -theme.weight["simple"];
-		strCriteria += " : ";
-		theme.weight["cute"] >= 0 ? strCriteria += theme.weight["cute"] : strCriteria += -theme.weight["cute"];
-		strCriteria += " : ";
-		theme.weight["active"] >= 0 ? strCriteria += theme.weight["active"] : strCriteria += -theme.weight["active"];
-		strCriteria += " : ";
-		theme.weight["pure"] >= 0 ? strCriteria += theme.weight["pure"] : strCriteria += -theme.weight["pure"];
-		strCriteria += " : ";
-		theme.weight["cool"] >= 0 ? strCriteria += theme.weight["cool"] : strCriteria += -theme.weight["cool"];
-	}
 	return strCriteria;
 }
 
-function getstrTag(theme){
+function getstrTag(filters){
 	var str = "";
-	if(theme.bonus[0] && theme.bonus[0].tag){
-		str+="有TAG[" + theme.bonus[0].tag + "], 加分约" + theme.bonus[0].base + " X " + theme.bonus[0].weight + "。";
-		if(theme.bonus[1] && theme.bonus[1].tag){
-			str+="有TAG[" + theme.bonus[1].tag + "], 加分约" + theme.bonus[1].base + " X " + theme.bonus[1].weight;
+	if(filters.bonus && filters.bonus[0] && filters.bonus[0].tag){
+		str+="有TAG[" + filters.bonus[0].tag + "], 加分约" + filters.bonus[0].base + " X " + filters.bonus[0].weight + "。";
+		if(filters.bonus[1] && filters.bonus[1].tag){
+			str+="有TAG[" + filters.bonus[1].tag + "], 加分约" + filters.bonus[1].base + " X " + filters.bonus[1].weight;
 		}
 	}
 	return str;
