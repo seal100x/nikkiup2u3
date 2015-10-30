@@ -14,13 +14,14 @@
 
 .stgy_title_eng{
 	font-size: 20;
-	font-family:Caflisch Script Pro Regular;
+	font-family:Comic Sans MS;
+	font-style: italic;
 }
 
 .stgy_title{
+	font-family: 幼圆;
 	font-size: 22;
 	font-weight: bold;
-	font-style: italic;
 	color: DeepPink;
 }
 

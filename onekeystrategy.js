@@ -3,6 +3,9 @@ function showStrategy(){
 	var $strategy = $("<div/>").addClass("strategy_info_div");
 		
 	var theme = allThemes[$("#theme").val()];
+	var filters = clone(criteria);
+	filters.own = true;
+	filters.missing = true;
 	
 	var $title_eng = p("zhe li you yi duan hao li hai de english", "title_eng");
 	$strategy.append($title_eng);
@@ -10,7 +13,7 @@ function showStrategy(){
 	var $title = p($("#theme").val(),"title");
 	$strategy.append($title);
 	
-	var $author = p("作者: ___P名字上去留白白 & 黑的升华", "author");
+	var $author = p("作者: ......... & 黑的升华", "author");
 	$strategy.append($author);
 	
 	var $skill_title = p("技能: ", "skill_title");
@@ -21,17 +24,17 @@ function showStrategy(){
 		$strategy.append($skill_ops);
 	}
 	else if($("#theme").val().indexOf("评选赛") < 0) {
-		var $skill_ops = p("这里需要一个关卡技能信息", "skill_ops");
+		var $skill_ops = p("对手技能: ", "skill_ops");
 		$strategy.append($skill_ops);		
 	}
 	
-	var $skill_my = p("推荐携带: 这里需要一个高深的技能释放指导留白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白", "skill_my");
+	var $skill_my = p("推荐携带: ", "skill_my");
 	if($("#theme").val().indexOf("评选赛") >= 0){
 		$skill_my = p("推荐携带: 微笑 飞吻 挑剔 沉睡", "skill_my");
 	}
 	$strategy.append($skill_my);
 	
-	var $criteria_title = p("属性-真实权重: ", "criteria_title");
+	var $criteria_title = p("属性-" + (uiFilter["balance"]?"均衡权重":"真实权重") + ": ", "criteria_title");
 	$strategy.append($criteria_title);
 	
 	var $criteria = p(getStrCriteria(theme),"criteria");
@@ -45,16 +48,19 @@ function showStrategy(){
 		$strategy.append($hint);
 	}
 	else if($("#theme").val().indexOf("评选赛") < 0 && $("#theme").val().indexOf("联盟委托") < 0){
-		var $hint = p("这里需要一个高深的过关指导留白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白白", "hint", "过关提示: ", "hint_tiele");
+		var $hint = p("...............", "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
 	}
 	
-	var $clotheslist_title = p("推荐搭配: (推荐佩戴xx件饰品)", "clotheslist_title");
+	var accCount = 9;
+	if(theme.bonus[0] && theme.bonus[0].base
+		&& (theme.bonus[0].base == "S" || theme.bonus[0].base == "SS" || theme.bonus[0].base == "A")){
+		accCount = 8;
+	}
+	
+	var $clotheslist_title = p("推荐搭配: (推荐佩戴"+accCount+"件饰品)", "clotheslist_title");
 	$strategy.append($clotheslist_title);
 	
-	filters = clone(criteria);	
-	filters.own = true;
-	filters.missing = true;
 	for (var i in CATEGORY_HIERARCHY) {
 		if(i == "袜子"){
 			filters[CATEGORY_HIERARCHY[i][0]] = true;	
@@ -116,6 +122,17 @@ function p(text, cls, text2, cls2){
 	return $p;
 }
 
+function ifCriteriaHighLow(theme){
+	var a,b,c,d,e;
+	theme.weight["simple"] >= 0 ? a = theme.weight["simple"] : a = -theme.weight["simple"];
+	theme.weight["cute"] >= 0 ? b = theme.weight["cute"] : b = -theme.weight["cute"];
+	theme.weight["active"] >= 0 ? c = theme.weight["active"] : c = -theme.weight["active"];
+	theme.weight["pure"] >= 0 ? d = theme.weight["pure"] : d = -theme.weight["pure"];
+	theme.weight["cool"] >= 0 ? e = theme.weight["cool"] : e = -theme.weight["cool"];
+	var avg = (a+b+c+d+e)/5;
+	var fangcha = (avg-a)*(avg-a) + (avg-b)*(avg-b) + (avg-c)*(avg-c) + (avg-d)*(avg-d) + (avg-e)*(avg-e);
+}
+
 function getStrCriteria(theme){
 	var strCriteria = "";
 	theme.weight["simple"] >= 0 ? strCriteria += "简约" : strCriteria += "华丽";
@@ -128,15 +145,21 @@ function getStrCriteria(theme){
 	strCriteria += " : ";
 	theme.weight["cool"] >= 0 ? strCriteria += "清凉" : strCriteria += "保暖";
 	strCriteria += " ≈ ";
-	theme.weight["simple"] >= 0 ? strCriteria += theme.weight["simple"] : strCriteria += -theme.weight["simple"];
-	strCriteria += " : ";
-	theme.weight["cute"] >= 0 ? strCriteria += theme.weight["cute"] : strCriteria += -theme.weight["cute"];
-	strCriteria += " : ";
-	theme.weight["active"] >= 0 ? strCriteria += theme.weight["active"] : strCriteria += -theme.weight["active"];
-	strCriteria += " : ";
-	theme.weight["pure"] >= 0 ? strCriteria += theme.weight["pure"] : strCriteria += -theme.weight["pure"];
-	strCriteria += " : ";
-	theme.weight["cool"] >= 0 ? strCriteria += theme.weight["cool"] : strCriteria += -theme.weight["cool"];
+	
+	if(uiFilter["balance"]){
+		strCriteria += "1 : 1 : 1 : 1 : 1";
+	}
+	else{
+		theme.weight["simple"] >= 0 ? strCriteria += theme.weight["simple"] : strCriteria += -theme.weight["simple"];
+		strCriteria += " : ";
+		theme.weight["cute"] >= 0 ? strCriteria += theme.weight["cute"] : strCriteria += -theme.weight["cute"];
+		strCriteria += " : ";
+		theme.weight["active"] >= 0 ? strCriteria += theme.weight["active"] : strCriteria += -theme.weight["active"];
+		strCriteria += " : ";
+		theme.weight["pure"] >= 0 ? strCriteria += theme.weight["pure"] : strCriteria += -theme.weight["pure"];
+		strCriteria += " : ";
+		theme.weight["cool"] >= 0 ? strCriteria += theme.weight["cool"] : strCriteria += -theme.weight["cool"];
+	}
 	return strCriteria;
 }
 
