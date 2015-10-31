@@ -184,14 +184,14 @@
       margin-left: 5px;
       position : absolute;
       content : attr(tooltip);
-      opacity : 0;
+      display : none;
       z-index: 255;
       white-space: pre;
       text-align: left;
       background-color: #bfb;
     }
     [tooltip]:hover:after {
-      opacity : 1;
+      display : inline-block;
       padding: 10px;
     }
     td.deps [tooltip]:after {
@@ -234,6 +234,10 @@
 	red{
 		color: red;
 		font-weight:bold;		
+	}
+	.input_num{
+		text-align: center;
+		width: 30px;
 	}
   </style>
     
@@ -418,7 +422,8 @@
 
     <hr>
     <p>我拥有的服装 （复制衣橱文本框内容以备份衣橱）</p>
-    <textarea id="myClothes" rows=10 style="width:600px"></textarea>
+    <textarea id="myClothes" rows=10 style="width:600px"></textarea><br/>
+    <textarea id="myClothesNum" rows=10 style="width:600px"></textarea>
     <br/>
     <button onClick="loadCustomInventory()">Update inventory</button>
     <br/>
