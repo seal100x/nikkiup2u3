@@ -14,6 +14,7 @@ Clothes = function(csv) {
   var theType = typeInfo[csv[1]];
   return {
     own: false,
+	num: 0,
     name: csv[0],
     type: theType,
     id: csv[2],
@@ -167,17 +168,21 @@ function ScoreByCategory() {
 function MyClothes() {
   return {
     mine: {},
+	mineNum: {},
     size: 0,
     filter: function(clothes) {
-      this.mine = {}
+      this.mine = {};
+      this.mineNum = {};
       this.size = 0;
       for (var i in clothes) {
         if (clothes[i].own) {
           var type = clothes[i].type.mainType;
           if (!this.mine[type]) {
             this.mine[type] = [];
+			this.mineNum[type] = [];
           }
           this.mine[type].push(clothes[i].id);
+          this.mineNum[type].push(clothes[i].num);
           this.size ++;
         }
       }
@@ -186,6 +191,17 @@ function MyClothes() {
       var txt = "";
       for (var type in this.mine) {
         txt += type + ":" + this.mine[type].join(',') + "|";
+      }
+      return txt;
+    },
+    serializeNum: function() {
+      var txt = "";
+      for (var type in this.mine) {
+        txt += type + ":";
+		for (var clothes in this.mine[type]){
+			txt += this.mine[type][clothes] + "#" + this.mineNum[type][clothes] + ",";
+		}
+		txt = txt.substring(0,txt.length-1) + "|";
       }
       return txt;
     },
@@ -455,4 +471,15 @@ function save() {
     setCookie("mine2", txt, 3650);
   }
   return myClothes;
+}
+
+function saveNum(){
+  var myClothes = MyClothes();
+  myClothes.filter(clothes);
+  var txt = myClothes.serializeNum();
+  if (localStorage) {
+    localStorage.myClothesNewNum = txt;
+  } else {
+    setCookie("mine2Num", txt, 3650);
+  }
 }

@@ -74,12 +74,25 @@ function clearShoppingCart() {
   refreshShoppingCart();
 }
 
-function toggleInventory(type, id) {
+function toggleInventory(type, id, thisbtn) {
   var checked = !clothesSet[type][id].own;
   clothesSet[type][id].own = checked;
-  //$('#' + type + id)[0].checked = checked;
-  $('#clickable-' + type + id).toggleClass('own');
-  saveAndUpdate();
+  $(thisbtn).next().val(checked ? 1 : 0);
+  inputClotheNum(type, id, checked ? 1 : 0);
+}
+
+function inputClotheNum(type, id, num){
+	if(num == 0){
+		clothesSet[type][id].own = false;
+		clothesSet[type][id].num = 0;
+		$('#clickable-' + type + id).removeClass('own');
+	}
+	else if(num > 0){
+		clothesSet[type][id].own = true;
+		clothesSet[type][id].num = num;
+		$('#clickable-' + type + id).addClass('own');
+	}
+    saveAndUpdate();
 }
 
 function clickableTd(piece) {
@@ -99,8 +112,8 @@ function clickableTd(piece) {
   cls += own ? ' own' : '';
   return "<td id='clickable-" + (type + id) + "' class='" + cls
       + "'><a href='#dummy' class='button' " + tooltip
-      + "onClick='toggleInventory(\"" + type + "\",\"" + id + "\")'>"
-      + name + "</a></td>";
+      + "onClick='toggleInventory(\"" + type + "\",\"" + id + "\",this)'>"
+      + name + "</a><input class='input_num' oninput='inputClotheNum(\"" + type + "\",\"" + id + "\",this.value)'/></td>";
 }
 
 function row(piece, isShoppingCart) {
@@ -631,6 +644,7 @@ function saveAndUpdate() {
 function updateSize(mine) {
   $("#inventoryCount").text('(' + mine.size + ')');
   $("#myClothes").val(mine.serialize());
+  $("#myClothesNum").val(mine.serializeNum());
   var subcount = {};
   for (c in mine.mine) {
     var type = c.split('-')[0];
