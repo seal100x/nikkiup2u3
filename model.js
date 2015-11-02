@@ -458,10 +458,16 @@ function loadFromStorage() {
   if (localStorage) {
     myClothesNew = localStorage.myClothesNew;
 	myClothesNewNum = localStorage.myClothesNewNum;
+	if(myClothesNewNum == undefined){
+		myClothesNewNum = "";
+	}
     myClothes = localStorage.myClothes;
   } else {
     myClothesNew = getCookie("mine2");
 	myClothesNewNum = getCookie("mine2Num");
+	if(myClothesNewNum == undefined){
+		myClothesNewNum = "";
+	}
     myClothes = getCookie("mine");
   }
   if (myClothesNew) {
