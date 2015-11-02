@@ -1,5 +1,5 @@
 .strategy_info_div{
-	font-family:微软雅黑;
+	font-family:\5fae\8f6f\96c5\9ed1;
 	border: 1px solid grey;
 	width: 550px;
 	padding: 5px;
@@ -8,7 +8,7 @@
 .stgy_author{
 	font-weight: bold;
 	font-style: italic;
-	margin-right: 200px;
+	margin-right: 120px;
 	text-align: right;
 }
 
@@ -19,7 +19,7 @@
 }
 
 .stgy_title{
-	font-family: 幼圆;
+	font-family: \5e7c\5706;
 	font-size: 22;
 	font-weight: bold;
 	color: DeepPink;
@@ -41,11 +41,17 @@
 }
 
 .stgy_author_sign_div{
+	margin-top: 20px;
 	text-align: center;
 }
 
 .stgy_author_sign_name{
-	font-size: 18;
-	font-family:Caflisch Script Pro Regular;
+	font-size: 15;
+	font-family:Comic Sans MS;
+	font-style: italic;
 }
 
+.stgy_divide{
+	text-align: center;	
+	color: Darkorange;
+}

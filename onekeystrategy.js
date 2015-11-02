@@ -7,13 +7,13 @@ function showStrategy(){
 	filters.own = true;
 	filters.missing = true;
 	
-	var $title_eng = p("zhe li you yi duan hao li hai de english", "title_eng");
+	var $title_eng = p("zhe li you yi duan hao li hai de English", "title_eng");
 	$strategy.append($title_eng);
 	
 	var $title = p($("#theme").val() == "custom" ? "....." : $("#theme").val(),"title");
 	$strategy.append($title);
 	
-	var $author = p("作者: ......... & 黑的升华", "author");
+	var $author = p("作者: .......... & 黑的升华", "author");
 	$strategy.append($author);
 	
 	var $skill_title = p("技能: ", "skill_title");
@@ -48,17 +48,11 @@ function showStrategy(){
 		$strategy.append($hint);
 	}
 	else if($("#theme").val().indexOf("评选赛") < 0 && $("#theme").val().indexOf("联盟委托") < 0){
-		var $hint = p("...............", "hint", "过关提示: ", "hint_tiele");
+		var $hint = p("本关暂无过关提示, 若出现F, 请参考失败后大喵的衣服提示, 或不穿外套进行尝试", "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
 	}
-	
-	var accCount = 9;
-	if(filters.bonus && filters.bonus[0] && filters.bonus[0].base
-		&& (filters.bonus[0].base == "S" || filters.bonus[0].base == "SS" || filters.bonus[0].base == "A")){
-		accCount = 8;
-	}
-	
-	var $clotheslist_title = p("推荐搭配: (推荐佩戴"+accCount+"件饰品)", "clotheslist_title");
+		
+	var $clotheslist_title = p("推荐搭配: ", "clotheslist_title");
 	$strategy.append($clotheslist_title);
 	
 	for (var i in CATEGORY_HIERARCHY) {
@@ -82,33 +76,75 @@ function showStrategy(){
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = new Object()
 				result[clothes[i].type.type][0] = clothes[i];
-			} else if (clothes[i].tmpScore > result[clothes[i].type.type][0].tmpScore) {//dead code
-			//	result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
+			} else if (clothes[i].tmpScore > result[clothes[i].type.type][0].tmpScore) {
+				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
 				result[clothes[i].type.type][2] = result[clothes[i].type.type][1];
 				result[clothes[i].type.type][1] = result[clothes[i].type.type][0];
 				result[clothes[i].type.type][0] = clothes[i];
 			} else if (!result[clothes[i].type.type][1] || clothes[i].tmpScore > result[clothes[i].type.type][1].tmpScore) {
-			//	result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
+				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
 				result[clothes[i].type.type][2] = result[clothes[i].type.type][1];
 				result[clothes[i].type.type][1] = clothes[i];				
 			} else if (!result[clothes[i].type.type][2] || clothes[i].tmpScore > result[clothes[i].type.type][2].tmpScore) {
-			//	result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
+				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
 				result[clothes[i].type.type][2] = clothes[i];				
-			//} else if (!result[clothes[i].type.type][3] || clothes[i].tmpScore > result[clothes[i].type.type][3].tmpScore) {
-			//	result[clothes[i].type.type][3] = clothes[i];				
+			} else if (!result[clothes[i].type.type][3] || clothes[i].tmpScore > result[clothes[i].type.type][3].tmpScore) {
+				result[clothes[i].type.type][3] = clothes[i];				
 			}
 		}
 	}
+	var typeList = [];
+	var resultList = [];
+	for (var r in result){
+		if(r.indexOf("饰品") >= 0){
+			for(var c in result[r]){
+				resultList.push(result[r][c]);				
+			}
+			typeList.push(r);
+			delete result[r];
+		}
+	}
+	resultList.sort(byScore);
+	
 	for (var r in result){
 		$strategy.append(p(getstrClothes(result[r]), "clothes", r, "clothes_category"));
 	}
+	
+	var accCount = 9;
+	if(filters.bonus && filters.bonus[0] && filters.bonus[0].param
+		&& (filters.bonus[0].param.indexOf("S") >= 0 || filters.bonus[0].param.indexOf("A") >= 0)){
+		accCount = 8;
+	}
+	$strategy.append(p("————————————饰品(推荐佩戴" + accCount + "件)————————————", "divide"));
+	
+	/*var typesnum = 0;
+	var typestemp = [];
+	var maxAcc = 20;
+	for (var i = 0; i < 20; i++){
+		if (typestemp.indexOf(resultList[i].type.type) < 0){
+			typestemp.push(resultList[i].type.type);
+			typesnum++;
+		}
+	}*/
+	
+	for (var t in typeList){
+		var accList = [];
+		for (var i = 0; i < 33; i++){
+			if (resultList[i].type.type == typeList[t]){
+				accList.push(resultList[i]);
+			}
+		}
+		if(accList.length > 0)
+			$strategy.append(p(getstrClothes(accList), "clothes", typeList[t], "clothes_category"));
+	}
 
 	$author_sign = $("<div/>").addClass("stgy_author_sign_div");
-	$author_sign.append(p("这里有一个好厉害的作者签名！", "author_sign"));
-	$author_sign.append($("<img/>").attr("src","sign.gif"));
-	$author_sign.append(p("black sublimation", "author_sign_name"));	
+	//$author_sign.append(p("这里有一个好厉害的作者签名！", "author_sign"));
+	//$author_sign.append($("<img/>").attr("src","sign.gif"));
+	//$author_sign.append(p("black sublimation", "author_sign_name"));	
 	var d = new Date();
-	$author_sign.append(p("奇迹暖暖一键攻略@黑的升华" + (1900+d.getYear()) + "-" + (d.getMonth() + 1) + "-" + d.getDate(), "author_sign"));
+	$author_sign.append(p("nikkiup2u3 One Key Strategy@Black Sublimation", "author_sign_name"));
+	$author_sign.append(p("generate in " + (1900+d.getYear()) + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes(), "author_sign_name"));
 	$strategy.append($author_sign);
 	
 	$("#StrategyInfo").empty().append($strategy);
@@ -160,31 +196,37 @@ function getStrCriteria(filters){
 
 function getstrTag(filters){
 	var str = "";
-	if(filters.bonus && filters.bonus[0] && filters.bonus[0].tag){
-		str+="有TAG[" + filters.bonus[0].tag + "], 加分约" + filters.bonus[0].base + " X " + filters.bonus[0].weight + "。";
-		if(filters.bonus[1] && filters.bonus[1].tag){
-			str+="有TAG[" + filters.bonus[1].tag + "], 加分约" + filters.bonus[1].base + " X " + filters.bonus[1].weight;
+	
+	if(filters.bonus && filters.bonus[0] && filters.bonus[0].tagWhitelist){
+		str+="本关有TAG[" + filters.bonus[0].tagWhitelist + "]，加分约" + filters.bonus[0].param;
+		if(filters.bonus[1] && filters.bonus[1].tagWhitelist){
+			str+="，TAG[" + filters.bonus[1].tagWhitelist + "], 加分约" + filters.bonus[1].param;
 		}
 	}
 	return str;
 }
 
 function getstrClothes(result){
-	 var str = " : " + result[0].name + "[" + removeNum(result[0].source) + "]" + "(" + result[0].tmpScore + ")";
+	if(result.length == 0)
+		return " : 无";
+	 var str = " : " + result[0].name + "「" + result[0].tmpScore + " " + removeNum(result[0].source) + "」";
 	 if(result[1])
-		str += " > " + result[1].name + "[" + removeNum(result[1].source) + "]" + "(" + result[1].tmpScore + ")";
+		str += " > " + result[1].name + "「" + result[1].tmpScore + " " + removeNum(result[1].source) + "」";
 	 if(result[2])
-		str += " > " + result[2].name + "[" + removeNum(result[2].source) + "]" + "(" + result[2].tmpScore + ")";
+		str += " > " + result[2].name + "「" + result[2].tmpScore + " " + removeNum(result[2].source) + "」";
 	 if(result[3])
-		str += " > " + result[3].name + "[" + removeNum(result[3].source) + "]" + "(" + result[3].tmpScore + ")";
+		str += " > " + result[3].name + "「" + result[3].tmpScore + " " + removeNum(result[3].source) + "」";
 	 return str;
 }
 
 function removeNum(str){
 	if(str.indexOf("定")>=0 || str.indexOf("进")>=0)
-		return str.replace(/[0-9]/g,"");
-	else
-		return str;
+		str = str.replace(/[0-9]/g,"");
+	str = str.replace("联盟小铺", "盟");
+	str = str.replace("设计图", "设");
+	str = str.replace("元素重构", "重构");
+	str = str.replace("评选赛商店", "评选赛");
+	return str;
 }
 
 function initOnekey(){
