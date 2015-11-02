@@ -31,7 +31,7 @@ function setTime() {
 	hour = hour < 10 ? "0" + hour : hour;
 	minutes = minutes < 10 ? "0" + minutes : minutes;
 	seconds = seconds < 10 ? "0" + seconds : seconds;
-	if(hour < 24)
+	if(hour < 36)
 		$("#showTime").html("<red>" + hour + ":" + minutes + ":" + seconds + "</red>");
 	else
 		$("#showTime").html(hour + ":" + minutes + ":" + seconds);

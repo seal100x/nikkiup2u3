@@ -199,7 +199,10 @@ function MyClothes() {
       for (var type in this.mine) {
         txt += type + ":";
 		for (var clothes in this.mine[type]){
-			txt += this.mine[type][clothes] + "#" + this.mineNum[type][clothes] + ",";
+			var num = 1;
+			if(this.mineNum && this.mineNum[type] && this.mineNum[type][clothes])
+				num = this.mineNum[type][clothes];
+			txt += this.mine[type][clothes] + "#" + num + ",";
 		}
 		txt = txt.substring(0,txt.length-1) + "|";
       }
@@ -219,21 +222,47 @@ function MyClothes() {
         this.size += this.mine[type].length;
       }
     },
+    deserializeNum: function(raw) {
+      var sections = raw.split('|');
+      this.mineNum = {};
+      for (var i in sections) {
+        if (sections[i].length < 1) {
+          continue;
+        }
+        var section = sections[i].split(':');
+        var type = section[0];
+		var sectionAndNums = section[1].split(',');
+        this.mineNum[type] = [];
+		for(var s in sectionAndNums){			
+			var sectionAndNum = sectionAndNums[s].split('#');
+			this.mineNum[type][sectionAndNum[0]] = sectionAndNum[1];
+		}
+      }
+    },
     update: function(clothes) {
       var x = {};
+	  var xNum = {};
       for (var type in this.mine) {
         x[type] = {};
+		xNum[type] = {};
         for (var i in this.mine[type]) {
           var id = this.mine[type][i];
           x[type][id] = true;
+		  if(this.mineNum && this.mineNum[type] && this.mineNum[type][id]){
+			  xNum[type][id] = this.mineNum[type][id];
+		  }
+		  else{
+			  xNum[type][id] = 1;
+		  }
         }
       }
       for (var i in clothes) {
         clothes[i].own = false;
         var t = clothes[i].type.mainType;
-        var id = clothes[i].id
+        var id = clothes[i].id;
         if (x[t] && x[t][clothes[i].id]) {
           clothes[i].own = true;
+		  clothes[i].num = xNum[type][clothes[i].id];
         }
       }
     }
@@ -414,9 +443,10 @@ function load(myClothes) {
   return mine;
 }
 
-function loadNew(myClothes) {
+function loadNew(myClothes, myClothesNum) {
   var mine = MyClothes();
   mine.deserialize(myClothes);
+  mine.deserializeNum(myClothesNum);
   mine.update(clothes);
   return mine;
 }
@@ -424,15 +454,18 @@ function loadNew(myClothes) {
 function loadFromStorage() {
   var myClothes;
   var myClothesNew;
+  var myClothesNewNum;
   if (localStorage) {
     myClothesNew = localStorage.myClothesNew;
+	myClothesNewNum = localStorage.myClothesNewNum;
     myClothes = localStorage.myClothes;
   } else {
     myClothesNew = getCookie("mine2");
+	myClothesNewNum = getCookie("mine2Num");
     myClothes = getCookie("mine");
   }
   if (myClothesNew) {
-    return loadNew(myClothesNew);
+    return loadNew(myClothesNew, myClothesNewNum);
   } else if (myClothes) {
     return load(myClothes);
   }
@@ -461,25 +494,17 @@ function setCookie(c_name,value,expiredays) {
   ((expiredays==null) ? "" : "; expires="+exdate.toGMTString())
 }
 
-function save() {
+function save(){
   var myClothes = MyClothes();
   myClothes.filter(clothes);
   var txt = myClothes.serialize();
+  var txtNum = myClothes.serializeNum();
   if (localStorage) {
     localStorage.myClothesNew = txt;
+    localStorage.myClothesNewNum = txtNum;
   } else {
     setCookie("mine2", txt, 3650);
+    setCookie("mine2Num", txtNum, 3650);
   }
   return myClothes;
-}
-
-function saveNum(){
-  var myClothes = MyClothes();
-  myClothes.filter(clothes);
-  var txt = myClothes.serializeNum();
-  if (localStorage) {
-    localStorage.myClothesNewNum = txt;
-  } else {
-    setCookie("mine2Num", txt, 3650);
-  }
 }

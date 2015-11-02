@@ -80,6 +80,10 @@
       background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAU0lEQVR42mNgoAHgZ2FjO8/MxjafaMUs7Oz/QZiQJhTFYAzkg2VAOqEcfgKK+SGKUQXlcSoGAQxJdIxqMw7r8ShmIOhmokKFCMVwTdCw5qdatAMAai8zEfxslWsAAAAASUVORK5CYII=);
       background-color: #dfd;
     }
+	input[type="radio"],input[type="checkbox"]{
+		vertical-align:middle;
+		margin: auto;
+	}
     .button {
       position: relative;
       overflow: visible;
@@ -239,6 +243,9 @@
 		text-align: center;
 		width: 30px;
 	}
+	#advanced_options_span{
+		display: none;
+	}
   </style>
     
   </head>
@@ -249,7 +256,7 @@
       服装数据来自<span id="wardrobeversion">jillhx@QQ群 20151031</span>, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">jillhx的新衣柜楼</a>汇报<br/>
       设计图数据来自amy_翡翠@QQ群 1.5.2<br/>
 	  技能数据来自奇迹暖暖玉人@微博 20151006<br/>
-	  对配装器有什么建议可以到<a href="http://weibo.com/u/3597140883">@堕落刻印</a>或者<a href="http://tieba.baidu.com/p/4131330280">贴吧</a>汇报~<br/><br/>
+	  对配装器有什么建议可以到<a href="http://weibo.com/u/3597140883">@黑的升华</a>或者<a href="http://tieba.baidu.com/p/4131330280">贴吧</a>汇报~<br/><br/>
 	  
 	  距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;
 	  <a href="strategy.html">常用攻略</a>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -300,9 +307,11 @@
 	  1030update4: 一键攻略支持自定义关卡<br/>
 	  1030update5: 修复梦想之音<br/>
 	  </div>
-	  1101update: 一键攻略更新, 如无特殊情况不会再对该功能进行大规模改动, 缺少的数据会根据网友贡献逐步收录<br/><br/>
+	  1101update: 一键攻略更新, 如无特殊情况不会再对该功能进行大规模改动, 缺少的数据会根据网友贡献逐步收录<br/>
+	  1102update: 更新衣柜记录, 打开方式: 高级选项 >> 衣柜数量记录, 应该会有BUG。搭配赛计时器改为36小时内变红(我才不会说我还剩10小时的时候才参赛<br/>	  
+	  <br/>
 	  
-	  未(you)来(sheng)预(zhi)定(nian)功能: 高分权重, 衣柜记录(testing), 原材料计算(doing), 筛选功能(todo), 一键双倍攻略<br/><br/>
+	  未(you)来(sheng)预(zhi)定(nian)功能: 高分权重, 衣柜记录(done), 原材料计算(doing), 筛选功能(todo), 一键双倍攻略<br/><br/>
 	  
 	  ip君已回归, 需要准确数据的可以继续使用<a href="http://ivangift.github.io/nikkiup2u3/">IP君的原版</a>~ 这里会恢复划水状态做一些奇奇怪怪的东西<br/>
 	</div>
@@ -398,8 +407,12 @@
 		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
 		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
 		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="toplevel" checked /> 顶配模式</label></div>
-		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数排序</label></div>
-		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
+		  <span><a href="#" id="advanced_options">高级选项</a></span>
+		  <span id="advanced_options_span">
+			<div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数排序</label></div>
+			<div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
+			<div class="checkbox"><label><input type="checkbox" class="fliter" value="clothes_num" /> 衣柜数量记录</label></div>
+		  </span>
 		</div>
       </form>
     </div>

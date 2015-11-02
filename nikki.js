@@ -103,6 +103,7 @@ function clickableTd(piece) {
   var deps = piece.getDeps('');
   var tooltip = '';
   var cls = 'name';
+  var num = piece.num;
   if (deps && deps.length > 0) {
     tooltip = "tooltip='" + deps + "'";
     if (deps.indexOf('(缺)') > 0) {
@@ -113,7 +114,7 @@ function clickableTd(piece) {
   return "<td id='clickable-" + (type + id) + "' class='" + cls
       + "'><a href='#dummy' class='button' " + tooltip
       + "onClick='toggleInventory(\"" + type + "\",\"" + id + "\",this)'>"
-      + name + "</a><input class='input_num' oninput='inputClotheNum(\"" + type + "\",\"" + id + "\",this.value)'/></td>";
+      + name + "</a><input class='input_num " + (uiFilter["clothes_num"] == undefined ? "hide" : "") + "' value='" + num + "' oninput='inputClotheNum(\"" + type + "\",\"" + id + "\",this.value)'/></td>";
 }
 
 function row(piece, isShoppingCart) {
@@ -503,8 +504,9 @@ function matches(c, criteria, filters) {
 
 function loadCustomInventory() {
   var myClothes = $("#myClothes").val();
+  var myClothesNum = $("#myClothesNum").val();
   if (myClothes.indexOf('|') > 0) {
-    loadNew(myClothes);
+    loadNew(myClothes, myClothesNum);
   } else {
     load(myClothes);
   } 
@@ -701,6 +703,12 @@ function initEvent(){
   $("#show_history").click(function(){
 	$("#update_history").show();
 	$("#show_history").hide();
+	return false;
+  });
+  $("#advanced_options").click(function(){
+	$("#advanced_options_span").show();
+	$("#advanced_options").hide();
+	return false;
   });
   $(".fliter").change(function(){
 	  onChangeUiFilter();
