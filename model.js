@@ -262,7 +262,7 @@ function MyClothes() {
         var id = clothes[i].id;
         if (x[t] && x[t][clothes[i].id]) {
           clothes[i].own = true;
-		  clothes[i].num = xNum[type][clothes[i].id];
+		  clothes[i].num = xNum[t][clothes[i].id];
         }
       }
     }
