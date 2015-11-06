@@ -182,7 +182,7 @@ function MyClothes() {
 			this.mineNum[type] = [];
           }
           this.mine[type].push(clothes[i].id);
-          this.mineNum[type].push(clothes[i].num);
+          this.mineNum[type][clothes[i].id] = clothes[i].num;
           this.size ++;
         }
       }
