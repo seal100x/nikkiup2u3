@@ -200,8 +200,8 @@ function MyClothes() {
         txt += type + ":";
 		for (var clothes in this.mine[type]){
 			var num = 1;
-			if(this.mineNum && this.mineNum[type] && this.mineNum[type][clothes])
-				num = this.mineNum[type][clothes];
+			if(this.mineNum && this.mineNum[type] && this.mineNum[type][this.mine[type][clothes]])
+				num = this.mineNum[type][this.mine[type][clothes]];
 			txt += this.mine[type][clothes] + "#" + num + ",";
 		}
 		txt = txt.substring(0,txt.length-1) + "|";
