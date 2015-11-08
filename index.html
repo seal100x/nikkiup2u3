@@ -1,450 +1,203 @@
 <html>
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="renderer" content="webkit">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>奇迹暖暖在线配装器</title>
-    <script type='text/javascript' charset="UTF-8" src='jquery.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='jquery.freezeheader.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='wardrobe.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='scoring.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='levels.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='model.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='pattern.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='onekeystrategy.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='nikki.js'></script>
-    <script type='text/javascript' charset="UTF-8" src='clock.js'></script>
-	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="onekeystrategy.css">
-
-    <style>
-	body{
-		padding:20px
-	}
-    table
-    {
-      font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-      font-size: 12px;
-      background: #fff;
-      border-collapse: collapse;
-      text-align: center;
-      table-layout: fixed;
-    }
-	thead{
-		z-index: 10;
-		background: WhiteSmoke;
-	}
-    th
-    {
-      font-size: 14px;
-      font-weight: normal;
-      color: #039;
-      padding: 10px 8px;
-      border-bottom: 2px solid #6678b1;
-	  text-align:center;
-    }
-    th.score {
-      width: 55px;
-    }
-    th.name {
-      width: 130px;
-    }
-    th.category {
-      width: 110px;
-    }
-	th.th_number {
-	  width: 50px;
-	}
-	th.th_from {
-      width: 140px;	
-	}
-	th.th_tag {
-      width: 120px;	
-	}
-	th.th_nbsp {
-      width: 50px;		
-	}
-    td
-    {
-      color: #669;
-      padding: 4px 4px 4px 4px;
-    }
-    table.mainTable td.own.deps .button {
-      background-color: #fdd;
-    }
-    table.mainTable td.own .button
-    {
-      padding-left:20px;
-      background-position: 5px 8px;
-      background-repeat: no-repeat;
-      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAU0lEQVR42mNgoAHgZ2FjO8/MxjafaMUs7Oz/QZiQJhTFYAzkg2VAOqEcfgKK+SGKUQXlcSoGAQxJdIxqMw7r8ShmIOhmokKFCMVwTdCw5qdatAMAai8zEfxslWsAAAAASUVORK5CYII=);
-      background-color: #dfd;
-    }
-	input[type="radio"],input[type="checkbox"]{
-		vertical-align:middle;
-		margin: auto;
-	}
-    .button {
-      position: relative;
-      overflow: visible;
-      display: inline-block;
-      padding: 0.5em 1em;
-      border: 1px solid #d4d4d4;
-      margin: 0;
-      text-decoration: none;
-      text-align: center;
-      text-shadow: 1px 1px 0 #fff;
-      color: #333;
-      white-space: nowrap;
-      cursor: pointer;
-      outline: none;
-      background-color: #ececec;
-      background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
-      background-image: -moz-linear-gradient(#f4f4f4, #ececec);
-      background-image: -ms-linear-gradient(#f4f4f4, #ececec);
-      background-image: -o-linear-gradient(#f4f4f4, #ececec);
-      background-image: linear-gradient(#f4f4f4, #ececec);
-      -moz-background-clip: padding; /* for Firefox 3.6 */
-      background-clip: padding-box;
-      border-radius: 0.2em;
-      /* IE hacks */
-      zoom: 1;
-      *display: inline;
-    }
-    tbody tr:hover td
-    {
-      color: #009;
-      background: #eee;
-    }
-    td.S {
-      color: #FB3;
-    }
-    td.A {
-      color: #F0A;
-    }
-    td.B {
-      color: #A66;
-    }
-    td.C {
-      color: #38F;
-    }
-    td.negative {
-      text-decoration: line-through;
-    }
-    div.facet {
-      margin-left:10px;
-    }
-    div.announcement {
-      max-width: 800px;
-    }
-    div.weightContainer {
-      display: inline-block;
-    }
-    ul.tabs {
-    	margin: 0;
-    	padding: 0;
-    	list-style: none;
-    	height: 32px;
-    	border-bottom: 1px solid #999;
-    	border-left: 1px solid #999;
-    	width: 100%;
-    }
-    ul.tabs li {
-    	float: left;
-    	margin: 0;
-    	padding: 0;
-    	height: 31px;
-    	line-height: 31px;
-    	border: 1px solid #999;
-    	border-left: none;
-    	margin-bottom: -1px;
-    	background: #F0F0F0;
-    	overflow: hidden;
-    	position: relative;
-    }
-    ul.tabs li a {
-    	text-decoration: none;
-    	color: #000;
-    	display: block;
-    	font-size: 1.2em;
-    	padding: 0 10px;
-    	border: 1px solid #fff;
-    	outline: none;
-    }
-    ul.tabs li a:hover {
-    	background: #ccc;
-    }	
-    html ul.tabs li.active, html ul.tabs li.active a:hover  {
-    	background: #fff;
-    	border-bottom: 1px solid #fff;
-    }
-    #category_container div {
-    	display:none;
-    }
-    #category_container div.active {
-    	display:block;
-    }
-    [tooltip]:after {
-      margin-left: 5px;
-      position : absolute;
-      content : attr(tooltip);
-      display : none;
-      z-index: 255;
-      white-space: pre;
-      text-align: left;
-      background-color: #bfb;
-    }
-    [tooltip]:hover:after {
-      display : inline-block;
-      padding: 10px;
-    }
-    td.deps [tooltip]:after {
-      background-color: #fbb;
-    }
-	.shaonvSkill{
-		color: red;
-		font-weight:bold;
-	}
-	.gongzhuSkill{
-		color: fuchsia;
-		font-weight:bold;
-	}	
-	.normalSkill{
-		color: grey;
-		font-weight:bold;
-	}	
-	.hintInfo{
-		color: teal;
-		font-weight:bold;
-	}
-	span.badge{
-		background: SlateGray;
-	}
-	.gotop{
-		font-family: 'Glyphicons Halflings';
-		font-style: normal;
-		font-weight: 400;
-		line-height: 1;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		cursor: pointer;
-	}
-	.gotop:before{
-		content: "\e113";
-	}
-	#update_history{
-		display: none;
-	}
-	red{
-		color: red;
-		font-weight:bold;		
-	}
-	.input_num{
-		text-align: center;
-		width: 30px;
-	}
-	#advanced_options_span{
-		display: none;
-	}
-  </style>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>奇迹暖暖在线配装器</title>
+		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="onekeystrategy.css">
+		<link rel="stylesheet" href="style.css">
+		<script type='text/javascript' charset="UTF-8" src='jquery.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='jquery.freezeheader.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='wardrobe.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='scoring.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='levels.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='model.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='pattern.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='onekeystrategy.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='nikki.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='clock.js'></script>
     
   </head>
   <body>
-    <div class='announcement'>
-       奇迹暖暖在线配装器 by:黑的升华<br/>
-      <font style="color:red">原始文件来自意念挖坟的ip君@ivangift's github 20151021</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版: http://ivangift.github.io/nikkiup2u3/</a><br/>
-      服装数据来自<span id="wardrobeversion">jillhx@QQ群 20151031</span>, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">jillhx的新衣柜楼</a>汇报<br/>
-      设计图数据来自amy_翡翠@QQ群 1.5.2<br/>
-	  技能数据来自奇迹暖暖玉人@微博 20151006<br/>
-	  对配装器有什么建议可以到<a href="http://weibo.com/u/3597140883">@黑的升华</a>或者<a href="http://tieba.baidu.com/p/4131330280">贴吧</a>汇报~<br/><br/>
-	  
-	  距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;
-	  <a href="strategy.html">常用攻略</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-	  <a href="http://seal100x.github.io/nikkiup2u3_m/">移动版</a>(测试中,无限坑的状态=w=)
-	  <br/><br/>
-	  
-	  <a href="#" id="show_history">历史更新</a><br/>
-	  <div id="update_history">
-	  0902update: 己做了一版0902服装的, 在ip君更新前临时使用=w=<br/>
-	  主要修改内容: 0902衣柜, 竞技场和联盟委托权重, 因报错去掉了google脚本<br/>
-	  0909update: 9-支2权重修复, 9-9-3tag修复, 衣柜数据更新到0909版本, 移动端尚未更新<br/>
-	  0910update: 修女头饰修复<br/>
-	  0911update: 添加返回最上按钮, 添加顶配模式(试验中)<br/>
-	  0915update: 更新ip君0915数据, 补全联盟委托技能, 添加常用攻略页面, 添加均衡权重功能(测试ing)<br/>
-	  0918update: 更新花嫁套装, 更新新版分数区间(与IP君略不同)<br/>
-	  0922update: 更新小兔子=w=, 更新公众号链阳套<br/>
-	  0922update2: 修复: 游园*黑,金发娃娃*珍稀,甜度*珍稀,时空颈圈*玫<br/>
-	  0925update: 原始文件更新为ivangift's github@20150925(IP君最新版), 本次更新调整了全部JJC和联盟权重, 更新部分新衣服<br/>
-	  在此基础上, 删除"苹果联邦高级成衣展"的tag需求, 修复:游园*黑,金发娃娃*珍稀,甜度*珍稀,时空颈圈*玫,花嫁头纱<br/>
-	  0925update2: 修复:怪盗下装*华丽, 广寒精灵*白, 添加:锁扣包<br/>
-	  0925update3: 添加:灵幔, 漫纱轻舞, 纱舞, 漫纱舞鞋(今天更新好多次<br/>
-	  0925update4: 修复:乐园气球(会不会有5<br/>
-	  0929update1: 国庆更新第一发, 添加梦恋奇迹5关权重<br/>
-	  0929update2: 修复活动第三关权重<br/>
-	  0929update3: 添加3套婚纱, 添加蓝冰瞳<br/>
-	  0929update4: 添加幻阁限定, 仙履屋及染色 ps:魔幻领结是挎包..是挎包..挎包..包..<br/>
-	  0929update5: 修复部分服装错误<br/>
-	  0930update: 添加鸡米包, 玩趣*嘻嘻<br/>
-	  长假的某天update: 易用性优化<br/>
-	  1014update1: 第10章属性添加, 部分提示添加, 技能懒得写了=.=<br/>
-	  1014update2: 修复了一下排序, 应该没bug了<br/>
-	  1017update: <br/>
-	  更新衣柜数据为 jillhx@QQ群 20151016<br/>
-	  更新第十章权重数据及过关提示为 流水喵&兔子@QQ群 20151014 (技能数据暂时没有文字版, 有需要可以去流水喵的微博查看)<br/>
-	  更正部分联盟委托技能<br/>
-	  本次更新后需要注意的衣服: 魔幻领结 颈饰-->项链，藤萝链 手饰左-->手持左<br/>
-	  本次更新后改名的衣服: 蓝宝石(下装)-->束腰蓝裙，甜心巧克力(袜子)-->甜心女仆袜, 晚霞(鞋子)-->绮霞景, 月饼-->寒月<br/>
-	  1017update2: 添加了一个搭配赛提醒小时钟, 以纪念那离我而去的水晶玫瑰...(时差党可能会有些问题)<br/>
-	  1020update: 更新精灵的月下舞会, 数据及攻略来自白残(*/ω\*)@QQ群, tag数据仅供参考, 请自行调整, 小时钟稍后修复<br/>
-	  1020update2: 更新衣柜数据为 jillhx@QQ群 20151020, 修复小时钟<br/>
-	  1020update3: 更新设计图数据为 amy_翡翠@QQ群 1.5.2<br/>
-	  1021update: 更新权重数据为 意念挖坟的ip君@ivangift's github 20151021<br/>
-	  1029update: 更新第一个奇奇怪怪的东西:一键攻略, 仿流水喵攻略排版, 部分功能未实装, 有需要可以自己P上去=w=。<br/>
-	  1029update2: 发现被强制使用兼容模式的情况比较多, 添加meta以建议非IE浏览器优先使用webkit内核, IE浏览器优先使用最高级文档模式, 效果未知<br/>
-	  1030update: 更新衣柜<br/>
-	  1030update2: 优化一键攻略<br/>
-	  1030update3: 修复绮幻万圣夜和万圣帽的id, 之前有添加过这两件衣服的需要重新添加, 发现其他id问题请反馈~<br/>
-	  1030update4: 一键攻略支持自定义关卡<br/>
-	  1030update5: 修复梦想之音<br/>
-	  1101update: 一键攻略更新, 如无特殊情况不会再对该功能进行大规模改动, 缺少的数据会根据网友贡献逐步收录<br/>
-	  </div>
-	  1102update: 更新衣柜记录, 打开方式: 高级选项 >> 衣柜数量记录, 应该会有BUG。搭配赛计时器改为36小时内变红(我才不会说我还剩10小时的时候才参赛<br/>	  
-	  1106update: 更新昼夜回廊, 新分类"饰品-特殊*翅膀", 近期计划重做移动版, 有好的建议可以发给我(主要是排版), 顺便在考虑要不要做个APP<br/>	  
-	  1106update2: 修复错误衣柜数据, 如果仍有问题及时反馈~<br/>	  
-	  1106update3: 修改藤萝链为手饰*左, 做攻略的各位注意下(暖暖终于改回来了, 本次更新"万圣巫师帽·绮夜"的id有调整, 之前添加过的需要重新添加<br/>	  
-	  <br/>
-	  
-	  未(you)来(sheng)预(zhi)定(nian)功能: 高分权重, 衣柜记录(done), 原材料计算(doing), 筛选功能(todo), 一键双倍攻略<br/><br/>
-	  
-	  ip君已回归, 需要准确数据的可以继续使用<a href="http://ivangift.github.io/nikkiup2u3/">IP君的原版</a>~ 这里会恢复划水状态做一些奇奇怪怪的东西<br/>
-	</div>
-    <hr/>
-	<div id="StrategyInfo"></div>
-	
-    <div id='filtersTop'>
-		<div>
-			<select id="theme" onChange="changeTheme()"></select><button id="onekey">一键攻略</button>
+		<div class='title'>
+			奇迹暖暖在线配装器 by:黑的升华<br/>
+			对配装器有什么建议可以到<a href="http://weibo.com/u/3597140883">@黑的升华</a>或者<a href="http://tieba.baidu.com/p/4131330280">贴吧</a>汇报~<br/>
+			<font style="color:red">本配装器是基于意念挖坟的ip君@ivangift's github 20151021修改, 需要准确数据的可以使用</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版</a><br/>
+			<font style="color:red">本配装器是基于意念挖坟的ip君@ivangift's github 20151021修改, 需要准确数据的可以使用</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版</a><br/>
+			<font style="color:red">本配装器是基于意念挖坟的ip君@ivangift's github 20151021修改, 需要准确数据的可以使用</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版</a>，重要的事情说三遍<br/>
 		</div>
-		<div>
-		<div id="tagInfo"></div>
-		<div id="skillInfo"></div>
-		<div id="hintInfo"></div>
-	</div>
-      <form name="filter_form" class="form-inline">
-        <div class='facet'>
-          <div>
-            <div class="radio"><label><input type="radio" name="simple" value="0" onClick="changeFilter()" /> 皆可</label></div>
-            <div class="radio"><label><input type="radio" name="simple" value="1" onClick="changeFilter()" /> 简约</label></div>
-            <div class="radio"><label><input type="radio" name="simple" value="-1" onClick="changeFilter()" /> 华丽</label></div>
-            <div class='weightContainer' id = "simpleWeightContainer">
-            	&nbsp;&nbsp;权重 <input type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" />
-          	</div>
-          </div>
-          <div>
-            <div class="radio"><label><input type="radio" name="cute" value="0" onClick="changeFilter()" /> 皆可</label></div>
-            <div class="radio"><label><input type="radio" name="cute" value="1" onClick="changeFilter()" /> 可爱</label></div>
-            <div class="radio"><label><input type="radio" name="cute" value="-1" onClick="changeFilter()" /> 成熟</label></div>
-            <div class='weightContainer' id = "cuteWeightContainer">
-            	&nbsp;&nbsp;权重 <input type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" />
-            </div>
-          </div>
-          <div>
-            <div class="radio"><label><input type="radio" name="active" value="0" onClick="changeFilter()" /> 皆可</label></div>
-            <div class="radio"><label><input type="radio" name="active" value="1" onClick="changeFilter()" /> 活泼</label></div>
-            <div class="radio"><label><input type="radio" name="active" value="-1" onClick="changeFilter()" /> 优雅</label></div>
-            <div class='weightContainer' id = "activeWeightContainer">
-              &nbsp;&nbsp;权重 <input type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" />
-            </div>
-          </div>
-          <div>
-            <div class="radio"><label><input type="radio" name="pure" value="0" onClick="changeFilter()" /> 皆可</label></div>
-            <div class="radio"><label><input type="radio" name="pure" value="1" onClick="changeFilter()" /> 清纯</label></div>
-            <div class="radio"><label><input type="radio" name="pure" value="-1" onClick="changeFilter()" /> 性感</label></div>
-            <div class='weightContainer' id = "pureWeightContainer">
-              &nbsp;&nbsp;权重 <input type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" />
-            </div>
-          </div>
-          <div>
-            <div class="radio"><label><input type="radio" name="cool" value="0" onClick="changeFilter()" /> 皆可</label></div>
-            <div class="radio"><label><input type="radio" name="cool" value="1" onClick="changeFilter()" /> 清凉</label></div>
-            <div class="radio"><label><input type="radio" name="cool" value="-1" onClick="changeFilter()" /> 保暖</label></div>
-            <div class='weightContainer' id = "coolWeightContainer">
-              &nbsp;&nbsp;权重 <input type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" />
-            </div>
-          </div>
-          <div id='tagFilter'>
-            Tag1
-            <input type="text" id="tag1" name="tag1" onChange="changeFilter()" />
-            <div class='tagContainer weightContainer' id = "tag1Container">
-              <div class="radio"><label><input type="radio" name="tag1method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
-              <div class="radio"><label><input type="radio" name="tag1method" value="replace" onClick="changeFilter()" /> 替换</label></div>
-              <select id="tag1base" onChange="changeFilter()">
-                <option>SS</option>
-                <option>S</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-              &times;
-              <input type="text" id="tag1weight" name="tag1weight" value="1" onChange="changeFilter()" />
-            </div>
-            <br/>
-            Tag2
-            <input type="text" id="tag2" name="tag2" onChange="changeFilter()" />
-            <div class='tagContainer weightContainer' id = "tag2Container">
-              <div class="radio"><label><input type="radio" name="tag2method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
-              <div class="radio"><label><input type="radio" name="tag2method" value="replace" onClick="changeFilter()" /> 替换</label></div>
-              <select id="tag2base" onChange="changeFilter()">
-                <option>SS</option>
-                <option>S</option>
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
-              &times;
-              <input type="text" id="tag2weight" name="tag2weight" value="1" onChange="changeFilter()" />
-            </div>
-          </div>
-        </div>
-        <div>
-		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
-		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
-		  <div class="checkbox"><label><input type="checkbox" class="fliter" value="toplevel" checked /> 顶配模式</label></div>
-		  <span><a href="#" id="advanced_options">高级选项</a></span>
-		  <span id="advanced_options_span">
-			<div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数排序</label></div>
-			<div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
-			<div class="checkbox"><label><input type="checkbox" class="fliter" value="clothes_num" disabled /> 衣柜数量记录</label></div>
-		  </span>
-		</div>
-      </form>
-    </div>
-    <hr>
-    <div id='shoppingCartContainer'>
-      已选择的衣服 <button class="btn btn-default" onclick="clearShoppingCart()">清空购物车</button>
-      <div id='shoppingCart'>
-      </div>
-    </div>
-    <hr>
-    <div id='category_container'> 
-    </div>
-    <div id = "clothes"></div>
-    <hr>
-    导入批量衣服，请先选择要导入的类别，然后在文本框内输入编号，用空格、逗号或者换行隔开。不知道编号在哪儿的请点<a href="http://tieba.baidu.com/p/3808711082" target="_blank">这里</a>
-    <div id = "import">
-      <select id="importCate" onChange="clearImport()"></select> <br/>
-      <textarea id="importData" rows=5 style="width:600px"></textarea>
-      <button onClick="doImport()">导入</button>
-    </div>
+		<div id="StrategyInfo"></div>
+		<div class='top'>
+			<div class="announcement">
+				服装数据来自<span id="wardrobeversion">jillhx@QQ群 20151106</span>, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">jillhx的新衣柜楼</a>汇报<br/>
+				设计图数据来自amy_翡翠@QQ群 1.5.2<br/>
+				联盟技能数据来自奇迹暖暖玉人@微博 20151006<br/>
+				
+				<a href="#" id="show_history">历史更新</a><br/>
+				<div id="update_history">
+					0902update: 己做了一版0902服装的, 在ip君更新前临时使用=w=<br/>
+					主要修改内容: 0902衣柜, 竞技场和联盟委托权重, 因报错去掉了google脚本<br/>
+					0909update: 9-支2权重修复, 9-9-3tag修复, 衣柜数据更新到0909版本, 移动端尚未更新<br/>
+					0910update: 修女头饰修复<br/>
+					0911update: 添加返回最上按钮, 添加顶配模式(试验中)<br/>
+					0915update: 更新ip君0915数据, 补全联盟委托技能, 添加常用攻略页面, 添加均衡权重功能(测试ing)<br/>
+					0918update: 更新花嫁套装, 更新新版分数区间(与IP君略不同)<br/>
+					0922update: 更新小兔子=w=, 更新公众号链阳套<br/>
+					0922update2: 修复: 游园*黑,金发娃娃*珍稀,甜度*珍稀,时空颈圈*玫<br/>
+					0925update: 原始文件更新为ivangift's github@20150925(IP君最新版), 本次更新调整了全部JJC和联盟权重, 更新部分新衣服<br/>
+					在此基础上, 删除"苹果联邦高级成衣展"的tag需求, 修复:游园*黑,金发娃娃*珍稀,甜度*珍稀,时空颈圈*玫,花嫁头纱<br/>
+					0925update2: 修复:怪盗下装*华丽, 广寒精灵*白, 添加:锁扣包<br/>
+					0925update3: 添加:灵幔, 漫纱轻舞, 纱舞, 漫纱舞鞋(今天更新好多次<br/>
+					0925update4: 修复:乐园气球(会不会有5<br/>
+					0929update1: 国庆更新第一发, 添加梦恋奇迹5关权重<br/>
+					0929update2: 修复活动第三关权重<br/>
+					0929update3: 添加3套婚纱, 添加蓝冰瞳<br/>
+					0929update4: 添加幻阁限定, 仙履屋及染色 ps:魔幻领结是挎包..是挎包..挎包..包..<br/>
+					0929update5: 修复部分服装错误<br/>
+					0930update: 添加鸡米包, 玩趣*嘻嘻<br/>
+					长假的某天update: 易用性优化<br/>
+					1014update1: 第10章属性添加, 部分提示添加, 技能懒得写了=.=<br/>
+					1014update2: 修复了一下排序, 应该没bug了<br/>
+					1017update: <br/>
+					更新衣柜数据为 jillhx@QQ群 20151016<br/>
+					更新第十章权重数据及过关提示为 流水喵&兔子@QQ群 20151014 (技能数据暂时没有文字版, 有需要可以去流水喵的微博查看)<br/>
+					更正部分联盟委托技能<br/>
+					本次更新后需要注意的衣服: 魔幻领结 颈饰-->项链，藤萝链 手饰左-->手持左<br/>
+					本次更新后改名的衣服: 蓝宝石(下装)-->束腰蓝裙，甜心巧克力(袜子)-->甜心女仆袜, 晚霞(鞋子)-->绮霞景, 月饼-->寒月<br/>
+					1017update2: 添加了一个搭配赛提醒小时钟, 以纪念那离我而去的水晶玫瑰...(时差党可能会有些问题)<br/>
+					1020update: 更新精灵的月下舞会, 数据及攻略来自白残(*/ω\*)@QQ群, tag数据仅供参考, 请自行调整, 小时钟稍后修复<br/>
+					1020update2: 更新衣柜数据为 jillhx@QQ群 20151020, 修复小时钟<br/>
+					1020update3: 更新设计图数据为 amy_翡翠@QQ群 1.5.2<br/>
+					1021update: 更新权重数据为 意念挖坟的ip君@ivangift's github 20151021<br/>
+					1029update: 更新第一个奇奇怪怪的东西:一键攻略, 仿流水喵攻略排版, 部分功能未实装, 有需要可以自己P上去=w=。<br/>
+					1029update2: 发现被强制使用兼容模式的情况比较多, 添加meta以建议非IE浏览器优先使用webkit内核, IE浏览器优先使用最高级文档模式, 效果未知<br/>
+					1030update: 更新衣柜<br/>
+					1030update2: 优化一键攻略<br/>
+					1030update3: 修复绮幻万圣夜和万圣帽的id, 之前有添加过这两件衣服的需要重新添加, 发现其他id问题请反馈~<br/>
+					1030update4: 一键攻略支持自定义关卡<br/>
+					1030update5: 修复梦想之音<br/>
+					1101update: 一键攻略更新, 如无特殊情况不会再对该功能进行大规模改动, 缺少的数据会根据网友贡献逐步收录<br/>
+					1102update: 更新衣柜记录, 打开方式: 高级选项 >> 衣柜数量记录, 应该会有BUG。搭配赛计时器改为36小时内变红(我才不会说我还剩10小时的时候才参赛<br/>	  
+					1106update: 更新昼夜回廊, 新分类"饰品-特殊*翅膀", 近期计划重做移动版, 有好的建议可以发给我(主要是排版), 顺便在考虑要不要做个APP<br/>	  
+					1106update2: 修复错误衣柜数据, 如果仍有问题及时反馈~<br/>	  
+					1106update3: 修改藤萝链为手饰*左, 做攻略的各位注意下(暖暖终于改回来了, 本次更新"万圣巫师帽·绮夜"的id有调整, 之前添加过的需要重新添加<br/>	  
+					</div><br/>
+					11.09: 缓慢调整界面样式中<br/>
+					<br/>
 
-    <hr>
-    <p>我拥有的服装 （复制衣橱文本框内容以备份衣橱）</p>
-    <textarea id="myClothes" rows=10 style="width:600px"></textarea><br/>
-    <p>衣柜数量记录 （复制衣橱文本框内容以备份衣橱）</p>
-    <textarea id="myClothesNum" rows=10 style="width:600px"></textarea>
-    <br/>
-    <button onClick="loadCustomInventory()">Update inventory</button>
-    <br/>
-    <hr>
-  </body>
+					未(you)来(sheng)预(zhi)定(nian)功能: 手机适配版(doing), 高分权重, 衣柜记录(discard), 原材料计算(doing), 筛选功能(todo)<br/>
+			</div><!-- announcement -->	
+			<div class="fliter">
+				距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="strategy.html">常用攻略</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href="http://seal100x.github.io/nikkiup2u3_m/">移动版</a>(测试中,无限坑的状态=w=)
+				<br/>
+
+				<div id='filtersTop'>
+					<select id="theme" onChange="changeTheme()"></select><button id="onekey">一键攻略</button>
+					<div id="tagInfo"></div>
+					<div id="skillInfo"></div>
+					<div id="hintInfo"></div>
+				</div>
+				<div class="fliter_form_div">
+					<form name="filter_form" class="form-inline">
+						<div class='facet'>
+							<div>
+								<div class="radio"><label><input type="radio" name="simple" value="1" onClick="changeFilter()" /> 简约</label></div>
+								<div class="radio"><label><input type="radio" name="simple" value="-1" onClick="changeFilter()" /> 华丽</label></div>
+								&nbsp;&nbsp;<div class='weightContainer' id = "simpleWeightContainer"><label>权重</label><input type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" /></div>
+							</div>
+							<div>
+								<div class="radio"><label><input type="radio" name="cute" value="1" onClick="changeFilter()" /> 可爱</label></div>
+								<div class="radio"><label><input type="radio" name="cute" value="-1" onClick="changeFilter()" /> 成熟</label></div>
+								&nbsp;&nbsp;<div class='weightContainer' id = "cuteWeightContainer"><label>权重</label><input type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" /></div>
+							</div>
+							<div>
+								<div class="radio"><label><input type="radio" name="active" value="1" onClick="changeFilter()" /> 活泼</label></div>
+								<div class="radio"><label><input type="radio" name="active" value="-1" onClick="changeFilter()" /> 优雅</label></div>
+								&nbsp;&nbsp;<div class='weightContainer' id = "activeWeightContainer"><label>权重</label><input type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" /></div>
+							</div>
+							<div>
+								<div class="radio"><label><input type="radio" name="pure" value="1" onClick="changeFilter()" /> 清纯</label></div>
+								<div class="radio"><label><input type="radio" name="pure" value="-1" onClick="changeFilter()" /> 性感</label></div>
+								&nbsp;&nbsp;<div class='weightContainer' id = "pureWeightContainer"><label>权重</label><input type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" /></div>
+							</div>
+							<div>
+								<div class="radio"><label><input type="radio" name="cool" value="1" onClick="changeFilter()" /> 清凉</label></div>
+								<div class="radio"><label><input type="radio" name="cool" value="-1" onClick="changeFilter()" /> 保暖</label></div>
+								&nbsp;&nbsp;<div class='weightContainer' id = "coolWeightContainer"><label>权重</label><input type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" /></div>
+							</div>
+							<div id='tagFilter'>
+								<div class='tagContainer weightContainer' id = "tag1Container">
+									Tag1&nbsp;&nbsp;&nbsp;<input type="text" id="tag1" name="tag1" onChange="changeFilter()" />
+									<div class="radio"><label><input type="radio" name="tag1method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
+									<div class="radio"><label><input type="radio" name="tag1method" value="replace" onClick="changeFilter()" /> 替换</label></div>
+									<select id="tag1base" onChange="changeFilter()">
+										<option>SS</option>
+										<option>S</option>
+										<option>A</option>
+										<option>B</option>
+										<option>C</option>
+									</select>
+									&times;
+									<input type="text" id="tag1weight" name="tag1weight" value="1" onChange="changeFilter()" />
+								</div>
+								<br/>
+								<div class='tagContainer weightContainer' id = "tag2Container">
+									Tag2&nbsp;&nbsp;&nbsp;<input type="text" id="tag2" name="tag2" onChange="changeFilter()" />
+									<div class="radio"><label><input type="radio" name="tag2method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
+									<div class="radio"><label><input type="radio" name="tag2method" value="replace" onClick="changeFilter()" /> 替换</label></div>
+									<select id="tag2base" onChange="changeFilter()">
+										<option>SS</option>
+										<option>S</option>
+										<option>A</option>
+										<option>B</option>
+										<option>C</option>
+									</select>
+									&times;
+									<input type="text" id="tag2weight" name="tag2weight" value="1" onChange="changeFilter()" />
+								</div>
+							</div><!-- tagFilter -->
+						</div><!-- facet -->
+						<div class="fliter_option">
+							<div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
+							<div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
+							<div class="checkbox"><label><input type="checkbox" class="fliter" value="toplevel" checked /> 顶配模式</label></div>
+							<span><a href="#" id="advanced_options">高级选项</a></span>
+							<span id="advanced_options_span">
+								<div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数排序</label></div>
+								<div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
+								<div class="checkbox"><label><input type="checkbox" class="fliter" value="clothes_num" disabled /> 衣柜数量记录</label></div>
+							</span>
+						</div>
+					</form>
+				</div><!-- fliter_form_div -->
+			</div><!-- fliter -->
+		</div><!-- top -->
+		<hr>
+		<div id = 'shoppingCartContainer'>
+		  已选择的衣服 <button class="btn btn-default" onclick="clearShoppingCart()">清空购物车</button>
+		  <div id='shoppingCart'></div>
+		</div>
+		<hr>
+		<div id = 'category_container'></div>
+		<div id = "clothes"></div>
+		<hr>
+		导入批量衣服，请先选择要导入的类别，然后在文本框内输入编号，用空格、逗号或者换行隔开。不知道编号在哪儿的请点<a href="http://tieba.baidu.com/p/3808711082" target="_blank">这里</a>
+		<div id = "import">
+		  <select id="importCate" onChange="clearImport()" ></select><br/>
+		  <textarea id="importData" rows=5 style="width:60%" ></textarea>
+		  <button onClick="doImport()">导入</button>
+		</div>
+		<hr>
+		<p>我拥有的服装 （复制衣橱文本框内容以备份衣橱）</p>
+		<textarea id="myClothes" rows=10 style="width:60%"></textarea><br/>
+		<p style="width:60%; display:none">衣柜数量记录 （复制衣橱文本框内容以备份衣橱）</p>
+		<textarea id="myClothesNum" rows=10 style="width:60%; display:none"></textarea>
+		<br/>
+		<button onClick="loadCustomInventory()">恢复备份</button>
+		<br/>
+		<hr>
+	</body>
 </html>

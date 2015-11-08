@@ -1,0 +1,251 @@
+body{
+	padding:20px
+}
+table
+{
+  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+  font-size: 12px;
+  background: #fff;
+  border-collapse: collapse;
+  text-align: center;
+  table-layout: fixed;
+}
+thead{
+	z-index: 10;
+	background: WhiteSmoke;
+}
+th
+{
+  font-size: 14px;
+  font-weight: normal;
+  color: #039;
+  padding: 10px 8px;
+  border-bottom: 2px solid #6678b1;
+  text-align:center;
+}
+th.score {
+  width: 55px;
+}
+th.name {
+  width: 130px;
+}
+th.category {
+  width: 110px;
+}
+th.th_number {
+  width: 50px;
+}
+th.th_from {
+  width: 140px;	
+}
+th.th_tag {
+  width: 120px;	
+}
+th.th_nbsp {
+  width: 50px;		
+}
+td
+{
+  color: #669;
+  padding: 4px 4px 4px 4px;
+}
+table.mainTable td.own.deps .button {
+  background-color: #fdd;
+}
+table.mainTable td.own .button
+{
+  padding-left:20px;
+  background-position: 5px 8px;
+  background-repeat: no-repeat;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAU0lEQVR42mNgoAHgZ2FjO8/MxjafaMUs7Oz/QZiQJhTFYAzkg2VAOqEcfgKK+SGKUQXlcSoGAQxJdIxqMw7r8ShmIOhmokKFCMVwTdCw5qdatAMAai8zEfxslWsAAAAASUVORK5CYII=);
+  background-color: #dfd;
+}
+input[type="radio"],input[type="checkbox"]{
+	vertical-align:middle;
+	margin: auto;
+}
+.button {
+  position: relative;
+  overflow: visible;
+  display: inline-block;
+  padding: 0.5em 1em;
+  border: 1px solid #d4d4d4;
+  margin: 0;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 1px 1px 0 #fff;
+  color: #333;
+  white-space: nowrap;
+  cursor: pointer;
+  outline: none;
+  background-color: #ececec;
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
+  background-image: -moz-linear-gradient(#f4f4f4, #ececec);
+  background-image: -ms-linear-gradient(#f4f4f4, #ececec);
+  background-image: -o-linear-gradient(#f4f4f4, #ececec);
+  background-image: linear-gradient(#f4f4f4, #ececec);
+  -moz-background-clip: padding; /* for Firefox 3.6 */
+  background-clip: padding-box;
+  border-radius: 0.2em;
+  /* IE hacks */
+  zoom: 1;
+  *display: inline;
+}
+tbody tr:hover td
+{
+  color: #009;
+  background: #eee;
+}
+td.S {
+  color: #FB3;
+}
+td.A {
+  color: #F0A;
+}
+td.B {
+  color: #A66;
+}
+td.C {
+  color: #38F;
+}
+td.negative {
+  text-decoration: line-through;
+}
+div.facet {
+  margin-left:10px;
+}
+div.top{
+	float: left;
+	padding: 10px;
+	width: 100%;
+}
+div.title{		
+  max-width: 800px;		
+}
+div.fliter {
+	width:50%;
+	float: left;	
+}
+div.announcement {
+	width:45%;
+	float: right;
+	border: 1px solid lightgrey;
+	padding: 5px;
+	max-height: 280px;
+	overflow: auto;
+}
+div.weightContainer {
+  display: inline-block;
+}
+.weightContainer label{
+	font-weight: 400;
+}
+.weightContainer input{
+	max-width: 65px;
+}
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	height: 32px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
+	width: 100%;
+}
+ul.tabs li {
+	float: left;
+	margin: 0;
+	padding: 0;
+	height: 31px;
+	line-height: 31px;
+	border: 1px solid #999;
+	border-left: none;
+	margin-bottom: -1px;
+	background: #F0F0F0;
+	overflow: hidden;
+	position: relative;
+}
+ul.tabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 1.2em;
+	padding: 0 10px;
+	border: 1px solid #fff;
+	outline: none;
+}
+ul.tabs li a:hover {
+	background: #ccc;
+}	
+html ul.tabs li.active, html ul.tabs li.active a:hover  {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+}
+#category_container div {
+	display:none;
+}
+#category_container div.active {
+	display:block;
+}
+[tooltip]:after {
+  margin-left: 5px;
+  position : absolute;
+  content : attr(tooltip);
+  display : none;
+  z-index: 255;
+  white-space: pre;
+  text-align: left;
+  background-color: #bfb;
+}
+[tooltip]:hover:after {
+  display : inline-block;
+  padding: 10px;
+}
+td.deps [tooltip]:after {
+  background-color: #fbb;
+}
+.shaonvSkill{
+	color: red;
+	font-weight:bold;
+}
+.gongzhuSkill{
+	color: fuchsia;
+	font-weight:bold;
+}	
+.normalSkill{
+	color: grey;
+	font-weight:bold;
+}	
+.hintInfo{
+	color: teal;
+	font-weight:bold;
+}
+span.badge{
+	background: SlateGray;
+}
+.gotop{
+	font-family: 'Glyphicons Halflings';
+	font-style: normal;
+	font-weight: 400;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	cursor: pointer;
+}
+.gotop:before{
+	content: "\e113";
+}
+#update_history{
+	display: none;
+}
+red{
+	color: red;
+	font-weight:bold;		
+}
+.input_num{
+	text-align: center;
+	width: 30px;
+}
+#advanced_options_span{
+	display: none;
+}
