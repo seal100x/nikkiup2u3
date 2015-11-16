@@ -249,15 +249,20 @@ function clearTag(id) {
 	$('#' + id).val('');
 	$('#' + id + 'base').val('SS');
 	$('#' + id + 'weight').val('1');
-	$('input[name=' + id + 'method]:radio').get(0).checked = true;
+	$($('input[name=' + id + 'method]:radio').get(0)).prop("checked", true);
+	$($('input[name=' + id + 'method]:radio').get(0)).parent().addClass("active");
+	$($('input[name=' + id + 'method]:radio').get(1)).parent().removeClass("active");
 }
 
 function bonusToTag(idx, info) {
 	$('#tag' + idx).val(info.tag);
 	if (info.replace) {
-		$('input[name=tag' + idx + 'method]:radio').get(1).checked = true;
+		$($('input[name=tag' + idx + 'method]:radio').get(1)).prop("checked", true);
+		$($('input[name=tag' + idx + 'method]:radio').get(1)).parent().addClass("active");
+		$($('input[name=tag' + idx + 'method]:radio').get(0)).parent().removeClass("active");
 	} else {
-		$('input[name=tag' + idx + 'method]:radio').get(0).checked = true;
+		$($('input[name=tag' + idx + 'method]:radio').get(0)).prop("checked", true);
+		$($('input[name=tag' + idx + 'method]:radio').get(0)).parent().addClass("active");
 	}
 	$('#tag' + idx + 'base').val(info.base);
 	$('#tag' + idx + 'weight').val(info.weight);
