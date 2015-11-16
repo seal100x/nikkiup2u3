@@ -155,16 +155,31 @@ div.announcement {
 .weightContainer :last-child {
 	border-radius: 0 4px 4px 0;
 }
+.weightContainer label.active{
+	font-weight: bold;
+}
 .weightContainer input{
 	max-width: 85px;
 	padding-left: 3px;
 	border: 1px solid transparent;
-	border-color: #eea236;
+	/*border-color: #eea236;*/
+	border-color: #ccc;
 }
 .weightContainer select{
 	max-width: 65px;
 	border: 1px solid transparent;
-	border-color: #eea236;
+	/*border-color: #eea236;*/
+	border-color: #ccc;
+}
+.weightContainer .highscore-link{
+	color: grey;
+	font-style: italic;
+	font-weight: bold;
+	cursor: pointer;
+	display: none;
+}
+.weightContainer .highscore-link.active{
+	color: DeepPink;
 }
 .fliter_option{
 	clear: both;

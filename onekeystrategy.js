@@ -34,7 +34,9 @@ function showStrategy(){
 	}
 	$strategy.append($skill_my);
 	
-	var $criteria_title = p("属性-" + (uiFilter["balance"]?"均衡权重":"真实权重") + ": ", "criteria_title");
+	var strCriteriaType = uiFilter["balance"] ? "均衡权重" : "真实权重";
+	
+	var $criteria_title = p("属性-" + () + ": ", "criteria_title");
 	$strategy.append($criteria_title);
 	
 	var $criteria = p(getStrCriteria(filters),"criteria");

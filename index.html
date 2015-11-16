@@ -86,6 +86,7 @@
 					</div><br/>
 					11.09: 缓慢调整界面样式中<br/>
 					11.16: 修复一键攻略饰品排序错误, 缓慢调整界面样式中<br/>
+					11.16: 添加手动高分权重功能, 暂不支持一键攻略; 去掉按钮颜色(果然没有艺术细胞... <br/>
 					<br/>
 					未(you)来(sheng)预(zhi)定(nian)功能: 手机适配版(doing), 高分权重, 衣柜记录(discard), 原材料计算(doing), 筛选功能(todo)<br/>
 			</div><!-- announcement -->	
@@ -105,34 +106,44 @@
 					<form name="filter_form" class="form-inline">
 						<div class='facet'>
 							<div class="weightContainer" role="group" data-toggle="buttons">
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="simple" value="1"/> 简约</label>
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="simple" value="-1"/> 华丽</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="simple" value="1"/> 简约</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="simple" value="-1"/> 华丽</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" />
+								<span class="highscore-link btn-sm 1d778" id="simple1d778">*1.778</span>
+								<span class="highscore-link btn-sm 1d27" id="simple1d27">*1.27</span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cute" value="1"/> 可爱</label>
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cute" value="-1"/> 成熟</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cute" value="1"/> 可爱</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cute" value="-1"/> 成熟</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" />
+								<span class="highscore-link btn-sm 1d778" id="cute1d778">*1.778</span>
+								<span class="highscore-link btn-sm 1d27" id="cute1d27">*1.27</span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="active" value="1"/> 活泼</label>
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="active" value="-1"/> 优雅</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="active" value="1"/> 活泼</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="active" value="-1"/> 优雅</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" />
+								<span class="highscore-link btn-sm 1d778" id="active1d778">*1.778</span>
+								<span class="highscore-link btn-sm 1d27" id="active1d27">*1.27</span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="pure" value="1"/> 清纯</label>
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="pure" value="-1"/> 性感</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="pure" value="1"/> 清纯</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="pure" value="-1"/> 性感</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" />
+								<span class="highscore-link btn-sm 1d778" id="pure1d778">*1.778</span>
+								<span class="highscore-link btn-sm 1d27" id="pure1d27">*1.27</span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cool" value="1"/> 清凉</label>
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cool" value="-1"/> 保暖</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cool" value="1"/> 清凉</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cool" value="-1"/> 保暖</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" />
+								<span class="highscore-link btn-sm 1d778" id="cool1d778">*1.778</span>
+								<span class="highscore-link btn-sm 1d27" id="cool1d27">*1.27</span>
 							</div>
 							<div class='weightContainer' id = "tag1Container" role="group" data-toggle="buttons">
 								<input class="btn-sm" placeholder="tag1" type="text" id="tag1" name="tag1" onChange="changeFilter()" />
-								<label class="btn btn-sm btn-warning active"><input class="filter-radio" type="radio" name="tag1method" value="add" checked/> 加分</label>
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="tag1method" value="replace"/> 替换</label>
+								<label class="btn btn-sm btn-default active"><input class="filter-radio" type="radio" name="tag1method" value="add" checked/> 加分</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="tag1method" value="replace"/> 替换</label>
 								<select class="btn-sm" id="tag1base" onChange="changeFilter()">
 									<option>SS</option>
 									<option>S</option>
@@ -144,8 +155,8 @@
 							</div>
 							<div class='weightContainer' id = "tag2Container" role="group" data-toggle="buttons">
 								<input class="btn-sm" placeholder="tag2" type="text" id="tag2" name="tag2" onChange="changeFilter()" />
-								<label class="btn btn-sm btn-warning active"><input class="filter-radio" type="radio" name="tag2method" value="add" checked/> 加分</label>
-								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="tag2method" value="replace"/> 替换</label>
+								<label class="btn btn-sm btn-default active"><input class="filter-radio" type="radio" name="tag2method" value="add" checked/> 加分</label>
+								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="tag2method" value="replace"/> 替换</label>
 								<select class="btn-sm" id="tag2base" onChange="changeFilter()">
 									<option>SS</option>
 									<option>S</option>
@@ -164,6 +175,7 @@
 							<span id="advanced_options_span">
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数排序</label></div>
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
+								<div class="checkbox"><label><input type="checkbox" class="fliter" value="highscore" /> 高分权重(手动)</label></div>
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="clothes_num" disabled /> 衣柜数量记录</label></div>
 							</span>
 						</div>
