@@ -5,15 +5,19 @@ function shareWardrobe() {
 	var result = [];
 	var resultIndex = 0;
 	for (var t in category) {
-		if(t>0)
-			break;
 		var type = category[t];
-		if(!mine[type]){	
-			result[resultIndex++] = "1";
-			console.log(type+":" + 1);
-			continue;			
+		if (type.indexOf('饰品') >= 0) {
+			if (type == '饰品-头饰')
+				type = "饰品";
+			else
+				break;
 		}
-		var size = 1*mine[type][mine[type].length-1];
+		if (!mine[type]) {
+			result[resultIndex++] = "1";
+			console.log(type + ":" + 1);
+			continue;
+		}
+		var size = 1 * mine[type][mine[type].length - 1];
 		var array = [1];
 		for (var i = 0; i < size; i++) {
 			array.push(0);
@@ -23,13 +27,12 @@ function shareWardrobe() {
 			array[id] = 1;
 		}
 		var str = array.join('');
-		var str10 =  parseInt(str,2);
-		var str36 =  str10.toString(36);
-		console.log(type+":" + str36);
-		var strmini = pako.deflate( str36, { to: 'string' } );
-		console.log(type+":" + strmini);
-		result[resultIndex++] = strmini;
-		$("#wardrobeversion").text("file:///D:/Games/nikkiup2u3/index.html?aaa="+strmini);
-		
+		var str10 = parseInt(str, 2);
+		var str36 = str10.toString(36);
+		result[resultIndex++] = str36;
+	}
+	$("#wardrobeversion").text("http://seal100x.github.io/nikkiup2u3?");
+	for (var r in result) {
+		$("#wardrobeversion").append("c" + r + "=" + result[r] + "&");
 	}
 }
