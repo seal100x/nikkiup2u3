@@ -1,9 +1,9 @@
 body{
-	padding:20px
+	padding:20px;
+	font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
 }
 table
 {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   font-size: 12px;
   background: #fff;
   border-collapse: collapse;
@@ -60,7 +60,7 @@ table.mainTable td.own .button
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAU0lEQVR42mNgoAHgZ2FjO8/MxjafaMUs7Oz/QZiQJhTFYAzkg2VAOqEcfgKK+SGKUQXlcSoGAQxJdIxqMw7r8ShmIOhmokKFCMVwTdCw5qdatAMAai8zEfxslWsAAAAASUVORK5CYII=);
   background-color: #dfd;
 }
-input[type="radio"],input[type="checkbox"]{
+input[type="checkbox"]{
 	vertical-align:middle;
 	margin: auto;
 }
@@ -134,15 +134,42 @@ div.announcement {
 	max-height: 280px;
 	overflow: auto;
 }
-div.weightContainer {
-  display: inline-block;
+#filtersTop select{
+	height:34px;
 }
-.weightContainer label{
-	font-weight: 400;
+
+.weightContainer{
+	clear: left;
+	margin: 5px 0;
+	overflow: hidden;
+	display: flex;
+}
+.weightContainer * {
+	float:left;
+	border-radius: 0;
+	line-height: 1.2;
+}
+.weightContainer > :first-child {
+	border-radius: 4px 0 0 4px;
+}
+.weightContainer :last-child {
+	border-radius: 0 4px 4px 0;
 }
 .weightContainer input{
-	max-width: 65px;
+	max-width: 85px;
+	padding-left: 3px;
+	border: 1px solid transparent;
+	border-color: #eea236;
 }
+.weightContainer select{
+	max-width: 65px;
+	border: 1px solid transparent;
+	border-color: #eea236;
+}
+.fliter_option{
+	clear: both;
+}
+
 ul.tabs {
 	margin: 0;
 	padding: 0;

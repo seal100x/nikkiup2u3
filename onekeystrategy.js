@@ -104,6 +104,7 @@ function showStrategy(){
 			delete result[r];
 		}
 	}
+	typeList.sort(byCategory);
 	resultList.sort(byScore);
 	
 	for (var r in result){

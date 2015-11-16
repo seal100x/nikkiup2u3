@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="style.css">
 		<script type='text/javascript' charset="UTF-8" src='jquery.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='jquery.freezeheader.js'></script>
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script type='text/javascript' charset="UTF-8" src='wardrobe.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='scoring.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='levels.js'></script>
@@ -33,8 +34,8 @@
 				服装数据来自<span id="wardrobeversion">jillhx@QQ群 20151106</span>, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">jillhx的新衣柜楼</a>汇报<br/>
 				设计图数据来自amy_翡翠@QQ群 1.5.2<br/>
 				联盟技能数据来自奇迹暖暖玉人@微博 20151006<br/>
-				
-				<a href="#" id="show_history">历史更新</a><br/>
+				<br/>
+				<a href="#" id="show_history">历史更新</a>
 				<div id="update_history">
 					0902update: 己做了一版0902服装的, 在ip君更新前临时使用=w=<br/>
 					主要修改内容: 0902衣柜, 竞技场和联盟委托权重, 因报错去掉了google脚本<br/>
@@ -84,8 +85,8 @@
 					1106update3: 修改藤萝链为手饰*左, 做攻略的各位注意下(暖暖终于改回来了, 本次更新"万圣巫师帽·绮夜"的id有调整, 之前添加过的需要重新添加<br/>	  
 					</div><br/>
 					11.09: 缓慢调整界面样式中<br/>
+					11.16: 修复一键攻略饰品排序错误, 缓慢调整界面样式中<br/>
 					<br/>
-
 					未(you)来(sheng)预(zhi)定(nian)功能: 手机适配版(doing), 高分权重, 衣柜记录(discard), 原材料计算(doing), 筛选功能(todo)<br/>
 			</div><!-- announcement -->	
 			<div class="fliter">
@@ -95,7 +96,7 @@
 				<br/>
 
 				<div id='filtersTop'>
-					<select id="theme" onChange="changeTheme()"></select><button id="onekey">一键攻略</button>
+					<select id="theme" onChange="changeTheme()"></select><button id="onekey" class="btn btn-default">一键攻略</button>
 					<div id="tagInfo"></div>
 					<div id="skillInfo"></div>
 					<div id="hintInfo"></div>
@@ -103,62 +104,57 @@
 				<div class="fliter_form_div">
 					<form name="filter_form" class="form-inline">
 						<div class='facet'>
-							<div>
-								<div class="radio"><label><input type="radio" name="simple" value="1" onClick="changeFilter()" /> 简约</label></div>
-								<div class="radio"><label><input type="radio" name="simple" value="-1" onClick="changeFilter()" /> 华丽</label></div>
-								&nbsp;&nbsp;<div class='weightContainer' id = "simpleWeightContainer"><label>权重</label><input type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" /></div>
+							<div class="weightContainer" role="group" data-toggle="buttons">
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="simple" value="1"/> 简约</label>
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="simple" value="-1"/> 华丽</label>
+								<input class="btn-sm" placeholder="权重" type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" />
 							</div>
-							<div>
-								<div class="radio"><label><input type="radio" name="cute" value="1" onClick="changeFilter()" /> 可爱</label></div>
-								<div class="radio"><label><input type="radio" name="cute" value="-1" onClick="changeFilter()" /> 成熟</label></div>
-								&nbsp;&nbsp;<div class='weightContainer' id = "cuteWeightContainer"><label>权重</label><input type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" /></div>
+							<div class="weightContainer" role="group" data-toggle="buttons">
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cute" value="1"/> 可爱</label>
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cute" value="-1"/> 成熟</label>
+								<input class="btn-sm" placeholder="权重" type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" />
 							</div>
-							<div>
-								<div class="radio"><label><input type="radio" name="active" value="1" onClick="changeFilter()" /> 活泼</label></div>
-								<div class="radio"><label><input type="radio" name="active" value="-1" onClick="changeFilter()" /> 优雅</label></div>
-								&nbsp;&nbsp;<div class='weightContainer' id = "activeWeightContainer"><label>权重</label><input type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" /></div>
+							<div class="weightContainer" role="group" data-toggle="buttons">
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="active" value="1"/> 活泼</label>
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="active" value="-1"/> 优雅</label>
+								<input class="btn-sm" placeholder="权重" type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" />
 							</div>
-							<div>
-								<div class="radio"><label><input type="radio" name="pure" value="1" onClick="changeFilter()" /> 清纯</label></div>
-								<div class="radio"><label><input type="radio" name="pure" value="-1" onClick="changeFilter()" /> 性感</label></div>
-								&nbsp;&nbsp;<div class='weightContainer' id = "pureWeightContainer"><label>权重</label><input type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" /></div>
+							<div class="weightContainer" role="group" data-toggle="buttons">
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="pure" value="1"/> 清纯</label>
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="pure" value="-1"/> 性感</label>
+								<input class="btn-sm" placeholder="权重" type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" />
 							</div>
-							<div>
-								<div class="radio"><label><input type="radio" name="cool" value="1" onClick="changeFilter()" /> 清凉</label></div>
-								<div class="radio"><label><input type="radio" name="cool" value="-1" onClick="changeFilter()" /> 保暖</label></div>
-								&nbsp;&nbsp;<div class='weightContainer' id = "coolWeightContainer"><label>权重</label><input type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" /></div>
+							<div class="weightContainer" role="group" data-toggle="buttons">
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cool" value="1"/> 清凉</label>
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="cool" value="-1"/> 保暖</label>
+								<input class="btn-sm" placeholder="权重" type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" />
 							</div>
-							<div id='tagFilter'>
-								<div class='tagContainer weightContainer' id = "tag1Container">
-									Tag1&nbsp;&nbsp;&nbsp;<input type="text" id="tag1" name="tag1" onChange="changeFilter()" />
-									<div class="radio"><label><input type="radio" name="tag1method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
-									<div class="radio"><label><input type="radio" name="tag1method" value="replace" onClick="changeFilter()" /> 替换</label></div>
-									<select id="tag1base" onChange="changeFilter()">
-										<option>SS</option>
-										<option>S</option>
-										<option>A</option>
-										<option>B</option>
-										<option>C</option>
-									</select>
-									&times;
-									<input type="text" id="tag1weight" name="tag1weight" value="1" onChange="changeFilter()" />
-								</div>
-								<br/>
-								<div class='tagContainer weightContainer' id = "tag2Container">
-									Tag2&nbsp;&nbsp;&nbsp;<input type="text" id="tag2" name="tag2" onChange="changeFilter()" />
-									<div class="radio"><label><input type="radio" name="tag2method" value="add" onClick="changeFilter()" checked/> 加分</label></div>
-									<div class="radio"><label><input type="radio" name="tag2method" value="replace" onClick="changeFilter()" /> 替换</label></div>
-									<select id="tag2base" onChange="changeFilter()">
-										<option>SS</option>
-										<option>S</option>
-										<option>A</option>
-										<option>B</option>
-										<option>C</option>
-									</select>
-									&times;
-									<input type="text" id="tag2weight" name="tag2weight" value="1" onChange="changeFilter()" />
-								</div>
-							</div><!-- tagFilter -->
+							<div class='weightContainer' id = "tag1Container" role="group" data-toggle="buttons">
+								<input class="btn-sm" placeholder="tag1" type="text" id="tag1" name="tag1" onChange="changeFilter()" />
+								<label class="btn btn-sm btn-warning active"><input class="filter-radio" type="radio" name="tag1method" value="add" checked/> 加分</label>
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="tag1method" value="replace"/> 替换</label>
+								<select class="btn-sm" id="tag1base" onChange="changeFilter()">
+									<option>SS</option>
+									<option>S</option>
+									<option>A</option>
+									<option>B</option>
+									<option>C</option>
+								</select>
+								<input class="btn-sm" type="text" id="tag1weight" name="tag1weight" value="1" onChange="changeFilter()" />
+							</div>
+							<div class='weightContainer' id = "tag2Container" role="group" data-toggle="buttons">
+								<input class="btn-sm" placeholder="tag2" type="text" id="tag2" name="tag2" onChange="changeFilter()" />
+								<label class="btn btn-sm btn-warning active"><input class="filter-radio" type="radio" name="tag2method" value="add" checked/> 加分</label>
+								<label class="btn btn-sm btn-warning"><input class="filter-radio" type="radio" name="tag2method" value="replace"/> 替换</label>
+								<select class="btn-sm" id="tag2base" onChange="changeFilter()">
+									<option>SS</option>
+									<option>S</option>
+									<option>A</option>
+									<option>B</option>
+									<option>C</option>
+								</select>
+								<input class="btn-sm" type="text" id="tag2weight" name="tag2weight" value="1" onChange="changeFilter()" />
+							</div>
 						</div><!-- facet -->
 						<div class="fliter_option">
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>

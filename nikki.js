@@ -51,7 +51,7 @@ function td(data, cls) {
 }
 
 function shoppingCartButton(type, id) {
-  return "<button class='glyphicon glyphicon-shopping-cart btn' onClick='addShoppingCart(\"" + type + "\",\"" + id
+  return "<button class='glyphicon glyphicon-shopping-cart btn btn-default' onClick='addShoppingCart(\"" + type + "\",\"" + id
       + "\")'></button>";
 }
 
@@ -383,6 +383,11 @@ function byCategoryAndScore(a, b) {
   var catb = category.indexOf(b.type.type);
   return (cata - catb == 0) ? b.tmpScore - a.tmpScore : cata - catb;
 }
+function byCategory(a, b) {
+  var cata = category.indexOf(a);
+  var catb = category.indexOf(b);
+  return cata - catb;
+}
 
 function byScore(a, b) {
   return b.tmpScore - a.tmpScore;
@@ -589,12 +594,15 @@ function setFilters(level) {
 	}
     $('#' + f + 'Weight').val(Math.abs(weight));
     var radios = $('input[name=' + f + ']:radio');
-    for (var j in radios) {
-      var element = radios[j];
-      if (parseInt(element.value) * weight > 0) {
-        element.checked = true;
-        break;
+    for (var j = 0 ; j < radios.length ; j++) {
+      var element = $(radios[j]);
+      if (parseInt(element.attr("value")) * weight > 0) {
+        element.prop("checked", true);
+		element.parent().addClass("active");
       }
+	  else if(element.parent()){
+		element.parent().removeClass("active");
+	  }
     }
   }
   clearTag('tag1');
@@ -715,6 +723,9 @@ function initEvent(){
 	  if(this.value == "balance"){
 		  changeTheme();
 	  }
+  });
+  $(".filter-radio").change(function(){
+	  changeFilter();
   });
   initOnekey();
 }
