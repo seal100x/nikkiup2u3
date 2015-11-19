@@ -85,12 +85,13 @@
 					1106update: 更新昼夜回廊, 新分类"饰品-特殊*翅膀", 近期计划重做移动版, 有好的建议可以发给我(主要是排版), 顺便在考虑要不要做个APP<br/>	  
 					1106update2: 修复错误衣柜数据, 如果仍有问题及时反馈~<br/>	  
 					1106update3: 修改藤萝链为手饰*左, 做攻略的各位注意下(暖暖终于改回来了, 本次更新"万圣巫师帽·绮夜"的id有调整, 之前添加过的需要重新添加<br/>	  
-					</div><br/>
 					11.09: 缓慢调整界面样式中<br/>
+					</div><br/>
 					11.16: 修复一键攻略饰品排序错误, 缓慢调整界面样式中<br/>
 					11.16: 添加手动高分权重功能, 暂不支持一键攻略; 去掉按钮颜色(果然没有艺术细胞... <br/>
+					11.19: 高分权重功能添加分数排序提示, 调整购物车总分位置, 购物车自动计算连衣裙/上下装 <br/>
 					<br/>
-					未(you)来(sheng)预(zhi)定(nian)功能: 手机适配版(doing), 高分权重, 衣柜记录(discard), 原材料计算(doing), 筛选功能(todo)<br/>
+					未(you)来(sheng)预(zhi)定(nian)功能: 手机适配版(doing), 原材料计算(doing), 筛选功能(todo), 衣柜分享(doing)<br/>
 			</div><!-- announcement -->	
 			<div class="fliter">
 				距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -113,6 +114,7 @@
 								<input class="btn-sm" placeholder="权重" type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" />
 								<span class="highscore-link btn-sm 1d778" id="simple1d778">*1.778</span>
 								<span class="highscore-link btn-sm 1d27" id="simple1d27">*1.27</span>
+								<span class="highscore-rank btn-sm" id="simplerank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cute" value="1"/> 可爱</label>
@@ -120,6 +122,7 @@
 								<input class="btn-sm" placeholder="权重" type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" />
 								<span class="highscore-link btn-sm 1d778" id="cute1d778">*1.778</span>
 								<span class="highscore-link btn-sm 1d27" id="cute1d27">*1.27</span>
+								<span class="highscore-rank btn-sm" id="cuterank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="active" value="1"/> 活泼</label>
@@ -127,6 +130,7 @@
 								<input class="btn-sm" placeholder="权重" type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" />
 								<span class="highscore-link btn-sm 1d778" id="active1d778">*1.778</span>
 								<span class="highscore-link btn-sm 1d27" id="active1d27">*1.27</span>
+								<span class="highscore-rank btn-sm" id="activerank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="pure" value="1"/> 清纯</label>
@@ -134,6 +138,7 @@
 								<input class="btn-sm" placeholder="权重" type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" />
 								<span class="highscore-link btn-sm 1d778" id="pure1d778">*1.778</span>
 								<span class="highscore-link btn-sm 1d27" id="pure1d27">*1.27</span>
+								<span class="highscore-rank btn-sm" id="purerank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cool" value="1"/> 清凉</label>
@@ -141,6 +146,7 @@
 								<input class="btn-sm" placeholder="权重" type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" />
 								<span class="highscore-link btn-sm 1d778" id="cool1d778">*1.778</span>
 								<span class="highscore-link btn-sm 1d27" id="cool1d27">*1.27</span>
+								<span class="highscore-rank btn-sm" id="coolrank"></span>
 							</div>
 							<div class='weightContainer' id = "tag1Container" role="group" data-toggle="buttons">
 								<input class="btn-sm" placeholder="tag1" type="text" id="tag1" name="tag1" onChange="changeFilter()" />

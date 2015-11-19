@@ -169,11 +169,11 @@ function getStyle(rating) {
 
 function list(rows, isShoppingCart) {
 	ret = "";
-	for (var i in rows) {
-		ret += row(rows[i], isShoppingCart);
-	}
 	if (isShoppingCart) {
 		ret += row(shoppingCart.totalScore, isShoppingCart);
+	}
+	for (var i in rows) {
+		ret += row(rows[i], isShoppingCart);
 	}
 	return ret;
 }
@@ -225,6 +225,23 @@ function onChangeCriteria() {
 	chooseAccessories(criteria);
 	drawLevelInfo();
 	refreshTable();
+	if(uiFilter["highscore"]){
+		var totalscores = shoppingCart.totalScore.toCsv();
+		var rank = [];
+		rank.push(["simplerank" , totalscores[3] > totalscores[4] ? totalscores[3] : totalscores[4]]);
+		rank.push(["cuterank" , totalscores[5] > totalscores[6] ? totalscores[5] : totalscores[6]]);
+		rank.push(["activerank" , totalscores[7] > totalscores[8] ? totalscores[7] : totalscores[8]]);
+		rank.push(["purerank" , totalscores[9] > totalscores[10] ? totalscores[9] : totalscores[10]]);
+		rank.push(["coolrank" , totalscores[11] > totalscores[12] ? totalscores[11] : totalscores[12]]);
+		rank.sort(function(a,b){
+			return b[1] - a[1];
+		});
+		var numstr = ["Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ"];
+		for(var r  in rank){
+			$("#" + rank[r][0]).text(numstr[r]);
+		}
+		console.log(rank);
+	}
 }
 
 function tagToBonus(criteria, id) {
@@ -477,6 +494,13 @@ function filterTopClothes(filters) {
 				result[clothes[i].type.type] = clothes[i];
 			}
 		}
+	}
+	if(result["上装"].tmpScore + result["下装"].tmpScore > result["连衣裙"].tmpScore){
+		delete result["连衣裙"];
+	}
+	else{
+		delete result["上装"];
+		delete result["下装"];
 	}
 	return result;
 }
@@ -745,6 +769,7 @@ function initEvent() {
 		}
 		if (this.value == "highscore") {
 			$(".highscore-link").toggle();
+			$(".highscore-rank").toggle();
 			onChangeCriteria();
 		}
 	});

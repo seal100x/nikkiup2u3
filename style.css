@@ -178,6 +178,10 @@ div.announcement {
 	cursor: pointer;
 	display: none;
 }
+.weightContainer .highscore-rank{
+	font-weight: bold;
+	display: none;
+}
 .weightContainer .highscore-link.active{
 	color: DeepPink;
 }

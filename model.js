@@ -391,7 +391,7 @@ function fakeClothes(cart) {
 }
 
 function scoreWithBonusTd(score, bonus) {
-  return score + '<div>+' + bonus + '</div>';
+  return  score +  bonus + "";
 }
 
 function realRating(a, b, type) {
