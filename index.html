@@ -18,6 +18,7 @@
 		<script type='text/javascript' charset="UTF-8" src='onekeystrategy.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='nikki.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='clock.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='sharewardrobe.js'></script>
     
   </head>
   <body>
@@ -27,6 +28,7 @@
 			<font style="color:red">本配装器是基于意念挖坟的ip君@ivangift's github 20151021修改, 需要准确数据的可以使用</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版</a><br/>
 			<font style="color:red">本配装器是基于意念挖坟的ip君@ivangift's github 20151021修改, 需要准确数据的可以使用</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版</a><br/>
 			<font style="color:red">本配装器是基于意念挖坟的ip君@ivangift's github 20151021修改, 需要准确数据的可以使用</font><a href="http://ivangift.github.io/nikkiup2u3/">IP君原版</a>，重要的事情说三遍<br/>
+			<div id="share-link"></div>
 		</div>
 		<div id="StrategyInfo"></div>
 		<div class='top'>
@@ -93,9 +95,9 @@
 			<div class="fliter">
 				距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<a href="strategy.html">常用攻略</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-				<a href="http://seal100x.github.io/nikkiup2u3_m/">移动版</a>(测试中,无限坑的状态=w=)
+				<button style="display:none" class="btn btn-sm btn-default" id="sharewardrobe">分享衣柜</button>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<button style="display:none" class="btn btn-sm btn-default" id="aaa" onclick="getWardrobe()">同步分享的衣柜</button>
 				<br/>
-
 				<div id='filtersTop'>
 					<select id="theme" onChange="changeTheme()"></select><button id="onekey" class="btn btn-default">一键攻略</button>
 					<div id="tagInfo"></div>

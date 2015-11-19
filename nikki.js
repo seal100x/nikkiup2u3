@@ -764,6 +764,9 @@ function initEvent() {
 		}
 		onChangeCriteria();
 	});
+	$("#sharewardrobe").click(function(){
+		shareWardrobe();
+	});
 	initOnekey();
 }
 
