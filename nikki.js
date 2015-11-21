@@ -495,12 +495,14 @@ function filterTopClothes(filters) {
 			}
 		}
 	}
-	if(result["上装"].tmpScore + result["下装"].tmpScore > result["连衣裙"].tmpScore){
-		delete result["连衣裙"];
-	}
-	else{
-		delete result["上装"];
-		delete result["下装"];
+	if(result["上装"] && result["下装"] && result["连衣裙"]){
+		if(result["上装"].tmpScore + result["下装"].tmpScore > result["连衣裙"].tmpScore){
+			delete result["连衣裙"];
+		}
+		else{
+			delete result["上装"];
+			delete result["下装"];
+		}
 	}
 	return result;
 }
