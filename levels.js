@@ -23,7 +23,8 @@ var tasksRaw = {
   '联盟委托: 1-1': [0.47, 0.67, 0.47, 0.67, -0.47],
   '联盟委托: 1-2': [0.87, 0.67, 0.87, 0.67, 0.67],
   '联盟委托: 1-3': [0.8, 0.8, -0.8, 1.0, 1.0],
-  //'联盟委托: 1-4': [1.13, 1.33, 1.13, 1.13, -1.33]
+  '联盟委托: 1-4': [1.13, 1.33, 1.13, 1.13, -1.33],
+  '联盟委托: 1-5': [-0.8, 0.8, -0.8, -0.73, 0.73]
 }
 
 var extraRaw = {
@@ -575,10 +576,10 @@ function addBonusInfo(base, weight, tag) {
   '睡衣兜风派对': [addBonusInfo('SS', 1, "睡衣"), addBonusInfo('SS', 1, "居家服")],
   '云端汉服聚会': [addBonusInfo('SS', 1, "中式古典")],
   '话剧甄选会': [addBonusInfo('SS', 1, "欧式古典")],
-  'g1-1': [addBonusInfo('SS', 1, "睡衣"), addBonusInfo('SS', 1, "居家服")],
-  'g1-2': [addBonusInfo('S', 1, "运动系")],
-  'g1-3': [addBonusInfo('A', 1, "泳装")],
-  //'g1-5': [addBonusInfo('A', 1, "哥特风")]
+  '联盟委托: 1-1': [addBonusInfo('SS', 1, "睡衣"), addBonusInfo('SS', 1, "居家服")],
+  '联盟委托: 1-2': [addBonusInfo('S', 1, "运动系")],
+  '联盟委托: 1-3': [addBonusInfo('A', 1, "泳装")],
+  '联盟委托: 1-5': [addBonusInfo('A', 1, "哥特风")]
  };
  
 var additionalLevelInfo = {
@@ -723,6 +724,8 @@ var addSkillsInfo = {
   '联盟委托: 1-1': [null,null,["挑剔","圣诞","免挑"]],
   '联盟委托: 1-2': [null,null,['挑剔','灰姑娘']],
   '联盟委托: 1-3': [null,null,['挑剔','反挑']],
+  '联盟委托: 1-4': [null,null,['挑剔','礼物', '沉睡']],
+  '联盟委托: 1-5': [null,null,['挑剔','灰姑娘', '沉睡']],
 };
 
 var addHintInfo = {
