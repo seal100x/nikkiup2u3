@@ -28,12 +28,12 @@ var tasksRaw = {
   '联盟委托: 1-6': [-1.13, -1.13, -0.93, -0.93, 0.93],
   '联盟委托: 1-7': [-0.67, 0.47, 0.67, 0.47, -0.47],
   '联盟委托: 2-1': [-0.47, -0.47, -0.67, 0.67, -0.47],
-  '联盟委托: 2-2': [-1, -1, -1, -1, 1],
-  '联盟委托: 2-3': [-1, 1, 1, 1, 1],
-  '联盟委托: 2-4': [-1, -1, -1, 1, 1],
-  '联盟委托: 2-5': [-1, 1, -1, 1, 1],
-  '联盟委托: 2-6': [1, 1, 1, 1, 1],
-  '联盟委托: 2-7': [1, 1, -1, 1, -1]
+  '联盟委托: 2-2': [-1.0, -1.0, -1.0, -1.27, 1.27],
+  '联盟委托: 2-3': [-1.4, 1.0, 1.4, 1.0, 1.0],
+  '联盟委托: 2-4': [-1.2, -1.2, -1.2, 0.87, 0.87],
+  '联盟委托: 2-5': [-0.87, 0.87, -0.6, 0.6, 0.6],
+  '联盟委托: 2-6': [1.0, 1.2, 1.0, 1.2, 0.93],
+  '联盟委托: 2-7': [0.8, 0.6, -0.8, 0.6, -0.6]
 }
 
 var extraRaw = {
@@ -591,9 +591,11 @@ function addBonusInfo(base, weight, tag) {
   '联盟委托: 1-5': [addBonusInfo('A', 1, "哥特风")],
   '联盟委托: 1-6': [addBonusInfo('B', 0.25, "欧式古典")],
   '联盟委托: 1-7': [addBonusInfo('SS', 1, "洛丽塔")],
-  '联盟委托: 2-1': [addBonusInfo('S', 1, "中式古典")],
-  '联盟委托: 2-5': [addBonusInfo('A', 1, "女仆装")],
-  '联盟委托: 2-7': [addBonusInfo('A', 1, "中式现代")]
+  '联盟委托: 2-1': [addBonusInfo('SS', 1, "中式古典")],
+  '联盟委托: 2-4': [addBonusInfo('B', 0.25, "哥特风")],
+  '联盟委托: 2-5': [addBonusInfo('S', 1, "女仆装")],
+  '联盟委托: 2-6': [addBonusInfo('B', 0.25, "海军风")],
+  '联盟委托: 2-7': [addBonusInfo('S', 1, "中式现代")]
  };
  
 var additionalLevelInfo = {
@@ -815,7 +817,7 @@ allThemes = function() {
   }
   for (var theme in competitionsRaw) {
     var criteria = competitionsRaw[theme];
-    ret['评选赛: ' + theme] = level(theme, parseCriteriaList(criteria));
+    ret['竞技场: ' + theme] = level(theme, parseCriteriaList(criteria));
   }
   for (var theme in tasksRaw) {
     var criteria = tasksRaw[theme];
