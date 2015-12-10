@@ -37,7 +37,7 @@ var tasksRaw = {
 }
 
 var extraRaw = {
-  '射手座少女': [1.33, 1.33, 1.33, 1.0, 0.67]
+  '女武士土幅': [-1.0, -1.33, -1.33, -1.33, 0.67]
 };
 
 // all data are presented in order "simple", "cute", "active", "pure", "cool"
