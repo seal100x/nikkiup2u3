@@ -37,7 +37,7 @@ var tasksRaw = {
 }
 
 var extraRaw = {
-  '女武士土幅': [-1.0, -1.33, -1.33, -1.33, 0.67]
+	'喝茶听课': [1.33, 0.67, -1.33, 1.33, 1.0]
 };
 
 // all data are presented in order "simple", "cute", "active", "pure", "cool"
@@ -596,7 +596,8 @@ function addBonusInfo(base, weight, tag) {
   '联盟委托: 2-4': [addBonusInfo('B', 0.25, "哥特风")],
   '联盟委托: 2-5': [addBonusInfo('S', 1, "女仆装")],
   '联盟委托: 2-6': [addBonusInfo('B', 0.25, "海军风")],
-  '联盟委托: 2-7': [addBonusInfo('S', 1, "中式现代")]
+  '联盟委托: 2-7': [addBonusInfo('S', 1, "中式现代")],
+  '喝茶听课': [addBonusInfo('A', 1, "中式古典"), addBonusInfo('A', 1, "中式现代")],
  };
  
 var additionalLevelInfo = {
