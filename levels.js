@@ -37,7 +37,7 @@ var tasksRaw = {
 }
 
 var extraRaw = {
-	'喝茶听课': [1.33, 0.67, -1.33, 1.33, 1.0]
+	'星宿侠女': [-1.33, -1.0, 1.33, -1.33, 0.67]
 };
 
 // all data are presented in order "simple", "cute", "active", "pure", "cool"
@@ -597,7 +597,7 @@ function addBonusInfo(base, weight, tag) {
   '联盟委托: 2-5': [addBonusInfo('S', 1, "女仆装")],
   '联盟委托: 2-6': [addBonusInfo('B', 0.25, "海军风")],
   '联盟委托: 2-7': [addBonusInfo('S', 1, "中式现代")],
-  '喝茶听课': [addBonusInfo('A', 1, "中式古典"), addBonusInfo('A', 1, "中式现代")],
+  '星宿侠女': [addBonusInfo('A', 1, "侠客联盟")],
  };
  
 var additionalLevelInfo = {
