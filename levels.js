@@ -37,7 +37,7 @@ var tasksRaw = {
 }
 
 var extraRaw = {
-	'星宿侠女': [-1.33, -1.0, 1.33, -1.33, 0.67]
+	'玄武虚日鼠': [0.67, -1.33, -1.33, 1.33, -1.0]
 };
 
 // all data are presented in order "simple", "cute", "active", "pure", "cool"
