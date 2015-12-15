@@ -347,9 +347,11 @@ function refreshShoppingCart() {
 function drawLevelInfo() {
 	var info = "";
 	var $skill = $("#skillInfo");
+	var $categoryF = $("#categoryFInfo");
 	var $hint = $("#hintInfo");
 	$skill.empty();
 	$hint.empty();
+	$categoryF.empty();
 	if (currentLevel) {
 		var log = [];
 		if (currentLevel.filter) {
@@ -373,6 +375,26 @@ function drawLevelInfo() {
 				match += ")";
 				log.push(match + ": [" + bonus.note + " " + bonus.param + "]");
 			}
+		}
+		if (currentLevel.categoryF) {
+			var $isF,
+			$notF,
+			isF = "",
+			notF = "";
+			if (currentLevel.categoryF[0]) {
+				$isF = $("<font>").text("会导致F的部件:  ").addClass("is_f");
+				for (var i in currentLevel.categoryF[0]) {
+					isF += (currentLevel.categoryF[0][i] + "  ");
+				}
+			}
+			if (currentLevel.categoryF[1]) {
+				$notF = $("<font>").text("可穿戴部件:  ").addClass("not_f");
+				for (var i in currentLevel.categoryF[1]) {
+					notF += (currentLevel.categoryF[1][i] + "  ");
+				}
+			}
+			$categoryF.append($isF).append(isF)
+			.append($notF).append(notF);
 		}
 		if (currentLevel.skills) {
 			var $shaonv,

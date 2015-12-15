@@ -37,7 +37,6 @@ var tasksRaw = {
 }
 
 var extraRaw = {
-  '朱雀翼火蛇': [-1.33, -1.0, -1.33, 1.33, -0.67]
 };
 
 // all data are presented in order "simple", "cute", "active", "pure", "cool"
@@ -606,6 +605,10 @@ var additionalLevelInfo = {
   '7-6': [specialFactory76A(), specialFactory76B()]
 };
 
+var addCategoryF = {
+	'1-2' : [['绿烟','祥云舞'],['浅空','名嫒连衣裙·棕']],
+};
+
 var addSkillsInfo = {
   '1-1': [null,['微笑','挑剔','沉睡','灰姑娘']],
 '1-2': [null,['微笑','挑剔','飞吻','圣诞']],
@@ -870,6 +873,12 @@ function level(name, criteria) {
       skills.push(addSkillsInfo[name][i]);
     }
   }
+  var categoryF = [];
+  if(addCategoryF[name]){
+    for (var i in addCategoryF[name]) {
+      categoryF.push(addCategoryF[name][i]);
+    }
+  }
   var hint;
   if(addHintInfo[name]) {
 	hint = addHintInfo[name];
@@ -881,6 +890,7 @@ function level(name, criteria) {
     bonus: bonusFilter,
     additionalBonus: additionalBonus,
 	skills: skills,
+	categoryF: categoryF,
 	hint: hint
   }
 }
