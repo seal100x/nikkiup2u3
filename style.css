@@ -303,3 +303,6 @@ red{
 #advanced_options_span{
 	display: none;
 }
+.ds-powered-by, .ds-dialog-footer{
+	display: none;
+}
