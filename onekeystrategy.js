@@ -7,13 +7,13 @@ function showStrategy(){
 	filters.own = true;
 	filters.missing = true;
 	
-	var $title_eng = p("zhe li you yi duan hao li hai de English", "title_eng");
+	var $title_eng = p("=====================", "title_eng");
 	$strategy.append($title_eng);
 	
 	var $title = p($("#theme").val() == "custom" ? "....." : $("#theme").val(),"title");
 	$strategy.append($title);
 	
-	var $author = p("作者: .......... & 黑的升华", "author");
+	var $author = p("配装器一键攻略@黑的升华", "author");
 	$strategy.append($author);
 	
 	var $skill_title = p("技能: ", "skill_title");
@@ -23,13 +23,13 @@ function showStrategy(){
 		var $skill_ops = p($("#skillInfo").text().replace("公主", "        公主"), "skill_ops");
 		$strategy.append($skill_ops);
 	}
-	else if($("#theme").val().indexOf("评选赛") < 0) {
+	else if($("#theme").val().indexOf("竞技场") < 0) {
 		var $skill_ops = p("对手技能: ", "skill_ops");
 		$strategy.append($skill_ops);		
 	}
 	
 	var $skill_my = p("推荐携带: ", "skill_my");
-	if($("#theme").val().indexOf("评选赛") >= 0){
+	if($("#theme").val().indexOf("竞技场") >= 0){
 		$skill_my = p("推荐携带: 微笑 飞吻 挑剔 沉睡", "skill_my");
 	}
 	$strategy.append($skill_my);
@@ -47,7 +47,7 @@ function showStrategy(){
 		var $hint = p($("#hintInfo").text().replace("过关提示:",""), "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
 	}
-	else if($("#theme").val().indexOf("评选赛") < 0 && $("#theme").val().indexOf("联盟委托") < 0){
+	else if($("#theme").val().indexOf("竞技场") < 0 && $("#theme").val().indexOf("联盟委托") < 0){
 		var $hint = p("本关暂无过关提示, 若出现F, 请参考失败后大喵的衣服提示, 或不穿外套进行尝试", "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
 	}
@@ -107,8 +107,11 @@ function showStrategy(){
 	typeList.sort(byCategory);
 	resultList.sort(byScore);
 	
-	for (var r in result){
-		$strategy.append(p(getstrClothes(result[r]), "clothes", r, "clothes_category"));
+	for (var c in category){
+		var name = category[c];
+		if(name.indexOf("饰品")>=0)
+			continue;
+		$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
 	}
 	
 	var accCount = 9;

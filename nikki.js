@@ -207,10 +207,10 @@ function onChangeCriteria() {
 		if (!weight) {
 			weight = 1;
 		}
-		if(uiFilter["highscore"]){
+		if (uiFilter["highscore"]) {
 			var highscore1 = $('#' + f + "1d778.active").length ? 1.778 : 1;
 			var highscore2 = $('#' + f + "1d27.active").length ? 1.27 : 1;
-			weight = weight * highscore1 * highscore2;
+			weight = accMul(accMul(weight, highscore1), highscore2);
 		}
 		var checked = $('input[name=' + f + ']:radio:checked');
 		if (checked.length) {
@@ -242,6 +242,19 @@ function onChangeCriteria() {
 		}
 		console.log(rank);
 	}
+}
+
+function accMul(arg1, arg2) {
+	var m = 0,
+	s1 = arg1.toString(),
+	s2 = arg2.toString();
+	try {
+		m += s1.split(".")[1].length
+	} catch (e) {}
+	try {
+		m += s2.split(".")[1].length
+	} catch (e) {}
+	return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m)
 }
 
 function tagToBonus(criteria, id) {
