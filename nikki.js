@@ -463,7 +463,7 @@ function byCategory(a, b) {
 }
 
 function byScore(a, b) {
-	return b.tmpScore - a.tmpScore;
+	return a.tmpScore - b.tmpScore == 0 ? a.id - b.id : b.tmpScore - a.tmpScore;
 }
 
 function byId(a, b) {
