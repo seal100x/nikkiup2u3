@@ -558,9 +558,15 @@ function filtering(criteria, filters) {
 		}
 	}
 	if (haveCriteria) {
-		result.sort(byCategoryAndScore);
+		if (filters.sortbyscore)
+			result.sort(byScore);
+		else
+			result.sort(byCategoryAndScore);
 	} else {
-		result.sort(byId);
+		if (filters.sortbyscore)
+			result.sort(byScore);
+		else
+			result.sort(byId);
 	}
 
 	if (filters.toplevel) {
