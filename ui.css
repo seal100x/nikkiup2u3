@@ -1,0 +1,29 @@
+.table-row{
+	display: table-row;
+	border-bottom: 1px solid #eee;
+	transition: border-color 0.2s;
+	background: #f3f0f6;
+	border-bottom: 1px solid #f3f0f6;
+}
+.table-td{
+	display: table-cell;
+	padding: 4px;
+	white-space: nowrap;
+	vertical-align: middle;
+	transition: color 0.2s;
+}
+.table{
+	display: table;
+}
+.table-head{
+	display: table-header-group;
+}
+.table-body{
+	display: table-row-group;
+	border-bottom: 3px double #777;
+	font-size: 13px;
+}
+media="only screen and (max-width: 768px)"
+.table-td:nth-child(6), .td:nth-child(7){
+	clear: left
+}

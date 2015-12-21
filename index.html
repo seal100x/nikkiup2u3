@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" href="onekeystrategy.css">
 		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="ui.css">
 		<script type='text/javascript' charset="UTF-8" src='jquery.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='jquery.freezeheader.js'></script>
 		<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -17,6 +18,7 @@
 		<script type='text/javascript' charset="UTF-8" src='model.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='pattern.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='onekeystrategy.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='ui.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='nikki.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='clock.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='sharewardrobe.js'></script>
@@ -218,11 +220,11 @@
 		<hr>
 		<div id = 'shoppingCartContainer'>
 		  已选择的衣服 <button class="btn btn-default" onclick="clearShoppingCart()">清空购物车</button>
-		  <div id='shoppingCart'></div>
+		  <div id='shoppingCart' class="table"></div>
 		</div>
 		<hr>
 		<div id = 'category_container'></div>
-		<div id = "clothes"></div>
+		<div id = "clothes" class="table"></div>
 		<hr>
 		导入批量衣服，请先选择要导入的类别，然后在文本框内输入编号，用空格、逗号或者换行隔开。不知道编号在哪儿的请点<a href="http://tieba.baidu.com/p/3808711082" target="_blank">这里</a>
 		<div id = "import">
