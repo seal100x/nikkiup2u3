@@ -100,13 +100,13 @@ function clickableTd(piece) {
 	var type = piece.type.mainType;
 	var id = piece.id;
 	var own = piece.own;
-	var deps = piece.getDeps('');
+	var deps = piece.getDeps('   ', 1);
 	var tooltip = '';
 	var cls = 'name';
 	var num = piece.num;
 	if (deps && deps.length > 0) {
 		tooltip = "tooltip='" + deps + "'";
-		if (deps.indexOf('(缺)') > 0) {
+		if (deps.indexOf('[需') > 0) {
 			cls += ' deps';
 		}
 	}

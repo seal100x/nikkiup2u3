@@ -28,7 +28,7 @@ Clothes = function(csv) {
     cool: realRating(csv[12], csv[13], theType),
     tags: csv[14].split(','),
     source: csv[15],
-    deps: {},
+    deps: [],
     toCsv: function() {
       name = this.name;
       type = this.type;
@@ -45,25 +45,33 @@ Clothes = function(csv) {
           active[0], active[1], pure[0], pure[1], cool[0],
           cool[1], extra, source];
     },
-    addDep: function(sourceType, c) {
-      if (!this.deps[sourceType]) {
-        this.deps[sourceType] = [];
-      }
+    addDep: function(sourceType, depNum, c) {
+		var depinfo = {};
+		depinfo.sourceType = sourceType;
+		depinfo.isJinHua = (sourceType == "进");
+		depinfo.depNum = depNum;
       if (c == this) {
         alert("Self reference: " + this.type.type + " " + this.id + " " + this.name);
       }
-      this.deps[sourceType].push(c);
+		depinfo.c = c;
+      this.deps.push(depinfo);
     },
-    getDeps: function(indent) {
-      var ret = "";
-      for (var sourceType in this.deps) {
-        for (var i in this.deps[sourceType]) {
-          var c = this.deps[sourceType][i];
-          ret += indent + '[' + sourceType + '][' + c.type.mainType + ']'
-              + c.name + (c.own ? '' : '(缺)')+ '&#xA;';
-          ret += c.getDeps(indent + "    ");
+    getDeps: function(indent, parentDepNum, parentIsJinHua) {
+      var ret = '';
+        for (var i in this.deps) {
+          var depinfo = this.deps[i];
+		  var c = depinfo.c;
+		  var depNumAll = 1;
+		  if((depinfo.sourceType == "进" && parentDepNum != 1) || parentIsJinHua)
+			depNumAll = depinfo.depNum * (parentDepNum-1) + 1;
+		  else
+			 depNumAll = depinfo.depNum * parentDepNum;
+          ret += indent + '[' + depinfo.sourceType + '][' + c.type.mainType + ']'
+              + c.name + (c.own ? '' : '[需' + 1 + ']')+ '&#xA;';
+          ret += c.getDeps(indent + "   ", depNumAll, parentIsJinHua);
         }
-      }
+		if(indent == '   ' && ret != '')
+			ret = "[材料]" + this.name + "&#xA;" + ret;
       return ret;
     },
     calc: function(filters) {
@@ -417,22 +425,11 @@ function parseSource(source, key) {
 }
 
 function calcDependencies() {
-  for (var i in clothes) {
-    var c = clothes[i];
-    var evol = parseSource(c.source, '进');
-    if (evol && clothesSet[c.type.mainType][evol]) {
-      clothesSet[c.type.mainType][evol].addDep('进', c);
-    }
-    var remake = parseSource(c.source, '定');
-    if (remake && clothesSet[c.type.mainType][remake]) {
-      clothesSet[c.type.mainType][remake].addDep('定', c);
-    }
-  }
   for (var i in pattern) {
     var target = clothesSet[pattern[i][0]][pattern[i][1]];
     var source = clothesSet[pattern[i][2]][pattern[i][3]];
     if (!target) continue;
-    source.addDep('设计图', target);
+    source.addDep(pattern[i][5], pattern[i][4], target);
   }
 }
 
