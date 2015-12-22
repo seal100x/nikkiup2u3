@@ -29,24 +29,37 @@ function thead(isShoppingCart) {
 	return $thead;
 }
 
-function td(data, cls) {
-	return $("<div>").addClass(cls).addClass("table-td").append(data);
+function td(data, cls, beforeText) {
+	return $("<div>").addClass(cls).addClass("table-td").attr("before-text", beforeText).append(data);
 }
 
 function row(piece, isShoppingCart) {
 	var $row = $("<div>").addClass("table-row");
 	var $lineTop = $row;
 	//var $lineTop = $("<div>").addClass("table-line");
-	$lineTop.append(td(piece.tmpScore));
+	$lineTop.append(td(piece.tmpScore, 'score'));
 	if (isShoppingCart) {
 		$lineTop.append(td(piece.name, ''));
 	} else {
 		$lineTop.append(clothesNameTd(piece));
 	}
 	var csv = piece.toCsv();
-	for (var i in csv) {
-		$lineTop.append(td(render(csv[i]), getStyle(csv[i])));
-	}
+	
+	$lineTop.append(td(render(csv[0]), 'category'));
+	$lineTop.append(td(render(csv[1]), 'id'));
+	$lineTop.append(td(render(csv[2]), 'star'));
+	$lineTop.append(td(render(csv[3]), getStyle(csv[3]), "简"));
+	$lineTop.append(td(render(csv[4]), getStyle(csv[4]), "华"));
+	$lineTop.append(td(render(csv[5]), getStyle(csv[5]), "活"));
+	$lineTop.append(td(render(csv[6]), getStyle(csv[6]), "雅"));
+	$lineTop.append(td(render(csv[7]), getStyle(csv[7]), "可"));
+	$lineTop.append(td(render(csv[8]), getStyle(csv[8]), "成"));
+	$lineTop.append(td(render(csv[9]), getStyle(csv[9]), "纯"));
+	$lineTop.append(td(render(csv[10]), getStyle(csv[10]), "性"));
+	$lineTop.append(td(render(csv[11]), getStyle(csv[11]), "凉"));
+	$lineTop.append(td(render(csv[12]), getStyle(csv[12]), "暖"));
+	$lineTop.append(td(render(csv[13]), 'tag'));
+	$lineTop.append(td(render(csv[14]), 'source'));
 	if (isShoppingCart) {
 		if (piece.id) {
 			$lineTop.append(td(removeShoppingCartButton(piece.type.type), ''));
@@ -81,7 +94,7 @@ function getStyle(rating) {
 	case "C":
 		return 'C';
 	default:
-		return "";
+		return "empty";
 	}
 }
 
@@ -94,7 +107,7 @@ function list(datas, isShoppingCart) {
 }
 
 function clothesNameTd(piece) {
-	var cls = "name";
+	var cls = "name table-td";
 	var deps = piece.getDeps('');
 	var tooltip = '';
 	if (deps && deps.length > 0) {
@@ -106,7 +119,7 @@ function clothesNameTd(piece) {
 	cls += piece.own ? ' own' : '';
 
 	var $clothesNameA = $("<a>").attr("href", "#").addClass("button");
-	$clothesNameA.text(name);
+	$clothesNameA.text(piece.name);
 	$clothesNameA.addClass(tooltip);
 	$clothesNameA.click(function () {
 		toggleInventory(piece.type.mainType, piece.id, this);

@@ -28,10 +28,11 @@ function clearShoppingCart() {
 	refreshShoppingCart();
 }
 
-function toggleInventory(type, id, thisbtn) {
+function toggleInventory(type, id) {
 	var checked = !clothesSet[type][id].own;
+	checked ? $('#clickable-' + type + id).addClass('own') : $('#clickable-' + type + id).removeClass("own");
 	clothesSet[type][id].own = checked;
-	$(thisbtn).next().val(checked ? 1 : 0);
+	saveAndUpdate();
 }
 
 var criteria = {};
@@ -432,9 +433,8 @@ function matches(c, criteria, filters) {
 
 function loadCustomInventory() {
 	var myClothes = $("#myClothes").val();
-	var myClothesNum = $("#myClothesNum").val();
 	if (myClothes.indexOf('|') > 0) {
-		loadNew(myClothes, myClothesNum);
+		loadNew(myClothes);
 	} else {
 		load(myClothes);
 	}
@@ -575,7 +575,6 @@ function saveAndUpdate() {
 function updateSize(mine) {
 	$("#inventoryCount").text('(' + mine.size + ')');
 	$("#myClothes").val(mine.serialize());
-	$("#myClothesNum").val(mine.serializeNum());
 	var subcount = {};
 	for (c in mine.mine) {
 		var type = c.split('-')[0];

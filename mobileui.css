@@ -1,0 +1,51 @@
+body{
+	padding: 0;
+	margin: 0.5em;
+}
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+}
+
+/************************/
+
+div.top{
+	padding: 0;
+}
+div.fliter {
+	width:100%;
+}
+div.announcement {
+	width:100%;
+	max-height: 12em;
+}
+div.fliter_form_div {
+	margin-bottom: 1em;
+}
+/************************/
+div.fliter_option .checkbox{
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+/************************/
+.table-head{
+	display:none;	
+}
+.table-td:nth-child(6), .table-td:nth-child(7){
+	clear: left
+}
+.table-td{
+	padding: 0.2em;
+	float: left;
+}
+.table-td.empty,.table-td.star,.table-td.source,.table-td.category {
+	display:none;
+}
+.table-td[before-text]:before {
+	display: inline-block;
+	content: attr(before-text);
+	padding: 0 1px 0 0;
+	font-weight: normal;
+}

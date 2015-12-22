@@ -1,60 +1,13 @@
 body{
-	padding:20px;
+	margin: 2em;
 	font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+}
+hr{
+	clear: both;
 }
 input[type="checkbox"]{
 	vertical-align:middle;
 	margin: auto;
-}
-.button {
-  position: relative;
-  overflow: visible;
-  display: inline-block;
-  padding: 0.5em 1em;
-  border: 1px solid #d4d4d4;
-  margin: 0;
-  text-decoration: none;
-  text-align: center;
-  text-shadow: 1px 1px 0 #fff;
-  color: #333;
-  white-space: nowrap;
-  cursor: pointer;
-  outline: none;
-  background-color: #ececec;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f4f4f4), to(#ececec));
-  background-image: -moz-linear-gradient(#f4f4f4, #ececec);
-  background-image: -ms-linear-gradient(#f4f4f4, #ececec);
-  background-image: -o-linear-gradient(#f4f4f4, #ececec);
-  background-image: linear-gradient(#f4f4f4, #ececec);
-  -moz-background-clip: padding; /* for Firefox 3.6 */
-  background-clip: padding-box;
-  border-radius: 0.2em;
-  /* IE hacks */
-  zoom: 1;
-  *display: inline;
-}
-div.facet {
-  margin-left:10px;
-}
-div.top{
-	float: left;
-	padding: 10px;
-	width: 100%;
-}
-div.title{		
-  max-width: 800px;		
-}
-div.fliter {
-	width:50%;
-	float: left;	
-}
-div.announcement {
-	width:45%;
-	float: right;
-	border: 1px solid lightgrey;
-	padding: 5px;
-	max-height: 280px;
-	overflow: auto;
 }
 #filtersTop select{
 	height:34px;
@@ -74,18 +27,21 @@ div.announcement {
 .weightContainer > :first-child {
 	border-radius: 4px 0 0 4px;
 }
-.weightContainer :last-child {
+.weightContainer input:last-of-type {
 	border-radius: 0 4px 4px 0;
 }
 .weightContainer label.active{
 	font-weight: bold;
 }
 .weightContainer input{
-	max-width: 85px;
+	width: 7em;
 	padding-left: 3px;
 	border: 1px solid transparent;
 	/*border-color: #eea236;*/
 	border-color: #ccc;
+}
+.weightContainer input#tag1weight, .weightContainer input#tag2weight{
+	width: 3em;	
 }
 .weightContainer select{
 	max-width: 65px;
@@ -223,4 +179,28 @@ red{
 }
 .ds-powered-by, .ds-dialog-footer{
 	display: none;
+}
+
+
+div.top{
+	float: left;
+	padding: 1em;
+	width: 100%;
+}
+div.facet {
+}
+div.title{		
+  max-width: 800px;		
+}
+div.fliter {
+	width:50%;
+	float: left;	
+}
+div.announcement {
+	width:45%;
+	float: right;
+	border: 1px solid lightgrey;
+	padding: 5px;
+	max-height: 280px;
+	overflow: auto;
 }
