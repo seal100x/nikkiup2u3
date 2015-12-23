@@ -55,26 +55,30 @@ Clothes = function(csv) {
 		depinfo.c = c;
       this.deps.push(depinfo);
     },
-    getDeps: function(indent, parentDepNum, parentDepNumNext, parentOwn) {
+    getDeps: function(indent, parentDepNum) {
       var ret = '';
         for (var i in this.deps) {
           var depinfo = this.deps[i];
 		  var c = depinfo.c;
-		  var depNumAll = 1, depNumAllNext = 1, depOwn = this.own ? 1 : 0;
+		  var depNumAll = 1;
 		  if(depinfo.sourceType != "染"){
-			depNumAll = parentDepNum * (1 - parentOwn) + parentDepNumNext * (depinfo.depNum - 1);
-			depNumAllNext = parentDepNumNext * (depinfo.depNum - 1);
+			depNumAll = parentDepNum * depinfo.depNum - parentDepNum;
 		  }
 		  else{			  
 			 depNumAll = parentDepNum;
-			 depNumAllNext = parentDepNumNext
 		  }
           ret += indent + '[' + depinfo.sourceType + '][' + c.type.mainType + ']'
-              + c.name + ((c.own || depNumAll == 0)? '' : '[需' + depNumAll + ']')+ '&#xA;';
-          ret += c.getDeps(indent + "   ", depNumAll, depNumAllNext, depOwn);
+              + c.name + ((c.own || depNumAll == 0)? '' : '[需' + (depNumAll)  + ']')+ '&#xA;';
+          ret += c.getDeps(indent + "   ", depNumAll);
         }
+		var splits = ret.split(/[^0-9]+/);
+		splits = splits.splice(1,splits.length-2);
+		splits.push(0);
+		var depNumAlls = 0;
+		if(splits.length > 1)
+			depNumAlls = eval(splits.join("+"));
 		if(indent == '   ' && ret != '')
-			ret = "[材料]" + this.name + "&#xA;" + ret;
+			ret = "[材料]" + this.name + (depNumAlls > 0 ?  '[需'+ depNumAlls + ']' : '') + "&#xA;" + ret;
       return ret;
     },
     calc: function(filters) {
