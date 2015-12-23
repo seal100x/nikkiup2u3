@@ -48,7 +48,6 @@ Clothes = function(csv) {
     addDep: function(sourceType, depNum, c) {
 		var depinfo = {};
 		depinfo.sourceType = sourceType;
-		depinfo.isJinHua = (sourceType == "进");
 		depinfo.depNum = depNum;
       if (c == this) {
         alert("Self reference: " + this.type.type + " " + this.id + " " + this.name);
@@ -56,19 +55,23 @@ Clothes = function(csv) {
 		depinfo.c = c;
       this.deps.push(depinfo);
     },
-    getDeps: function(indent, parentDepNum, parentIsJinHua) {
+    getDeps: function(indent, parentDepNum, parentDepNumNext, parentOwn) {
       var ret = '';
         for (var i in this.deps) {
           var depinfo = this.deps[i];
 		  var c = depinfo.c;
-		  var depNumAll = 1;
-		  if((depinfo.sourceType == "进" && parentDepNum != 1) || parentIsJinHua)
-			depNumAll = depinfo.depNum * (parentDepNum-1) + 1;
-		  else
-			 depNumAll = depinfo.depNum * parentDepNum;
+		  var depNumAll = 1, depNumAllNext = 1, depOwn = this.own ? 1 : 0;
+		  if(depinfo.sourceType != "染"){
+			depNumAll = parentDepNum * (1 - parentOwn) + parentDepNumNext * (depinfo.depNum - 1);
+			depNumAllNext = parentDepNumNext * (depinfo.depNum - 1);
+		  }
+		  else{			  
+			 depNumAll = parentDepNum;
+			 depNumAllNext = parentDepNumNext
+		  }
           ret += indent + '[' + depinfo.sourceType + '][' + c.type.mainType + ']'
-              + c.name + (c.own ? '' : '[需' + 1 + ']')+ '&#xA;';
-          ret += c.getDeps(indent + "   ", depNumAll, parentIsJinHua);
+              + c.name + ((c.own || depNumAll == 0)? '' : '[需' + depNumAll + ']')+ '&#xA;';
+          ret += c.getDeps(indent + "   ", depNumAll, depNumAllNext, depOwn);
         }
 		if(indent == '   ' && ret != '')
 			ret = "[材料]" + this.name + "&#xA;" + ret;

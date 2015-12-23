@@ -100,7 +100,7 @@ function clickableTd(piece) {
 	var type = piece.type.mainType;
 	var id = piece.id;
 	var own = piece.own;
-	var deps = piece.getDeps('   ', 1);
+	var deps = piece.getDeps('   ', 1, 1, own ? 1 : 0);
 	var tooltip = '';
 	var cls = 'name';
 	var num = piece.num;
