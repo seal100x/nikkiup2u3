@@ -205,7 +205,7 @@
 								<input class="btn-sm" type="text" id="tag2weight" name="tag2weight" value="1" onChange="changeFilter()" />
 							</div>
 						</div><!-- facet -->
-						<div class="fliter_option">
+						<div class="fliter_option clear">
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="toplevel" checked /> 顶配模式</label></div>
@@ -215,14 +215,14 @@
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="highscore" /> 高分权重(手动)</label></div>
 							</span>
-						</div>
+						</div><!-- fliter_option -->
 					</form>
 				</div><!-- fliter_form_div -->
 			</div><!-- fliter -->
 		</div><!-- top -->
 		<hr>
 		<div id = 'shoppingCartContainer'>
-		  已选择的衣服 <button class="btn btn-default" onclick="clearShoppingCart()">清空购物车</button>
+		  推荐穿戴部件  <button class="btn btn-default" style="float:right" onclick="clearShoppingCart()">清空</button>
 		  <div id='shoppingCart' class="table"></div>
 		</div>
 		<hr>

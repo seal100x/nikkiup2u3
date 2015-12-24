@@ -18,14 +18,16 @@ function thead(isShoppingCart) {
 	$thead.append(td("保暖", ""));
 	$thead.append(td("特殊属性", "th_tag"));
 	$thead.append(td("来源", "th_from"));
-	$td_nbsp = td("", "th_nbsp");
+	$td_nbsp = td("", "");
 	if (!isShoppingCart) {
+		$td_nbsp = td("回到顶部", "th_gotop");
 		$td_nbsp.addClass("gogogo-top");
 		$td_nbsp.click(function () {
 			goTop();
 		});
 	}
 	$thead.append($td_nbsp);
+	
 	return $thead;
 }
 
@@ -111,7 +113,7 @@ function clothesNameTd(piece) {
 	var deps = piece.getDeps('');
 	var tooltip = '';
 	if (deps && deps.length > 0) {
-		tooltip = "tooltip='" + deps + "'";
+		tooltip = deps;
 		if (deps.indexOf('(缺)') > 0) {
 			cls += ' deps';
 		}
@@ -120,7 +122,10 @@ function clothesNameTd(piece) {
 
 	var $clothesNameA = $("<a>").attr("href", "#").addClass("button");
 	$clothesNameA.text(piece.name);
-	$clothesNameA.addClass(tooltip);
+	if(tooltip != ''){
+		$clothesNameA.attr("tooltip",tooltip);
+		
+	}
 	$clothesNameA.click(function () {
 		toggleInventory(piece.type.mainType, piece.id, this);
 		return false;
@@ -142,7 +147,7 @@ function shoppingCartButton(type, id) {
 }
 
 function removeShoppingCartButton(detailedType) {
-	$removeShoppingCartButton = $("<button>").addClass('glyphicon glyphicon-trash');
+	$removeShoppingCartButton = $("<button>").addClass('glyphicon glyphicon-trash btn btn-xs btn-default');
 	$removeShoppingCartButton.click(function () {
 		shoppingCart.remove(detailedType);
 		refreshShoppingCart();

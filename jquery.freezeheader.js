@@ -16,7 +16,7 @@ Version: 1.0.5
 
         function freezeHeader(elem) {
             var idObj = elem.attr('id') || ('tbl-' + (++TABLE_ID));
-            if (elem.length > 0 && elem[0].tagName.toLowerCase() == "table") {
+            if (elem.length > 0) {
 
                 var obj = {
                     id: idObj,
@@ -34,7 +34,7 @@ Version: 1.0.5
                     obj.closeDivScroll = '</div>';
                 }
 
-                obj.header = obj.grid.find('thead');
+                obj.header = obj.grid.find('.table-head');
 
                 if (params && params.height !== undefined) {
                     if ($('#hdScroll' + obj.id).length == 0) {
@@ -65,7 +65,7 @@ Version: 1.0.5
 
                             if (($(document).scrollTop() > obj.header.offset().top)) {
                                 obj.container.css("position", "absolute");
-                                obj.container.css("top", (obj.grid.find("tr:last").offset().top - obj.header.height()) + "px");
+                                obj.container.css("top", (obj.grid.find(".table-row:last").offset().top - obj.header.height()) + "px");
                             }
                             else {
                                 obj.container.css("visibility", "hidden");
@@ -85,14 +85,14 @@ Version: 1.0.5
                 return (obj.header.offset().top <= obj.scroller.offset().top);
             }
             else {
-                return ($(document).scrollTop() > obj.header.offset().top && $(document).scrollTop() < (obj.grid.height() - obj.header.height() - obj.grid.find("tr:last").height()) + obj.header.offset().top);
+                return ($(document).scrollTop() > obj.header.offset().top && $(document).scrollTop() < (obj.grid.height() - obj.header.height() - obj.grid.find(".table-row:last").height()) + obj.header.offset().top);
             }
         }
 
         function cloneHeaderRow(obj) {
             obj.container.html('');
             obj.container.val('');
-            var tabela = $('<table style="margin: 0 0;"></table>');
+            var tabela = $('<div class="table" style="margin: 0 0;"></div>');
             var atributos = obj.grid.prop("attributes");
 
             $.each(atributos, function () {
@@ -101,12 +101,16 @@ Version: 1.0.5
                 }
             });
 
-            tabela.append('<thead>' + obj.header.html() + '</thead>');
+            tabela.append('<div class="table-head">' + obj.header.html() + '</div>');
 
             obj.container.append(tabela);
             obj.container.width(obj.header.width());
             obj.container.height(obj.header.height);
-
+			
+			for(var i  = 0; i<obj.container.find(".table-td").length ;i++){
+				$(obj.container.find(".table-td")[i]).width($(obj.header.find(".table-td")[i]).width());
+			}
+			
             obj.container.css("visibility", "visible");
 
             if (params && params.height !== undefined) {

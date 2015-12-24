@@ -5,10 +5,18 @@ body{
 hr{
 	clear: both;
 }
+.hide{
+	display: none;
+}
+.clear{
+	clear: both;
+}
 input[type="checkbox"]{
 	vertical-align:middle;
 	margin: auto;
 }
+/************************/
+
 #filtersTop select{
 	height:34px;
 }
@@ -37,7 +45,6 @@ input[type="checkbox"]{
 	width: 7em;
 	padding-left: 3px;
 	border: 1px solid transparent;
-	/*border-color: #eea236;*/
 	border-color: #ccc;
 }
 .weightContainer input#tag1weight, .weightContainer input#tag2weight{
@@ -46,7 +53,6 @@ input[type="checkbox"]{
 .weightContainer select{
 	max-width: 65px;
 	border: 1px solid transparent;
-	/*border-color: #eea236;*/
 	border-color: #ccc;
 }
 .weightContainer .highscore-link{
@@ -63,71 +69,19 @@ input[type="checkbox"]{
 .weightContainer .highscore-link.active{
 	color: DeepPink;
 }
+
 .fliter_option{
-	clear: both;
 }
 
-ul.tabs {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	height: 32px;
-	border-bottom: 1px solid #999;
-	border-left: 1px solid #999;
-	width: 100%;
-}
-ul.tabs li {
-	float: left;
-	margin: 0;
-	padding: 0;
-	height: 31px;
-	line-height: 31px;
-	border: 1px solid #999;
-	border-left: none;
-	margin-bottom: -1px;
-	background: #F0F0F0;
-	overflow: hidden;
-	position: relative;
-}
-ul.tabs li a {
-	text-decoration: none;
-	color: #000;
-	display: block;
-	font-size: 1.2em;
-	padding: 0 10px;
-	border: 1px solid #fff;
-	outline: none;
-}
-ul.tabs li a:hover {
-	background: #ccc;
-}	
-html ul.tabs li.active, html ul.tabs li.active a:hover  {
-	background: #fff;
-	border-bottom: 1px solid #fff;
-}
+/************************/
 #category_container div {
 	display:none;
 }
 #category_container div.active {
 	display:block;
 }
-[tooltip]:after {
-  margin-left: 5px;
-  position : absolute;
-  content : attr(tooltip);
-  display : none;
-  z-index: 255;
-  white-space: pre;
-  text-align: left;
-  background-color: #bfb;
-}
-[tooltip]:hover:after {
-  display : inline-block;
-  padding: 10px;
-}
-td.deps [tooltip]:after {
-  background-color: #fbb;
-}
+
+/************************/
 .shaonvSkill{
 	color: red;
 	font-weight:bold;
@@ -163,9 +117,6 @@ span.badge{
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	cursor: pointer;
-}
-.gotop:before{
-	content: "\e113";
 }
 #update_history{
 	display: none;

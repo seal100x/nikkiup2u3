@@ -629,7 +629,6 @@ function goTop() {
 }
 
 function initEvent() {
-	$("#tb_clothes").freezeHeader();
 	$("#show_history").click(function () {
 		$("#update_history").show();
 		$("#show_history").hide();
@@ -686,5 +685,6 @@ function init() {
 	onChangeCriteria();
 }
 $(document).ready(function () {
-	init()
+	init();
+	$("#clothes").freezeHeader();
 });

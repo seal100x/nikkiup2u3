@@ -1,14 +1,41 @@
+.table{
+	display: table;
+	border-collapse: collapse;
+	line-height: 1.5;
+	text-align: center;
+	background: #fff;
+	cursor: default;	
+	border-top: 1px solid #aaa;
+	border-bottom: 1px solid #000;
+}
+.table-head{
+	position: relative;
+	display: table-header-group;
+}
+.table-head .table-td{
+	padding: 0.5em;
+	border: 1px;
+}
+.table-head .th_gotop{
+	cursor: pointer;
+	color: #337ab7;
+}
+
+.table-body{
+	display: table-row-group;
+	border-top: 1px solid #aaa;
+	font-size: 13px;
+}
 .table-row{
 	display: table-row;
-	border-bottom: 1px solid #eee;
 	transition: border-color 0.2s;
 	border-bottom: 1px solid #f3f0f6;
 }
-.table-body .table-row:nth-child(2n+1) {
+.table-row:nth-child(2n+1) {
 	background: #fff5ef;
 	border-bottom: 1px solid #f3f0f6;
 }
-.table-body .table-row:nth-child(2n) {
+.table-row:nth-child(2n) {
 	background: #fffdf9;
 	border-bottom: 1px solid #f3f0f6;
 }
@@ -34,24 +61,8 @@
 .table-td.C {
   color: #38F;
 }
-.table{
-	display: table;
-	border-collapse: collapse;
-	line-height: 1.5;
-	text-align: center;
-	background: #fff;
-	cursor: default;
-}
-.table-head{
-	display: table-header-group;
-}
-.table-body{
-	display: table-row-group;
-	border-bottom: 3px double #777;
-	font-size: 13px;
-}
 
-.name.table-td .button {
+.table-td.name .button {
   border: 0.1em solid #eee;
   padding: 0.5em;
   margin: 0;
@@ -63,10 +74,33 @@
   background-color: #fafafa;
   border-radius: 0.2em;
 }
-.name.table-td.own.deps .button {
+.table-td.name.own .button{
+  background-color: #dfd;
+}
+.table-td.name.own.deps .button {
   background-color: #ddf;
 }
-.name.table-td.own .button
-{
-  background-color: #dfd;
+
+[tooltip]:before {
+	content : '★';
+}
+.deps [tooltip]:before {
+	content : '☆';
+}
+[tooltip]:after {
+  margin-left: 5px;
+  position : absolute;
+  content : attr(tooltip);
+  display : none;
+  z-index: 255;
+  white-space: pre;
+  text-align: left;
+  background-color: #bfb;
+}
+[tooltip]:hover:after {
+  display : inline-block;
+  padding: 10px;
+}
+.table-td.deps [tooltip]:after {
+  background-color: #ddf;
 }
