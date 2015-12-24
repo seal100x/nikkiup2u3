@@ -27,7 +27,7 @@ Clothes = function(csv) {
     cool: realRating(csv[12], csv[13], theType),
     tags: csv[14].split(','),
     source: csv[15],
-    deps: {},
+    deps: [],
     toCsv: function() {
       name = this.name;
       type = this.type;
@@ -44,25 +44,40 @@ Clothes = function(csv) {
           active[0], active[1], pure[0], pure[1], cool[0],
           cool[1], extra, source];
     },
-    addDep: function(sourceType, c) {
-      if (!this.deps[sourceType]) {
-        this.deps[sourceType] = [];
-      }
+    addDep: function(sourceType, depNum, c) {
+		var depinfo = {};
+		depinfo.sourceType = sourceType;
+		depinfo.depNum = depNum;
       if (c == this) {
         alert("Self reference: " + this.type.type + " " + this.id + " " + this.name);
       }
-      this.deps[sourceType].push(c);
+		depinfo.c = c;
+      this.deps.push(depinfo);
     },
-    getDeps: function(indent) {
-      var ret = "";
-      for (var sourceType in this.deps) {
-        for (var i in this.deps[sourceType]) {
-          var c = this.deps[sourceType][i];
-          ret += indent + '[' + sourceType + '][' + c.type.mainType + ']'
-              + c.name + (c.own ? '' : '(缺)')+ '\n';
-          ret += c.getDeps(indent + "    ");
+    getDeps: function(indent, parentDepNum) {
+      var ret = '';
+        for (var i in this.deps) {
+          var depinfo = this.deps[i];
+		  var c = depinfo.c;
+		  var depNumAll = 1;
+		  if(depinfo.sourceType != "染"){
+			depNumAll = parentDepNum * depinfo.depNum - parentDepNum;
+		  }
+		  else{			  
+			 depNumAll = parentDepNum;
+		  }
+          ret += indent + '[' + depinfo.sourceType + '][' + c.type.mainType + ']'
+              + c.name + ((c.own || depNumAll == 0)? '' : '[需' + (depNumAll)  + ']')+ '\n';
+          ret += c.getDeps(indent + "   ", depNumAll);
         }
-      }
+		var splits = ret.split(/[^0-9]+/);
+		splits = splits.splice(1,splits.length-2);
+		splits.push(0);
+		var depNumAlls = 0;
+		if(splits.length > 1)
+			depNumAlls = eval(splits.join("+"));
+		if(indent == '   ' && ret != '')
+			ret = "[材料]" + this.name + (depNumAlls > 0 ?  ' - 总计需 '+ depNumAlls + ' 件' : '') + "\n" + ret;
       return ret;
     },
     calc: function(filters) {
@@ -372,22 +387,11 @@ function parseSource(source, key) {
 }
 
 function calcDependencies() {
-  for (var i in clothes) {
-    var c = clothes[i];
-    var evol = parseSource(c.source, '进');
-    if (evol && clothesSet[c.type.mainType][evol]) {
-      clothesSet[c.type.mainType][evol].addDep('进', c);
-    }
-    var remake = parseSource(c.source, '定');
-    if (remake && clothesSet[c.type.mainType][remake]) {
-      clothesSet[c.type.mainType][remake].addDep('定', c);
-    }
-  }
   for (var i in pattern) {
     var target = clothesSet[pattern[i][0]][pattern[i][1]];
     var source = clothesSet[pattern[i][2]][pattern[i][3]];
     if (!target) continue;
-    source.addDep('设计图', target);
+    source.addDep(pattern[i][5], pattern[i][4], target);
   }
 }
 

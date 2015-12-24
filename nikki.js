@@ -408,7 +408,7 @@ function filtering(criteria, filters) {
 
 	if (filters.toplevel) {
 		var size = 10;
-		if (result[0].type.mainType == "饰品")
+		if (result[0] && result[0].type.mainType == "饰品")
 			size = 5;
 		var tsize = size;
 		for (var i in result) {
@@ -451,10 +451,10 @@ function toggleAll(c) {
 	onChangeUiFilter();
 }
 
-function drawFilter() {
+function drawFilter() {//refactor me
 	out = "<ul class='nav nav-tabs nav-justified' id='categoryTab'>";
 	for (var c in CATEGORY_HIERARCHY) {
-		out += '<li id="' + c + '"><a href="#dummy" onClick="switchCate(\'' + c + '\')">' + c + '&nbsp;&nbsp;<span class="badge">0</span></a></li>';
+		out += '<li id="' + c + '"><a href="javascript:void(0)" onClick="switchCate(\'' + c + '\')">' + c + '&nbsp;&nbsp;<span class="badge">0</span></a></li>';
 	}
 	out += "</ul>";
 	for (var c in CATEGORY_HIERARCHY) {
@@ -464,8 +464,8 @@ function drawFilter() {
 			out += "<label><input type='checkbox' id='all-" + c + "' onClick='toggleAll(\"" + c + "\")' checked>全选</label><br/>";
 			// draw sub categories
 			for (var i in CATEGORY_HIERARCHY[c]) {
-				out += "<label style='width:180px'><input type='checkbox' name='category-" + c + "' value='" + CATEGORY_HIERARCHY[c][i]
-				 + "'' id='" + CATEGORY_HIERARCHY[c][i] + "' onClick='onChangeUiFilter()' checked />" + CATEGORY_HIERARCHY[c][i] + "</label>\n";
+				out += "<label class='filterlabel'><input type='checkbox' name='category-" + c + "' value='" + CATEGORY_HIERARCHY[c][i]
+				 + "'' id='" + CATEGORY_HIERARCHY[c][i] + "' onClick='onChangeUiFilter()' checked />" + CATEGORY_HIERARCHY[c][i].split("-")[1] + "</label>\n";
 			}
 		}
 		out += '</div>';
@@ -481,6 +481,7 @@ function switchCate(c) {
 	$("#" + c).addClass("active");
 	$("#category-" + c).addClass("active");
 	onChangeUiFilter();
+	return false;
 }
 
 function changeFilter() {

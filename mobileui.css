@@ -28,10 +28,30 @@ div.fliter_option .checkbox{
     margin-bottom: 0;
     vertical-align: middle;
 }
-
+.nav-tabs.nav-justified>li{
+	float:left;
+}
+.nav-tabs.nav-justified>li a{
+	padding: 0
+}
+.nav-tabs.nav-justified>li .badge{
+	display: none;
+}
 /************************/
 .table-head{
 	display:none;	
+}
+.table-row{
+	float: left;
+	width: 100%;
+	padding-top: 0.5em
+}
+.table-td.icon{
+	margin-top: -1.7em;
+	float: right;
+}
+.table-td.tag{
+	color: blue;
 }
 .table-td:nth-child(6), .table-td:nth-child(7){
 	clear: left
@@ -40,7 +60,7 @@ div.fliter_option .checkbox{
 	padding: 0.2em;
 	float: left;
 }
-.table-td.empty,.table-td.star,.table-td.source,.table-td.category {
+.table-td.empty,.table-td.star,.table-td.category {
 	display:none;
 }
 .table-td[before-text]:before {

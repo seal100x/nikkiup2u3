@@ -80,7 +80,10 @@ input[type="checkbox"]{
 #category_container div.active {
 	display:block;
 }
-
+.filterlabel{
+	margin-right: 0.5em;
+	font-weight: normal;
+}
 /************************/
 .shaonvSkill{
 	color: red;

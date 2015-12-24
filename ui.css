@@ -39,6 +39,9 @@
 	background: #fffdf9;
 	border-bottom: 1px solid #f3f0f6;
 }
+.table-row:hover{
+	background: #f4f4f4
+}
 .table-td{
 	display: table-cell;
 	padding: 4px;
@@ -61,7 +64,9 @@
 .table-td.C {
   color: #38F;
 }
-
+.table-td.negative{
+	color: #eee;
+}
 .table-td.name .button {
   border: 0.1em solid #eee;
   padding: 0.5em;

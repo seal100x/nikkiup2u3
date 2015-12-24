@@ -7,14 +7,14 @@
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>奇迹暖暖在线配装器</title>
-		<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="onekeystrategy.css">
-		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" href="onekeystrategy.css">
+		<link rel="stylesheet" href="style.css">
 		<link rel="stylesheet" type="text/css" href="ui.css">
 		<link rel="stylesheet" type="text/css" href="mobileui.css" media="only screen and (max-width: 650px)">
 		<script type='text/javascript' charset="UTF-8" src='jquery.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='jquery.freezeheader.js'></script>
-		<script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script type='text/javascript' charset="UTF-8" src="bootstrap/bootstrap.min.js"></script>
 		<script type='text/javascript' charset="UTF-8" src='wardrobe.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='scoring.js'></script>
 		<script type='text/javascript' charset="UTF-8" src='levels.js'></script>
@@ -39,13 +39,6 @@
 		<div id="StrategyInfo"></div>
 		<div class='top'>
 			<div class="announcement">
-				服装数据来自jillhx@QQ群 20151201, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">jillhx的新衣柜楼</a>汇报<br/>
-				设计图数据来自amy_翡翠@QQ群 1.5.2<br/>
-				关卡, 联盟技能数据来自morei猫猫&兔子@QQ群 20151203<br/>
-				关卡过关提示来自morei猫猫&兔子@QQ群 20151122<br/>
-				关卡F配件信息来自morei猫猫&兔子@QQ群 20151217, F品信息补充请至<a href="http://tieba.baidu.com/p/4223816101">F品收集帖</a>汇报<br/>
-				<br/>
-				<a href="#" id="show_history">历史更新</a>
 				<div id="update_history">
 					0902update: 己做了一版0902服装的, 在ip君更新前临时使用=w=<br/>
 					主要修改内容: 0902衣柜, 竞技场和联盟委托权重, 因报错去掉了google脚本<br/>
@@ -107,20 +100,24 @@
 					12.10: 更新4件签到衣服, 活动关卡每天上午更新, 不特地说明了<br/>
 					12.14: 更新烟云锦, 今天是活动最后一天, 大家记得刷完自己想要的部件~<br/>
 					12.16: 添加F品/非F品一句话提示(仅功能添加, 数据未实装<br/>
-					</div><br/>
 					12.18: 更新罂粟千狐, 圣诞设计图部件, 一元购部件<br/>
 					12.18: 更新全关卡部分F配件信息, 感谢兔子和猫猫的整理, F品信息补充请至<a href="http://tieba.baidu.com/p/4223816101">F品收集帖</a>汇报<br/>
 					12.18: 调整分类顺序, 将外套放在上下装之后, 袜子放在袜套前, 饰品按照游戏中进行排序<br/>
 					12.20: 添加饰品id排序功能，使用方式：刷新页面后选择饰品分数排序, 默默的加了个评论功能<br/>
-					<div><a href="#" id="jksma" onclick="$('#jksmdiv').show();$('#jksma').hide()">近况说明</a></div>
-					<div id="jksmdiv" style="display:none">
-					最近因为三次元事情繁忙和沉迷其他游戏, 更新和回复速度不快, 这里跟大家简单说明一下近况~<br/>
-					关于功能更新: 手机适配版和衣柜分享功能完成度基本都在50%左右, 因各种问题搁置中, 预计会在1月1日后继续开发, 原材料计算功能因为自己暂时用不到, 会在下一件有生之年公布时突击完成掉 <br/>
-					关于微博: 因为新浪微博把我的微博账号判断为广告号了, 所以不能发新微博和转发, 不过评论和回复私信功能还是可以正常使用<br/>
-					关于关卡F情况: 目前根据收集的情况, 新出的衣服和活动衣服很容易造成大部分关卡F, 但此类衣服又分数较高, 造成大家感觉最近搭配器计算出的配装经常F<br/>
-					关于F品提示功能: 这部分的数据目前是由兔子和猫猫在维护, 因为数据量比较大, 收集也很麻烦, 所以只是先出了个临时的提示功能, 功能完善后会整合到配装器算分和展示里<br/><br/></div>
+					12.22: 更新设计图数据为翡翠@QQ群 V1.6.3, 为未来原材料计算功能调整材料列表格式<br/>
+					12.23: 更新圣诞套, 新增分类'饰品-特殊*发卡'(临时命名, 有第二件时调整分类名称)<br/>
+					12.23: 添加原材料计算功能v2, 鼠标悬浮后会显示所需的原材料数量, 自动计算原材料总数, 可能最终数据有些错误, 欢迎报错, 悬浮窗效果调整会和手机适配版同时发布<br/>
+					12.23: 更新关卡过关提示, F配件数据<br/>
 					<br/>
-					未(you)来(sheng)预(zhi)定(nian)功能: 手机适配版(doing), 原材料计算(doing), 筛选功能(todo), 衣柜分享(doing)<br/>
+				</div>
+					12.24: 移动适配版v1发布~ 已知缺陷: 500~700宽度的屏幕的衣服分类tab页样式错乱; 切换分类后浮动表头样式错乱<br/>
+				<a href="#" id="show_history">历史更新</a><br/>
+				<br/>
+				服装数据来自jillhx@QQ群 20151223, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">贴吧</a>汇报<br/>
+				设计图数据来自amy_翡翠@QQ群 V1.6.3<br/>
+				关卡, 联盟技能数据来自morei猫猫&兔子@QQ群 20151203<br/>
+				关卡过关提示, F配件数据来自morei猫猫&兔子@QQ群 20151223, F品信息补充请至<a href="http://tieba.baidu.com/p/4223816101">贴吧</a>或<a href="http://weibo.com/5674185517/D9pJb9iSF">微博</a>汇报<br/>
+				更新预告: 手机适配版(v1), 筛选功能(todo), 衣柜分享(doing), F品信息整合(todo), 快速添加衣柜(plan)<br/>
 			</div><!-- announcement -->	
 			<div class="fliter">
 				距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;

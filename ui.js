@@ -64,10 +64,10 @@ function row(piece, isShoppingCart) {
 	$lineTop.append(td(render(csv[14]), 'source'));
 	if (isShoppingCart) {
 		if (piece.id) {
-			$lineTop.append(td(removeShoppingCartButton(piece.type.type), ''));
+			$lineTop.append(td(removeShoppingCartButton(piece.type.type), 'icon'));
 		}
 	} else {
-		$lineTop.append(td(shoppingCartButton(piece.type.mainType, piece.id), ''));
+		$lineTop.append(td(shoppingCartButton(piece.type.mainType, piece.id), 'icon'));
 	}
 	//$row.append($lineTop);
 	return $lineTop;
@@ -82,7 +82,10 @@ function render(rating) {
 
 function getStyle(rating) {
 	if (rating.charAt(0) == '-') {
-		return 'negative';
+		return 'negative empty';
+	}
+	else if(rating>0){
+		return '';
 	}
 	switch (rating) {
 	case "SS":
@@ -102,19 +105,26 @@ function getStyle(rating) {
 
 function list(datas, isShoppingCart) {
 	var $list = $("<div>").addClass("table-body");
+	if (isShoppingCart) {
+		$list.append(row(shoppingCart.totalScore, isShoppingCart));
+	}
 	for (var i in datas) {
 		$list.append(row(datas[i], isShoppingCart));
+	}
+	if (!isShoppingCart){
+		var $showMore = $("<div>").addClass("showmore").text("显示更多衣服");
+		$list.append($showMore);
 	}
 	return $list;
 }
 
 function clothesNameTd(piece) {
 	var cls = "name table-td";
-	var deps = piece.getDeps('');
+	var deps = piece.getDeps('   ', 1);
 	var tooltip = '';
 	if (deps && deps.length > 0) {
 		tooltip = deps;
-		if (deps.indexOf('(缺)') > 0) {
+		if (deps.indexOf('需') > 0) {
 			cls += ' deps';
 		}
 	}
