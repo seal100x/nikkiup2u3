@@ -481,6 +481,7 @@ function switchCate(c) {
 	$("#" + c).addClass("active");
 	$("#category-" + c).addClass("active");
 	onChangeUiFilter();
+	ReDrawcloneHeaderRow();
 	return false;
 }
 
@@ -685,6 +686,71 @@ function init() {
 	initEvent();
 	onChangeCriteria();
 }
+function menuFixed(id) {
+	var obj = document.getElementById(id);
+	cloneHeaderRow($(obj));
+	var header = $(obj).find(".table-head")[0];
+	var _getHeight = header.offsetTop;
+
+	window.onscroll = function () {
+		changePos(_getHeight);
+	}
+}
+function cloneHeaderRow(obj) {
+	var header = $(obj.find('.table-head')[0]);
+	var hdtablea = $('<div>');
+	var tabela = $('<div class="table" style="margin: 0 0;"></div>');
+	var atributos = obj.prop("attributes");
+
+	$.each(atributos, function () {
+		if (this.name != "id") {
+			tabela.attr(this.name, this.value);
+		}
+	});
+
+	tabela.append('<div class="table-head">' + header.html() + '</div>');
+
+	hdtablea.append(tabela);
+	hdtablea.width(header.width());
+	hdtablea.height(header.height);
+	
+	for(var i  = 0; i<tabela.find(".table-td").length ;i++){
+		$(tabela.find(".table-td")[i]).width($(header.find(".table-td")[i]).width() + 1 * $(header.find(".table-td")[i]).css("padding-left").replace("px","") + 1 * $(header.find(".table-td")[i]).css("padding-right").replace("px","")).css("display","inline-block");
+	}
+	
+	hdtablea.css("visibility", "hidden");
+	hdtablea.css("top", "0px");
+	hdtablea.css("position", "fixed");
+	hdtablea.css("z-index", "1000");
+	hdtablea.attr("id", "fixed-header");
+	obj.before(hdtablea);
+}
+function ReDrawcloneHeaderRow(){
+	var obj = document.getElementById("clothes");
+	var header = $($(obj).find(".table-head")[0]);
+	for(var i  = 0; i < $("#fixed-header").find(".table-td").length ;i++){		
+		$($("#fixed-header").find(".table-td")[i]).width($(header.find(".table-td")[i]).width()).css("display","inline-block");
+	}
+	var _getHeight = header.offset().top;
+
+	window.onscroll = function () {
+		changePos(_getHeight);
+	}
+}
+
+function changePos(height) {
+	var obj = document.getElementById("fixed-header");
+	var end = document.getElementById("showmore");
+	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	if (scrollTop < height || end.offsetTop < scrollTop) {
+		obj.style.visibility = 'hidden';
+	} else {
+		obj.style.visibility = 'visible';
+	}
+}
+
+
 $(document).ready(function () {
 	init();
+	menuFixed("clothes");
 });

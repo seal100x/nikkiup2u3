@@ -112,7 +112,7 @@ function list(datas, isShoppingCart) {
 		$list.append(row(datas[i], isShoppingCart));
 	}
 	if (!isShoppingCart){
-		var $showMore = $("<div>").addClass("showmore").text("显示更多衣服");
+		var $showMore = $("<div>").attr("id","showmore").text("显示更多衣服");
 		$list.append($showMore);
 	}
 	return $list;
