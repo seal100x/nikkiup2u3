@@ -30,12 +30,21 @@ div.fliter_option .checkbox{
 }
 .nav-tabs.nav-justified>li{
 	float:left;
+	width: auto;
+	display: block;
 }
 .nav-tabs.nav-justified>li a{
 	padding: 0
 }
 .nav-tabs.nav-justified>li .badge{
 	display: none;
+}
+.nav-tabs.nav-justified>li.active .badge{
+	display: inline-block;
+	background-color: #fff;
+	color: #333;
+	padding: 0;
+	padding-right: 0.3em
 }
 /************************/
 .table-head{
@@ -60,7 +69,7 @@ div.fliter_option .checkbox{
 	padding: 0.2em;
 	float: left;
 }
-.table-td.empty,.table-td.star,.table-td.category {
+.table-td.empty,.table-td.star {
 	display:none;
 }
 .table-td[before-text]:before {

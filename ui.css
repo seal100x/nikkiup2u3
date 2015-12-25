@@ -6,7 +6,6 @@
 	background: #fff;
 	cursor: default;	
 	border-top: 1px solid #aaa;
-	border-bottom: 1px solid #000;
 }
 .table-head{
 	position: relative;
@@ -32,11 +31,11 @@
 	border-bottom: 1px solid #f3f0f6;
 }
 .table-row:nth-child(2n+1) {
-	background: #fff5ef;
+	background: #fff8fa;
 	border-bottom: 1px solid #f3f0f6;
 }
 .table-row:nth-child(2n) {
-	background: #fffdf9;
+	background: #fffdfc;
 	border-bottom: 1px solid #f3f0f6;
 }
 .table-row:hover{
@@ -45,7 +44,6 @@
 .table-td{
 	display: table-cell;
 	padding: 4px;
-	white-space: nowrap;
 	vertical-align: middle;
 	transition: color 0.2s;
 }
@@ -68,7 +66,7 @@
 	color: #eee;
 }
 .table-td.name .button {
-  border: 0.1em solid #eee;
+  border: 0.1em solid #ccc;
   padding: 0.5em;
   margin: 0;
   text-decoration: none;
@@ -80,10 +78,7 @@
   border-radius: 0.2em;
 }
 .table-td.name.own .button{
-  background-color: #dfd;
-}
-.table-td.name.own.deps .button {
-  background-color: #ddf;
+  background-color: #bfb;
 }
 
 [tooltip]:before {

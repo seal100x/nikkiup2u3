@@ -108,17 +108,18 @@
 					12.23: 更新圣诞套, 新增分类'饰品-特殊*发卡'(临时命名, 有第二件时调整分类名称)<br/>
 					12.23: 添加原材料计算功能v2, 鼠标悬浮后会显示所需的原材料数量, 自动计算原材料总数, 可能最终数据有些错误, 欢迎报错, 悬浮窗效果调整会和手机适配版同时发布<br/>
 					12.23: 更新关卡过关提示, F配件数据<br/>
+					12.24: 移动适配版v1发布~ 已知缺陷: 650~850宽度的屏幕的衣服分类tab页样式错乱; 切换分类后浮动表头样式错乱;  显示更多衣服按钮是假的, 请继续使用顶配模式按钮;(趁晚上没人用偷偷更新一发<br/>
+					12.24: 修复浮动表头<br/>
 					<br/>
 				</div>
-					12.24: 移动适配版v1发布~ 已知缺陷: 500~700宽度的屏幕的衣服分类tab页样式错乱; 切换分类后浮动表头样式错乱;  显示更多衣服按钮是假的, 请继续使用顶配模式按钮;(趁晚上没人用偷偷更新一发<br/>
-					12.24: 修复了一版浮动表头<br/>
+					12.24: 移动适配版v2发布: 调整650-850宽度的界面样式错乱; 调整顶配模式位置; 调整移动版部分细节; 调整表格配色<br/>
 				<a href="#" id="show_history">历史更新</a><br/>
 				<br/>
 				服装数据来自jillhx@QQ群 20151223, 衣服信息纠错请去<a href="http://tieba.baidu.com/p/3860789814">贴吧</a>汇报<br/>
 				设计图数据来自amy_翡翠@QQ群 V1.6.3<br/>
 				关卡, 联盟技能数据来自morei猫猫&兔子@QQ群 20151203<br/>
 				关卡过关提示, F配件数据来自morei猫猫&兔子@QQ群 20151223, F品信息补充请至<a href="http://tieba.baidu.com/p/4223816101">贴吧</a>或<a href="http://weibo.com/5674185517/D9pJb9iSF">微博</a>汇报<br/>
-				更新预告: 手机适配版(v1), 筛选功能(todo), 衣柜分享(doing), F品信息整合(todo), 快速添加衣柜(plan)<br/>
+				更新预告: 手机适配版(v2), 筛选功能(todo), 衣柜分享(doing), F品信息整合(todo), 快速添加衣柜(plan)<br/>
 			</div><!-- announcement -->	
 			<div class="fliter">
 				距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;|&nbsp;&nbsp;
@@ -206,7 +207,6 @@
 						<div class="fliter_option clear">
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
-							<div class="checkbox"><label><input type="checkbox" class="fliter" value="toplevel" checked /> 顶配模式</label></div>
 							<span><a href="#" id="advanced_options">高级选项</a></span>
 							<span id="advanced_options_span">
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数/id排序</label></div>
@@ -226,6 +226,7 @@
 		<hr>
 		<div id = 'category_container'></div>
 		<div id = "clothes" class="table"></div>
+		<div id = "showmore" isshowmore="1">↓显示全部衣服↓</div>
 		<hr>
 		导入批量衣服，请先选择要导入的类别，然后在文本框内输入编号，用空格、逗号或者换行隔开。不知道编号在哪儿的请点<a href="http://tieba.baidu.com/p/3808711082" target="_blank">这里</a>
 		<div id = "import">
@@ -246,6 +247,7 @@
 	<div class="ds-thread" data-thread-key="nikkiup2u3" data-title="奇迹暖暖在线配装器" data-url="http://seal100x.github.io/nikkiup2u3/"></div>
 	<script type="text/javascript">
 	var duoshuoQuery = {short_name:"seal100x"};
+	window.onload=function(){
 		(function() {
 			var ds = document.createElement('script');
 			ds.type = 'text/javascript';ds.async = true;
@@ -254,6 +256,7 @@
 			(document.getElementsByTagName('head')[0] 
 			 || document.getElementsByTagName('body')[0]).appendChild(ds);
 		})();
+	}
 	</script>
 	</body>
 </html>

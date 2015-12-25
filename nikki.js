@@ -77,7 +77,6 @@ function onChangeCriteria() {
 		for(var r  in rank){
 			$("#" + rank[r][0]).text(numstr[r]);
 		}
-		console.log(rank);
 	}
 }
 
@@ -406,7 +405,7 @@ function filtering(criteria, filters) {
 			result.sort(byId);
 	}
 
-	if (filters.toplevel) {
+	if ($("#showmore").attr("isshowmore") == 1) {
 		var size = 10;
 		if (result[0] && result[0].type.mainType == "饰品")
 			size = 5;
@@ -671,6 +670,12 @@ function initEvent() {
 	$("#sharewardrobe").click(function(){
 		shareWardrobe();
 	});
+	$("#showmore").click(function(){
+		var obj  = $(this);
+		obj.attr("isshowmore", (1 - obj.attr("isshowmore")));
+		obj.attr("isshowmore") == "1" ? obj.text("↓ 显示全部衣服 ↓") : obj.text("↑ 收起衣柜 ↑");
+		onChangeUiFilter();		
+	});
 	initOnekey();
 }
 
@@ -684,7 +689,6 @@ function init() {
 	updateSize(mine);
 	refreshShoppingCart();
 	initEvent();
-	onChangeCriteria();
 }
 function menuFixed(id) {
 	var obj = document.getElementById(id);
@@ -724,6 +728,9 @@ function cloneHeaderRow(obj) {
 	hdtablea.css("z-index", "1000");
 	hdtablea.attr("id", "fixed-header");
 	obj.before(hdtablea);
+	$(".gogogo-top").click(function () {
+		goTop();
+	});
 }
 function ReDrawcloneHeaderRow(){
 	var obj = document.getElementById("clothes");
@@ -731,6 +738,9 @@ function ReDrawcloneHeaderRow(){
 	for(var i  = 0; i < $("#fixed-header").find(".table-td").length ;i++){		
 		$($("#fixed-header").find(".table-td")[i]).width($(header.find(".table-td")[i]).width()).css("display","inline-block");
 	}
+	$(".gogogo-top").click(function () {
+		goTop();
+	});
 	var _getHeight = header.offset().top;
 
 	window.onscroll = function () {

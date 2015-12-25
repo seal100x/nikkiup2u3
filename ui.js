@@ -111,10 +111,6 @@ function list(datas, isShoppingCart) {
 	for (var i in datas) {
 		$list.append(row(datas[i], isShoppingCart));
 	}
-	if (!isShoppingCart){
-		var $showMore = $("<div>").attr("id","showmore").text("显示更多衣服");
-		$list.append($showMore);
-	}
 	return $list;
 }
 
