@@ -687,5 +687,4 @@ function init() {
 }
 $(document).ready(function () {
 	init();
-	$("#clothes").freezeHeader();
 });
