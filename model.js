@@ -1,6 +1,7 @@
 // Ivan's Workshop
 
 var FEATURES = ["simple", "cute", "active", "pure", "cool"];
+var ACCRATIO = [1, 1, 1, 1, 0.95, 0.9, 0.825, 0.75, 0.7, 0.65, 0.6, 0.55, 0.51, 0.47, 0.45, 0.425, 0.4];
 
 var global = {
   float: null,
@@ -299,10 +300,10 @@ var shoppingCart = {
 };
 
 function accScore(total, items) {
-  if (items <= 3) {
-    return total;
+  if (items < ACCRATIO.length) {
+    return total * ACCRATIO[items];
   }
-  return total * (1 - 0.06 * (items-3)); 
+  return total * 0.4;
 }
 
 function fakeClothes(cart) {

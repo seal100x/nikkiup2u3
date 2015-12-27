@@ -331,16 +331,17 @@ function filterTopAccessories(filters) {
 	}
 	toSort.sort(byScore);
 	var total = 0;
-	var i;
-	for (i = 0; i < toSort.length; i++) {
-		realScoreBefore = accScore(total, i);
-		realScore = accScore(total + toSort[i].tmpScore, i + 1);
-		if (realScore < realScoreBefore) {
-			break;
-		}
+	var maxTotal = 0;
+	var maxIdx = 0;
+	for (var i = 0; i < toSort.length; i++) {
 		total += toSort[i].tmpScore;
+		realScore = accScore(total, i+1);
+		if (maxTotal  < realScore) {
+		  maxTotal = realScore;
+		  maxIdx = i;
+		}
 	}
-	return toSort.slice(0, i);
+	return toSort.slice(0, maxIdx+1);
 }
 
 function filterTopClothes(filters) {
