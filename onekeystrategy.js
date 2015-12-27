@@ -114,10 +114,10 @@ function showStrategy(){
 		$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
 	}
 	
-	var accCount = 9;
+	var accCount = 20;
 	if(filters.bonus && filters.bonus[0] && filters.bonus[0].param
 		&& (filters.bonus[0].param.indexOf("S") >= 0 || filters.bonus[0].param.indexOf("A") >= 0)){
-		accCount = 8;
+		accCount = 20;
 	}
 	$strategy.append(p("————————————饰品(推荐佩戴" + accCount + "件)————————————", "divide"));
 	
