@@ -7,11 +7,13 @@ function showStrategy(){
 	filters.own = true;
 	filters.missing = true;
 	
-	var $title_eng = p("=====================", "title_eng");
+	var $title_eng = p("@@@@一键攻略尚未更新, 请手动添加饰品@@@@", "title_eng");
 	$strategy.append($title_eng);
 	
 	var $title = p($("#theme").val() == "custom" ? "....." : $("#theme").val(),"title");
 	$strategy.append($title);
+	
+	$strategy.append($title_eng.clone());//
 	
 	var $author = p("配装器一键攻略@黑的升华", "author");
 	$strategy.append($author);
@@ -120,6 +122,7 @@ function showStrategy(){
 		accCount = 8;
 	}
 	$strategy.append(p("————————————饰品(推荐佩戴" + accCount + "件)————————————", "divide"));
+	$strategy.append($title_eng.clone());//
 	
 	/*var typesnum = 0;
 	var typestemp = [];
