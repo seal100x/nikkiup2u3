@@ -35,7 +35,7 @@ function rowBiguse(piece, isShoppingCart, index) {
 	$imagetd.click(function(){
 		$("#imgModel").show();
 		var type = render(csv[0]).replace("发型","10").replace("连衣裙","20").replace("上装", "40").replace("下装", "50").replace("鞋子", "70").replace("妆容", "90");
-		$("#imgModel").css("background-image", "url(img/" + type + render(csv[1])+ ".png)");
+		$("#imgModel").css("background-image", "url(http://seal100x.github.io/nikkiup2u3_img/" + type + render(csv[1])+ ".jpg)");
 		$("#imgInfo").text(piece.name)
 		$("html,body").animate({
 			scrollTop : 0
