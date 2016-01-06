@@ -201,25 +201,22 @@ function drawLevelInfo() {
 				log.push(match + ": [" + bonus.note + " " + bonus.param + "]");
 			}
 		}
-		if (currentLevel.categoryF) {
-			var $isF,
-			$notF,
-			isF = "",
+		if (currentLevel.hint) {
 			notF = "";
-			if (currentLevel.categoryF[0]) {
-				$isF = $("<font>").text("会导致F的部件:  ").addClass("is_f");
-				for (var i in currentLevel.categoryF[0]) {
-					isF += (currentLevel.categoryF[0][i] + "  ");
-				}
+			if (currentLevel.hint[0] && currentLevel.hint[0] != '') {
+				var $hintInfo = $("<font>").text("过关提示:  ").addClass("hintInfo");
+				$hint.append($hintInfo).append(currentLevel.hint[0]);
 			}
-			if (currentLevel.categoryF[1]) {
-				$notF = $("<font>").text("可穿戴部件:  ").addClass("not_f");
-				for (var i in currentLevel.categoryF[1]) {
-					notF += (currentLevel.categoryF[1][i] + "  ");
-				}
+			if (currentLevel.hint[1] && currentLevel.hint[1] != '') {
+				var $notF = $("<font>").text("可穿戴部件:  ").addClass("not_f");
+				$categoryF.append($notF).append(currentLevel.hint[1]);
 			}
-			$categoryF.append($isF).append(isF)
-			.append($notF).append(notF);
+			if (currentLevel.hint[2] && currentLevel.hint[2] != '') {
+				var $isF = $("<font>").text("会导致F的部件: ").addClass("is_f");
+				$categoryF.append($isF).append(currentLevel.hint[2]);
+			}
+		}
+		if (currentLevel.hint) {
 		}
 		if (currentLevel.skills) {
 			var $shaonv,
@@ -252,10 +249,6 @@ function drawLevelInfo() {
 			$skill.append($shaonv).append(shaonvSkill)
 			.append($gongzhu).append(gongzhuSkill)
 			.append($normal).append(normalSkill);
-		}
-		if (currentLevel.hint) {
-			var $hintInfo = $("<font>").text("过关提示:  ").addClass("hintInfo");
-			$hint.append($hintInfo).append(currentLevel.hint);
 		}
 
 		info = log.join(" ");
