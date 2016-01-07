@@ -38,6 +38,7 @@ var tasksRaw = {
 
 var extraRaw = {
 	'11-1': [1, 1, 1, 1, 1],
+	'11-2': [1, 1, 1, -1, 1],
 };
 
 // all data are presented in order "simple", "cute", "active", "pure", "cool"
