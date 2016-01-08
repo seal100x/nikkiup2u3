@@ -1,8 +1,14 @@
 .strategy_info_div{
 	font-family:\5fae\8f6f\96c5\9ed1;
 	border: 1px solid grey;
-	width: 550px;
+	width: 65%;
 	padding: 5px;
+}
+
+@media only screen and (max-width: 650px){
+	.strategy_info_div{
+		width: 100%;
+	}
 }
 
 .stgy_author{
