@@ -7,13 +7,8 @@ function showStrategy(){
 	filters.own = true;
 	filters.missing = true;
 	
-	var $title_eng = p("@@@@一键攻略尚未更新, 请手动添加饰品@@@@", "title_eng");
-	$strategy.append($title_eng);
-	
 	var $title = p($("#theme").val() == "custom" ? "....." : $("#theme").val(),"title");
 	$strategy.append($title);
-	
-	$strategy.append($title_eng.clone());//
 	
 	var $author = p("配装器一键攻略@黑的升华", "author");
 	$strategy.append($author);
@@ -52,6 +47,10 @@ function showStrategy(){
 	else if($("#theme").val().indexOf("竞技场") < 0 && $("#theme").val().indexOf("联盟委托") < 0){
 		var $hint = p("本关暂无过关提示, 若出现F, 请参考失败后大喵的衣服提示, 或不穿外套进行尝试", "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
+	}
+	if($("#categoryFInfo").text()){
+		var $F = p($("#categoryFInfo").text().replace("","").replace("会导致", "  |  会导致"), "hint", "", "");
+		// $strategy.append($F);
 	}
 		
 	var $clotheslist_title = p("推荐搭配: ", "clotheslist_title");
@@ -118,26 +117,16 @@ function showStrategy(){
 	
 	var accCount = 20;
 	if(filters.bonus && filters.bonus[0] && filters.bonus[0].param
-		&& (filters.bonus[0].param.indexOf("S") >= 0 || filters.bonus[0].param.indexOf("A") >= 0)){
+		&& filters.bonus[0].param.indexOf("S") >= 0 ){
 		accCount = 8;
 	}
 	$strategy.append(p("————————————饰品(推荐佩戴" + accCount + "件)————————————", "divide"));
 	$strategy.append($title_eng.clone());//
-	
-	/*var typesnum = 0;
-	var typestemp = [];
-	var maxAcc = 20;
-	for (var i = 0; i < 20; i++){
-		if (typestemp.indexOf(resultList[i].type.type) < 0){
-			typestemp.push(resultList[i].type.type);
-			typesnum++;
-		}
-	}*/
-	
+		
 	for (var t in typeList){
 		var accList = [];
-		for (var i = 0; i < 33; i++){
-			if (resultList[i].type.type == typeList[t]){
+		for (var i = 0; i < resultList.length-2; i++){
+			if (resultList[i] && resultList[i].type.type == typeList[t]){
 				accList.push(resultList[i]);
 			}
 		}
@@ -146,9 +135,6 @@ function showStrategy(){
 	}
 
 	$author_sign = $("<div/>").addClass("stgy_author_sign_div");
-	//$author_sign.append(p("这里有一个好厉害的作者签名！", "author_sign"));
-	//$author_sign.append($("<img/>").attr("src","sign.gif"));
-	//$author_sign.append(p("black sublimation", "author_sign_name"));	
 	var d = new Date();
 	$author_sign.append(p("nikkiup2u3 One Key Strategy@Black Sublimation", "author_sign_name"));
 	$author_sign.append(p("generate in " + (1900+d.getYear()) + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes(), "author_sign_name"));
