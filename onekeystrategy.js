@@ -121,7 +121,6 @@ function showStrategy(){
 		accCount = 8;
 	}
 	$strategy.append(p("————————————饰品(推荐佩戴" + accCount + "件)————————————", "divide"));
-	$strategy.append($title_eng.clone());//
 		
 	for (var t in typeList){
 		var accList = [];
