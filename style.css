@@ -138,7 +138,7 @@ red{
 	color: red;
 	font-weight:bold;		
 }
-#advanced_options_span{
+#advanced_options_span, #front_filter_span{
 	display: none;
 }
 .ds-powered-by, .ds-dialog-footer{

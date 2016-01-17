@@ -610,6 +610,11 @@ function initEvent() {
 		$("#advanced_options").hide();
 		return false;
 	});
+	$("#front_filter").click(function () {
+		$("#front_filter_span").show();
+		$("#front_filter").hide();
+		return false;
+	});
 	$(".fliter").change(function () {
 		onChangeUiFilter();
 		if (this.value == "balance") {
@@ -647,6 +652,48 @@ function initEvent() {
 		onChangeUiFilter();		
 	});
 	initOnekey();
+	
+	//前台筛选
+	$(".front_filter_option").click(function(){
+		var clothesDivList = $("#clothes .table-body .table-row");
+		var str = "";
+		var type = 0;
+		switch(this.value){
+			case "1": str = ".deps"; type = 1; break;
+			case "2": str = "少";break;
+			case "3": str = "公";break;
+			case "4": str = "店";break;
+			case "5": str = "活动";break;
+			case "6": str = "迷,幻"; type = 2; break;
+			case "7": str = "送";break;
+			case "8": str = "签到";break;
+		}
+		 for(var i = 0 ;i < clothesDivList.length; i++){
+			 if(type == 1){
+				 if($(clothesDivList[i]).find(str).length <= 0){
+					$(clothesDivList[i]).hide();
+				 }
+			 }
+			 else if(type == 0){
+				 if($(clothesDivList[i]).find(".source:first").text().indexOf(str) <0){
+					$(clothesDivList[i]).hide();					 
+				 }
+			 }
+			 else if(type == 2){
+				 var strs = str.split(",");
+				 var ishide = true;
+				 for(var j = 0; j < strs.length; j++){
+					 if($(clothesDivList[i]).find(".source:first").text() == strs[j]){
+						ishide = false;
+					 }
+				 }
+				 if(ishide){
+					 $(clothesDivList[i]).hide();	
+				 }
+			 }
+		 }
+		 return false;
+	});
 }
 
 function init() {

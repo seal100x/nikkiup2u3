@@ -126,6 +126,7 @@
 					1.16: 衣柜数据更新, 设计图数据更新, 调整11章为普通关卡 by 翡翠<br/>
 					1.16: 一键攻略更新<br/>
 					1.17: 忘了写公告, 关卡, 设计图, 衣柜更新完毕<br/>
+					1.17: 添加筛选功能, 只在页面内筛选, 需要先点击显示全部衣柜后再筛选<br/>
 				<a href="#" id="show_history">历史更新</a><br/><br/>
 					近期会逐渐把配装器日常更新转交给翡翠和兔子, 自己抽时间做一些功能性的更新 by依旧沉迷在其他游戏的黑的升华<br/>
 				<br/>
@@ -156,40 +157,40 @@
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="simple" value="1"/> 简约</label>
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="simple" value="-1"/> 华丽</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="simpleWeight" name="simpleWeight" value="1" onChange="changeFilter()" />
-								<span class="highscore-link btn-sm 1d778" id="simple1d778">*1.778</span>
-								<span class="highscore-link btn-sm 1d27" id="simple1d27">*1.27</span>
+								<span class="highscore-link btn-sm 1d778" id="simple1d778">微笑+飞吻</span>
+								<span class="highscore-link btn-sm 1d27" id="simple1d27">微笑</span>
 								<span class="highscore-rank btn-sm" id="simplerank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cute" value="1"/> 可爱</label>
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cute" value="-1"/> 成熟</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="cuteWeight" name="cuteWeight" value="1" onChange="changeFilter()" />
-								<span class="highscore-link btn-sm 1d778" id="cute1d778">*1.778</span>
-								<span class="highscore-link btn-sm 1d27" id="cute1d27">*1.27</span>
+								<span class="highscore-link btn-sm 1d778" id="cute1d778">微笑+飞吻</span>
+								<span class="highscore-link btn-sm 1d27" id="cute1d27">微笑</span>
 								<span class="highscore-rank btn-sm" id="cuterank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="active" value="1"/> 活泼</label>
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="active" value="-1"/> 优雅</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="activeWeight" name="activeWeight" value="1" onChange="changeFilter()" />
-								<span class="highscore-link btn-sm 1d778" id="active1d778">*1.778</span>
-								<span class="highscore-link btn-sm 1d27" id="active1d27">*1.27</span>
+								<span class="highscore-link btn-sm 1d778" id="active1d778">微笑+飞吻</span>
+								<span class="highscore-link btn-sm 1d27" id="active1d27">微笑</span>
 								<span class="highscore-rank btn-sm" id="activerank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="pure" value="1"/> 清纯</label>
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="pure" value="-1"/> 性感</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="pureWeight" name="pureWeight" value="1" onChange="changeFilter()" />
-								<span class="highscore-link btn-sm 1d778" id="pure1d778">*1.778</span>
-								<span class="highscore-link btn-sm 1d27" id="pure1d27">*1.27</span>
+								<span class="highscore-link btn-sm 1d778" id="pure1d778">微笑+飞吻</span>
+								<span class="highscore-link btn-sm 1d27" id="pure1d27">微笑</span>
 								<span class="highscore-rank btn-sm" id="purerank"></span>
 							</div>
 							<div class="weightContainer" role="group" data-toggle="buttons">
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cool" value="1"/> 清凉</label>
 								<label class="btn btn-sm btn-default"><input class="filter-radio" type="radio" name="cool" value="-1"/> 保暖</label>
 								<input class="btn-sm" placeholder="权重" type="text" id="coolWeight" name="coolWeight" value="1" onChange="changeFilter()" />
-								<span class="highscore-link btn-sm 1d778" id="cool1d778">*1.778</span>
-								<span class="highscore-link btn-sm 1d27" id="cool1d27">*1.27</span>
+								<span class="highscore-link btn-sm 1d778" id="cool1d778">微笑+飞吻</span>
+								<span class="highscore-link btn-sm 1d27" id="cool1d27">微笑</span>
 								<span class="highscore-rank btn-sm" id="coolrank"></span>
 							</div>
 							<div class='weightContainer' id = "tag1Container" role="group" data-toggle="buttons">
@@ -222,12 +223,22 @@
 						<div class="fliter_option clear">
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
-							<span> (我在衣柜下边) </span>
 							<span><a href="#" id="advanced_options">高级选项</a></span>
 							<span id="advanced_options_span">
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数/id排序</label></div>
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="highscore" /> 高分权重(手动)</label></div>
+							</span>
+							<span><a href="#" id="front_filter">页面内筛选</a></span>
+							<span id="front_filter_span">
+								<button  type="button" class="btn btn-default front_filter_option" value="1" >尚缺材料</button>
+								<button  type="button"class="btn btn-default front_filter_option" value="2" >少女级</button>
+								<button  type="button" class="btn btn-default front_filter_option" value="3" >公主级</button>
+								<button  type="button" class="btn btn-default front_filter_option" value="4" >店</button>
+								<button  type="button" class="btn btn-default front_filter_option" value="5" >活动</button>
+								<button  type="button" class="btn btn-default front_filter_option" value="7" >赠送</button>
+								<button  type="button" class="btn btn-default front_filter_option" value="8" >签到</button>
+								<button  type="button" class="btn btn-default front_filter_option" value="6" >非洲人不要点</button>
 							</span>
 						</div><!-- fliter_option -->
 					</form>
