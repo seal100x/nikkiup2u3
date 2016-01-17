@@ -37,6 +37,11 @@ var tasksRaw = {
 }
 
 var extraRaw = {
+  '冰雪舞会1': [0.1, 0.2, 0.2, 0.1, -0.3],
+  '冰雪舞会2': [1.4, 0.67, -1.4, 2.2, 0.67],
+  '冰雪舞会3': [0.8, 1.5, -1.5, 2.33, 0.8],
+  '冰雪舞会4': [-0.8, 0.67, 0.67, 0.8, 0.6],
+  '冰雪舞会5': [-0.8, -0.8, -0.67, -0.67, 0.67]
 };
 
 // all data are presented in order "simple", "cute", "active", "pure", "cool"
@@ -611,6 +616,10 @@ function addBonusInfo(base, weight, tag) {
   '11-4': [addBonusInfo('A', 0.1, "冬装")],
   '11-7': [addBonusInfo('A', 0.5, "欧式古典")],
   '11-支2': [addBonusInfo('C', 1, "中性风")],
+  '冰雪舞会1': [addBonusInfo('A', 4, "居家服"), addBonusInfo('A', 10, "睡衣")],
+  '冰雪舞会2': [addBonusInfo('S', 0.25, "森女系列")],
+  '冰雪舞会4': [addBonusInfo('S', 1, "童话系")],
+  '冰雪舞会5': [addBonusInfo('S', 1, "欧式古典")]
  };
  
 var additionalLevelInfo = {
