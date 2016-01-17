@@ -645,11 +645,20 @@ function initEvent() {
 	$("#sharewardrobe").click(function(){
 		shareWardrobe();
 	});
-	$("#showmore").click(function(){
-		var obj  = $(this);
-		obj.attr("isshowmore", (1 - obj.attr("isshowmore")));
-		obj.attr("isshowmore") == "1" ? obj.text("↓ 显示全部衣服 ↓") : obj.text("↑ 收起衣柜 ↑");
-		onChangeUiFilter();		
+	$(".showmore").click(function(){
+		var obj  = $(".showmore");
+		$(obj[1]).attr("isshowmore", (1 - $(obj[1]).attr("isshowmore")));
+		if($(obj[1]).attr("isshowmore") == "1"){
+			$(obj[0]).text("↓ 显示全部衣服 ↓");
+			$(obj[1]).text("↓ 显示全部衣服 ↓");
+		}
+		else{
+			$(obj[0]).text("↑ 收起衣柜 ↑");
+			$(obj[1]).text("↑ 收起衣柜 ↑");
+		}
+		onChangeUiFilter();
+		menuFixed("clothes");
+		return false;
 	});
 	initOnekey();
 	
@@ -708,6 +717,7 @@ function init() {
 	initEvent();
 }
 function menuFixed(id) {
+	$("#fixed-header").remove();
 	var obj = document.getElementById(id);
 	cloneHeaderRow($(obj));
 	var header = $(obj).find(".table-head")[0];
@@ -767,7 +777,7 @@ function ReDrawcloneHeaderRow(){
 
 function changePos(height) {
 	var obj = document.getElementById("fixed-header");
-	var end = document.getElementById("showmore");
+	var end = document.getElementById("end");
 	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
 	if (scrollTop < height || end.offsetTop < scrollTop) {
 		obj.style.visibility = 'hidden';

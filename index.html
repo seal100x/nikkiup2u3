@@ -127,6 +127,7 @@
 					1.16: 一键攻略更新<br/>
 					1.17: 忘了写公告, 关卡, 设计图, 衣柜更新完毕<br/>
 					1.17: 添加筛选功能, 只在页面内筛选, 需要先点击显示全部衣柜后再筛选<br/>
+					1.17: 修复导航条, 顶部添加显示全部衣柜按钮<br/>
 				<a href="#" id="show_history">历史更新</a><br/><br/>
 					近期会逐渐把配装器日常更新转交给翡翠和兔子, 自己抽时间做一些功能性的更新 by依旧沉迷在其他游戏的黑的升华<br/>
 				<br/>
@@ -223,6 +224,7 @@
 						<div class="fliter_option clear">
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
 							<div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
+							<a href="#" class = "showmore" style="display:inline-block;cursor:pointer">↓显示全部衣服↓</a>
 							<span><a href="#" id="advanced_options">高级选项</a></span>
 							<span id="advanced_options_span">
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="sortbyscore" /> 饰品分数/id排序</label></div>
@@ -232,7 +234,7 @@
 							<span><a href="#" id="front_filter">页面内筛选</a></span>
 							<span id="front_filter_span">
 								<button  type="button" class="btn btn-default front_filter_option" value="1" >尚缺材料</button>
-								<button  type="button"class="btn btn-default front_filter_option" value="2" >少女级</button>
+								<button  type="button" class="btn btn-default front_filter_option" value="2" >少女级</button>
 								<button  type="button" class="btn btn-default front_filter_option" value="3" >公主级</button>
 								<button  type="button" class="btn btn-default front_filter_option" value="4" >店</button>
 								<button  type="button" class="btn btn-default front_filter_option" value="5" >活动</button>
@@ -253,7 +255,8 @@
 		<hr>
 		<div id = 'category_container'></div>
 		<div id = "clothes" class="table"></div>
-		<div id = "showmore" isshowmore="1">↓显示全部衣服↓</div>
+		<div class = "showmore" id= "showmore" isshowmore="1">↓显示全部衣服↓</div>
+		<div id = "end"></div>
 		<hr>
 		导入批量衣服，请先选择要导入的类别，然后在文本框内输入编号，用空格、逗号或者换行隔开。不知道编号在哪儿的请点<a href="http://tieba.baidu.com/p/3808711082" target="_blank">这里</a>
 		<div id = "import">

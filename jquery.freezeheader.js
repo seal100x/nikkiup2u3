@@ -107,9 +107,6 @@ Version: 1.0.5
             obj.container.width(obj.header.width());
             obj.container.height(obj.header.height);
 			
-			for(var i  = 0; i<obj.container.find(".table-td").length ;i++){
-				$(obj.container.find(".table-td")[i]).width($(obj.header.find(".table-td")[i]).width());
-			}
 			
             obj.container.css("visibility", "visible");
 
