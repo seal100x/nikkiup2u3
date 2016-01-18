@@ -316,12 +316,12 @@ function fakeClothes(cart) {
   var numAccessories = 0;
   for (var c in cart) {
     if (c.split('-')[0] == "饰品") {
-      totalAccessories += cart[c].tmpScore;
+      totalAccessories += cart[c].sumScore;
       totalAccessoriesByCategory.add(cart[c].tmpScoreByCategory);
       totalAccessoriesBonusByCategory.add(cart[c].bonusByCategory);
       numAccessories ++;
     } else {
-      totalScore += cart[c].tmpScore;
+      totalScore += cart[c].sumScore;
       totalScoreByCategory.add(cart[c].tmpScoreByCategory);
       totalBonusByCategory.add(cart[c].bonusByCategory);
     }
@@ -346,7 +346,7 @@ function fakeClothes(cart) {
   var bonus = totalBonusByCategory.scores;
   return {
     name: '总分',
-    tmpScore: Math.round(totalScore),
+    sumScore: Math.round(totalScore),
     toCsv: function() {
       return ['', '', '',
           scoreWithBonusTd(scores.simple[0], bonus.simple[0]), 
