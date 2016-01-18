@@ -39,7 +39,7 @@ function row(piece, isShoppingCart) {
 	var $row = $("<div>").addClass("table-row");
 	var $lineTop = $row;
 	//var $lineTop = $("<div>").addClass("table-line");
-	$lineTop.append(td(piece.tmpScore, 'score'));
+	$lineTop.append(td(piece.sumScore, 'score'));
 	if (isShoppingCart) {
 		$lineTop.append(td(piece.name, ''));
 	} else {

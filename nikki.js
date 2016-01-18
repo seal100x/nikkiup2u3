@@ -259,7 +259,7 @@ function drawLevelInfo() {
 function byCategoryAndScore(a, b) {
 	var cata = category.indexOf(a.type.type);
 	var catb = category.indexOf(b.type.type);
-	return (cata - catb == 0) ? b.tmpScore - a.tmpScore : cata - catb;
+	return (cata - catb == 0) ? b.sumScore - a.sumScore : cata - catb;
 }
 function byCategory(a, b) {
 	var cata = category.indexOf(a);
@@ -268,7 +268,7 @@ function byCategory(a, b) {
 }
 
 function byScore(a, b) {
-	return a.tmpScore - b.tmpScore == 0 ? a.id - b.id : b.tmpScore - a.tmpScore;
+	return a.sumScore - b.sumScore == 0 ? a.id - b.id : b.sumScore - a.sumScore;
 }
 
 function byId(a, b) {
@@ -289,7 +289,7 @@ function filterTopAccessories(filters) {
 			clothes[i].calc(filters);
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = clothes[i];
-			} else if (clothes[i].tmpScore > result[clothes[i].type.type].tmpScore) {
+			} else if (clothes[i].sumScore > result[clothes[i].type.type].sumScore) {
 				result[clothes[i].type.type] = clothes[i];
 			}
 		}
@@ -300,11 +300,13 @@ function filterTopAccessories(filters) {
 	}
 	toSort.sort(byScore);
 	var total = 0;
+	var totalBouns = 0;
 	var maxTotal = 0;
 	var maxIdx = -1;
 	for (var i = 0; i < toSort.length; i++) {
 		total += toSort[i].tmpScore;
 		realScore = accScore(total, i+1);
+		realScore += totalBouns;
 		if (maxTotal  < realScore) {
 		  maxTotal = realScore;
 		  maxIdx = i;
@@ -331,13 +333,13 @@ function filterTopClothes(filters) {
 			clothes[i].calc(filters);
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = clothes[i];
-			} else if (clothes[i].tmpScore > result[clothes[i].type.type].tmpScore) {
+			} else if (clothes[i].sumScore > result[clothes[i].type.type].sumScore) {
 				result[clothes[i].type.type] = clothes[i];
 			}
 		}
 	}
 	if(result["上装"] && result["下装"] && result["连衣裙"]){
-		if(result["上装"].tmpScore + result["下装"].tmpScore > result["连衣裙"].tmpScore){
+		if(result["上装"].sumScore + result["下装"].sumScore > result["连衣裙"].sumScore){
 			delete result["连衣裙"];
 		}
 		else{
