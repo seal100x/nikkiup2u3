@@ -305,6 +305,7 @@ function filterTopAccessories(filters) {
 	var maxIdx = -1;
 	for (var i = 0; i < toSort.length; i++) {
 		total += toSort[i].tmpScore;
+		totalBouns += toSort[i].bonusScore;
 		realScore = accScore(total, i+1);
 		realScore += totalBouns;
 		if (maxTotal  < realScore) {

@@ -111,6 +111,8 @@ Clothes = function(csv) {
       }
 
       this.tmpScore = Math.round(s);
+      this.bonusScore = 0;
+	  this.sumScore = 0;
       var total = 0;
       if (filters.bonus) {
         for (var i in filters.bonus) {
@@ -128,13 +130,10 @@ Clothes = function(csv) {
           }
         }
         this.bonusScore = 1 * total.toFixed(0);
-		this.sumScore = this.tmpScore + this.bonusScore;
       }
-      /* TODO: uncomment this when F mechanism is fully understood
-      if (this.type.needFilter() && currentLevel.filter) {
-        currentLevel.filter.filter(this);
-      }*/
+	  
       this.tmpScore = Math.round(this.tmpScore);   
+	  this.sumScore = this.tmpScore + this.bonusScore;
     }
   };
 }
