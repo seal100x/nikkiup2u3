@@ -52,10 +52,10 @@ function row(piece, isShoppingCart) {
 	$lineTop.append(td(render(csv[2]), 'star'));
 	$lineTop.append(td(render(csv[3]), getStyle(csv[3]), "简"));
 	$lineTop.append(td(render(csv[4]), getStyle(csv[4]), "华"));
-	$lineTop.append(td(render(csv[5]), getStyle(csv[5]), "活"));
-	$lineTop.append(td(render(csv[6]), getStyle(csv[6]), "雅"));
-	$lineTop.append(td(render(csv[7]), getStyle(csv[7]), "可"));
-	$lineTop.append(td(render(csv[8]), getStyle(csv[8]), "成"));
+	$lineTop.append(td(render(csv[5]), getStyle(csv[5]), "可"));
+	$lineTop.append(td(render(csv[6]), getStyle(csv[6]), "成"));
+	$lineTop.append(td(render(csv[7]), getStyle(csv[7]), "活"));
+	$lineTop.append(td(render(csv[8]), getStyle(csv[8]), "雅"));
 	$lineTop.append(td(render(csv[9]), getStyle(csv[9]), "纯"));
 	$lineTop.append(td(render(csv[10]), getStyle(csv[10]), "性"));
 	$lineTop.append(td(render(csv[11]), getStyle(csv[11]), "凉"));
