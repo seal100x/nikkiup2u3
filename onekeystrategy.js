@@ -77,19 +77,19 @@ function showStrategy(){
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = new Object()
 				result[clothes[i].type.type][0] = clothes[i];
-			} else if (clothes[i].tmpScore > result[clothes[i].type.type][0].tmpScore) {
+			} else if (clothes[i].sumScore > result[clothes[i].type.type][0].sumScore) {
 				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
 				result[clothes[i].type.type][2] = result[clothes[i].type.type][1];
 				result[clothes[i].type.type][1] = result[clothes[i].type.type][0];
 				result[clothes[i].type.type][0] = clothes[i];
-			} else if (!result[clothes[i].type.type][1] || clothes[i].tmpScore > result[clothes[i].type.type][1].tmpScore) {
+			} else if (!result[clothes[i].type.type][1] || clothes[i].sumScore > result[clothes[i].type.type][1].sumScore) {
 				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
 				result[clothes[i].type.type][2] = result[clothes[i].type.type][1];
 				result[clothes[i].type.type][1] = clothes[i];				
-			} else if (!result[clothes[i].type.type][2] || clothes[i].tmpScore > result[clothes[i].type.type][2].tmpScore) {
+			} else if (!result[clothes[i].type.type][2] || clothes[i].sumScore > result[clothes[i].type.type][2].sumScore) {
 				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
 				result[clothes[i].type.type][2] = clothes[i];				
-			} else if (!result[clothes[i].type.type][3] || clothes[i].tmpScore > result[clothes[i].type.type][3].tmpScore) {
+			} else if (!result[clothes[i].type.type][3] || clothes[i].sumScore > result[clothes[i].type.type][3].sumScore) {
 				result[clothes[i].type.type][3] = clothes[i];				
 			}
 		}
@@ -201,13 +201,13 @@ function getstrTag(filters){
 function getstrClothes(result){
 	if(result.length == 0)
 		return " : 无";
-	 var str = " : " + result[0].name + "「" + result[0].tmpScore + " " + removeNum(result[0].source) + "」";
+	 var str = " : " + result[0].name + "「" + result[0].sumScore + " " + removeNum(result[0].source) + "」";
 	 if(result[1])
-		str += " > " + result[1].name + "「" + result[1].tmpScore + " " + removeNum(result[1].source) + "」";
+		str += " > " + result[1].name + "「" + result[1].sumScore + " " + removeNum(result[1].source) + "」";
 	 if(result[2])
-		str += " > " + result[2].name + "「" + result[2].tmpScore + " " + removeNum(result[2].source) + "」";
+		str += " > " + result[2].name + "「" + result[2].sumScore + " " + removeNum(result[2].source) + "」";
 	 if(result[3])
-		str += " > " + result[3].name + "「" + result[3].tmpScore + " " + removeNum(result[3].source) + "」";
+		str += " > " + result[3].name + "「" + result[3].sumScore + " " + removeNum(result[3].source) + "」";
 	 return str;
 }
 
