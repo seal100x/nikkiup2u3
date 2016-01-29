@@ -7,7 +7,10 @@ input[type=checkbox], input[type=radio] {
 }
 
 /************************/
-
+.fliter_form_div_left{
+	float: none;
+	margin: 0;
+}
 div.top{
 	padding: 0;
 }
@@ -23,6 +26,12 @@ div.fliter_form_div {
 }
 /************************/
 div.fliter_option .checkbox{
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+.fliter_form_div_right .checkbox{
     display: inline-block;
     margin-top: 0;
     margin-bottom: 0;

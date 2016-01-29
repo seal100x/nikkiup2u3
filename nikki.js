@@ -608,16 +608,6 @@ function initEvent() {
 		$("#show_history").hide();
 		return false;
 	});
-	$("#advanced_options").click(function () {
-		$("#advanced_options_span").show();
-		$("#advanced_options").hide();
-		return false;
-	});
-	$("#front_filter").click(function () {
-		$("#front_filter_span").show();
-		$("#front_filter").hide();
-		return false;
-	});
 	$(".fliter").change(function () {
 		onChangeUiFilter();
 		if (this.value == "balance") {
@@ -667,45 +657,116 @@ function initEvent() {
 	
 	//前台筛选
 	$(".front_filter_option").click(function(){
+		filterClotherHTML(this);
+		 return false;
+	});
+	$("#add_all").click(function(){
+		var idmap = {};
+		var idlist= [];
+		var clothesDivList = $("#clothes .table-body .table-row");		
+		for(var i = 0 ; i < clothesDivList.length; i++){
+			var id  = $(clothesDivList[i]).find(".id:first").text();
+			idmap[id] = true;
+			idlist.push(id);
+		}
+		var type = $(clothesDivList[0]).find(".category:first").text().split("-")[0];
+		var updating = [];
+		for (var i in clothes) {
+			if (clothes[i].type.mainType == type && idmap[clothes[i].id]) {
+				updating.push(clothes[i].name);
+			}
+		}
+		var names = updating.join(",");
+		if(names.length > 100){
+			names = names.substring(0,100) + ".....等" + updating.length + "件衣服";
+		}
+		if (confirm("你将要在>>" + type + "<<中导入：\n" + names)) {
+			var myClothes = MyClothes();
+			myClothes.filter(clothes);
+			if (myClothes.mine[type]) {
+				myClothes.mine[type] = myClothes.mine[type].concat(idlist);
+			} else {
+				myClothes.mine[type] = idlist;
+			}
+			myClothes.update(clothes);
+			saveAndUpdate();
+			refreshTable();
+			clearImport();
+		}
+	});
+}
+
+function filterClotherHTML(btn){
 		var clothesDivList = $("#clothes .table-body .table-row");
 		var str = "";
 		var type = 0;
-		switch(this.value){
-			case "1": str = ".deps"; type = 1; break;
-			case "2": str = "少";break;
-			case "3": str = "公";break;
-			case "4": str = "店";break;
-			case "5": str = "活动";break;
-			case "6": str = "迷,幻"; type = 2; break;
-			case "7": str = "送";break;
-			case "8": str = "签到";break;
+		switch($(btn).text()){
+			case "尚缺材料": str = ".deps"; type = -1; break;
+			case "少女级": str = "少";break;
+			case "少女染/进": str = "少"; type = 2; break;
+			case "公主级": str = "公";break;
+			case "公主染/进": str = "公"; type = 2; break;
+			case "店": str = "店";break;
+			case "店染/进": str = "店"; type = 2; break;
+			case "设计图": str = "设计图";break;
+			case "设计图染/进": str = "设计图"; type = 2; break;
+			case "活动": str = "活动";break;
+			case "迷/幻限定": str = "迷,幻"; type = 1; break;
+			case "赠送/签到": str = "送,签到";break;
 		}
-		 for(var i = 0 ;i < clothesDivList.length; i++){
-			 if(type == 1){
+		 for(var i = 0 ; i < clothesDivList.length; i++){
+			 if(type == -1){//材料查找
 				 if($(clothesDivList[i]).find(str).length <= 0){
-					$(clothesDivList[i]).hide();
+					$(clothesDivList[i]).remove();
 				 }
 			 }
-			 else if(type == 0){
-				 if($(clothesDivList[i]).find(".source:first").text().indexOf(str) <0){
-					$(clothesDivList[i]).hide();					 
-				 }
-			 }
-			 else if(type == 2){
+			 else if(type == 0){//是否包含
 				 var strs = str.split(",");
-				 var ishide = true;
+				 var ifhide = true;
 				 for(var j = 0; j < strs.length; j++){
-					 if($(clothesDivList[i]).find(".source:first").text() == strs[j]){
-						ishide = false;
+					 if($(clothesDivList[i]).find(".source:first").text().indexOf(strs[j]) >= 0){
+						ifhide = false;
 					 }
 				 }
-				 if(ishide){
-					 $(clothesDivList[i]).hide();	
+				 if(ifhide){
+					 $(clothesDivList[i]).remove();	
 				 }
 			 }
+			 else if(type == 1){//是否仅包含
+				 var strs = str.split(",");
+				 var ifhide = true;
+				 for(var j = 0; j < strs.length; j++){
+					 if($(clothesDivList[i]).find(".source:first").text() == strs[j]){
+						ifhide = false;
+					 }
+				 }
+				 if(ifhide){
+					 $(clothesDivList[i]).remove();	
+				 }
+			 }
+			 else if(type == 2){//是否包含且查找染色/进化
+				var ifhide = true;
+				if($(clothesDivList[i]).find(".source:first").text().indexOf(str) >= 0){
+					ifhide = false;
+				}
+				if($(clothesDivList[i]).find(".source:first").text().indexOf("定") >= 0 
+					|| $(clothesDivList[i]).find(".source:first").text().indexOf("进") >= 0 ){
+					var id = $(clothesDivList[i]).find(".source:first").text().replace(/(定|进)([0-9]+)[^0-9]*/, "$2");
+					var $source = $("#clickable-" + $(clothesDivList[i]).find(".category:first").text().split("-")[0] + id).parent();
+					if($source.find(".source:first").text().indexOf(str) >= 0){
+						ifhide = false;
+					}
+				}
+				if(ifhide){
+					$(clothesDivList[i]).remove();	
+				}				 
+			 }
 		 }
-		 return false;
-	});
+}
+
+function initNotice() {
+	$("#update-info-2").html(clothesNotice);
+	$("#update-info-3").html(levelNotice);
 }
 
 function init() {
@@ -719,78 +780,9 @@ function init() {
 	refreshShoppingCart();
 	initEvent();
 }
-function menuFixed(id) {
-	$("#fixed-header").remove();
-	var obj = document.getElementById(id);
-	cloneHeaderRow($(obj));
-	var header = $(obj).find(".table-head")[0];
-	var _getHeight = header.offsetTop;
-
-	window.onscroll = function () {
-		changePos(_getHeight);
-	}
-}
-function cloneHeaderRow(obj) {
-	var header = $(obj.find('.table-head')[0]);
-	var hdtablea = $('<div>');
-	var tabela = $('<div class="table" style="margin: 0 0;"></div>');
-	var atributos = obj.prop("attributes");
-
-	$.each(atributos, function () {
-		if (this.name != "id") {
-			tabela.attr(this.name, this.value);
-		}
-	});
-
-	tabela.append('<div class="table-head">' + header.html() + '</div>');
-
-	hdtablea.append(tabela);
-	hdtablea.width(header.width());
-	hdtablea.height(header.height);
-	
-	for(var i  = 0; i<tabela.find(".table-td").length ;i++){
-		$(tabela.find(".table-td")[i]).width($(header.find(".table-td")[i]).width() + 1 * $(header.find(".table-td")[i]).css("padding-left").replace("px","") + 1 * $(header.find(".table-td")[i]).css("padding-right").replace("px","")).css("display","inline-block");
-	}
-	
-	hdtablea.css("visibility", "hidden");
-	hdtablea.css("top", "0px");
-	hdtablea.css("position", "fixed");
-	hdtablea.css("z-index", "1000");
-	hdtablea.attr("id", "fixed-header");
-	obj.before(hdtablea);
-	$(".gogogo-top").click(function () {
-		goTop();
-	});
-}
-function ReDrawcloneHeaderRow(){
-	var obj = document.getElementById("clothes");
-	var header = $($(obj).find(".table-head")[0]);
-	for(var i  = 0; i < $("#fixed-header").find(".table-td").length ;i++){		
-		$($("#fixed-header").find(".table-td")[i]).width($(header.find(".table-td")[i]).width()).css("display","inline-block");
-	}
-	$(".gogogo-top").click(function () {
-		goTop();
-	});
-	var _getHeight = header.offset().top;
-
-	window.onscroll = function () {
-		changePos(_getHeight);
-	}
-}
-
-function changePos(height) {
-	var obj = document.getElementById("fixed-header");
-	var end = document.getElementById("end");
-	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-	if (scrollTop < height || end.offsetTop < scrollTop) {
-		obj.style.visibility = 'hidden';
-	} else {
-		obj.style.visibility = 'visible';
-	}
-}
-
 
 $(document).ready(function () {
+	initNotice();
 	init();
 	menuFixed("clothes");
 });

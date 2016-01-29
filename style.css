@@ -1,5 +1,5 @@
 body{
-	margin: 2em;
+	margin: 1em;
 	font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
 }
 hr{
@@ -25,8 +25,21 @@ input[type="checkbox"]{
     display: table-cell;
     width: 1%;
 }
+fieldset {
+    padding: .35em .625em .75em;
+    border: 1px solid silver;
+}
+legend {
+	border: 0;
+    width: auto;
+    margin-bottom:0;
+    font-size: 14px;
+}
 /************************/
-
+.fliter_form_div_left{
+	float: left;
+	margin-right: 10px;
+}
 #filtersTop select{
 	height:34px;
 }
@@ -167,6 +180,10 @@ div.announcement {
 	padding: 5px;
 	max-height: 280px;
 	overflow: auto;
+}
+div.announcement hr{
+	margin-top: 8px;
+	margin-bottom: 8px
 }
 div#showmore {
 	text-align: center;
