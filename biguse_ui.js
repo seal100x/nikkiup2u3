@@ -3,6 +3,9 @@ function theadBiguse(isShoppingCart) {
 	$thead.append(td("分数", "score"));
 	$thead.append(td("名称", "name"));
 	$thead.append(td("图片", "score"));
+	$thead.append(td("面积", "area"));
+	$thead.append(td("部件颜色", "color1"));
+	$thead.append(td("搜索用颜色", "color2"));
 	$thead.append(td("类别", "category"));
 	$thead.append(td("编号", "th_number"));
 	$td_nbsp = td("", "");
@@ -32,16 +35,30 @@ function rowBiguse(piece, isShoppingCart, index) {
 	var csv = piece.toCsv();
 	
 	var $imagetd = td("点击查看", 'image');
+	var typeid = render(csv[0]).replace("发型","10").replace("连衣裙","20").replace("上装", "40").replace("下装", "50").replace("鞋子", "70").replace("妆容", "90");
+	var longid = typeid + render(csv[1]);
 	$imagetd.click(function(){
 		$("#imgModel").show();
-		var type = render(csv[0]).replace("发型","10").replace("连衣裙","20").replace("上装", "40").replace("下装", "50").replace("鞋子", "70").replace("妆容", "90");
-		$("#imgModel").css("background-image", "url(http://seal100x.github.io/nikkiup2u3_img/" + type + render(csv[1])+ ".jpg)");
-		$("#imgInfo").text(piece.name)
-		$("html,body").animate({
-			scrollTop : 0
-		}, 500);
+		$("#imgModel").css("background-image", "url(http://seal100x.github.io/nikkiup2u3_img/" +  longid + ".jpg)");
+		$("#imgInfo").text(piece.name);
 	});
 	$lineTop.append($imagetd);
+	if(wardrobe2[longid]){
+		$lineTop.append(td(wardrobe2[longid][0], "area"));
+		
+	var colortd1 = td("", "");
+	colortd1.css("background", "rgb("+ wardrobe2[longid][1]+ ")");
+		$lineTop.append(colortd1);
+		
+	var colortd2 = td("颜色编号 : " + wardrobe2[longid][2], "");
+	colortd2.css("background", "rgb("+ color[wardrobe2[longid][2]]+ ")");
+		$lineTop.append(colortd2);
+	}
+	else{
+		$lineTop.append(td("尚未收录", "area"));
+		$lineTop.append(td("尚未收录", "color1"));
+		$lineTop.append(td("尚未收录", "color2"));
+	}
 	$lineTop.append(td(render(csv[0]), 'category'));
 	$lineTop.append(td(render(csv[1]), 'id'));
 	if (isShoppingCart) {
