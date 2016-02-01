@@ -1,6 +1,7 @@
 // Ivan's Workshop
 // in pairs of lower bound, upper bound
 var base = {
+  'SSS': 3200,
   'SS': 2612.7,
   'S': 2089.35,
   'A': 1690.65,
@@ -28,6 +29,7 @@ var dressScoring = {
 
 var coatSize = 0.2;
 var coatScoring = {
+  'SSS': base['SSS'] * coatSize,
   'SS': base['SS'] * coatSize,
   'S': base['S'] * coatSize,
   'A': base['A'] * coatSize,
