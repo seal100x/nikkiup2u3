@@ -49,7 +49,7 @@
 					<!--12.30: 为梦幻大使活动做得小工具, 比较简单, 有建议可以在下边留言(图片太大了暂时传不上来...<br/>
 					12.30: 把图片喂给哈士奇咬了10分钟, 传上来了一份很模糊的临时版本, 1号左右有时间的时候重新压一遍<br/>-->
 					1.30: 梦幻大使活动, 按配件大小/颜色搜索功能制作中, 预计3号左右能够完成<br/>
-					目前进度 图片收集&处理:98%+, 图片分析:仅发型, 筛选功能: 尚未开始<br/>
+					2.2: 优化颜色聚类算法, 添加筛选功能<br/>
 					
 				<a href="#" id="show_history">历史更新</a><br/>
 				<br/>
@@ -59,6 +59,13 @@
 			</div><!-- announcement -->	
 			<div>
 				<select id="theme" onChange="changeTheme()"></select>
+				
+							<fieldset >
+								<legend>筛选</legend>
+								<div  id="front_filter_div">
+								<button  type="button" class="btn btn-xs btn-default front_filter_option_biguse" >-</button>
+								</div>
+							</fieldset>
 			<div style="display:none" id="imgModel" onerror="noimg()">
 			<div id="imgInfo" style="font-size: 18px"></div>
 			</div>

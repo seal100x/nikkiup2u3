@@ -3,7 +3,7 @@ function theadBiguse(isShoppingCart) {
 	$thead.append(td("分数", "score"));
 	$thead.append(td("名称", "name"));
 	$thead.append(td("图片", "score"));
-	$thead.append(td("面积", "area"));
+	$thead.append(td("部件大小", "area"));
 	$thead.append(td("部件颜色", "color1"));
 	$thead.append(td("搜索用颜色", "color2"));
 	$thead.append(td("类别", "category"));
@@ -50,8 +50,8 @@ function rowBiguse(piece, isShoppingCart, index) {
 	colortd1.css("background", "rgb("+ wardrobe2[longid][1]+ ")");
 		$lineTop.append(colortd1);
 		
-	var colortd2 = td("颜色编号 : " + wardrobe2[longid][2], "");
-	colortd2.css("background", "rgb("+ color[wardrobe2[longid][2]]+ ")");
+	var colortd2 = td( color[wardrobe2[longid][2]][1], "color_search");
+	colortd2.css("background", "rgb("+ color[wardrobe2[longid][2]][0]+ ")").css("color","white");
 		$lineTop.append(colortd2);
 	}
 	else{
