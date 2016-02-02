@@ -18,7 +18,7 @@ function changeFrontFilterDiv(c){
 	$("#front_filter_div").empty();
 	for(var co in color){
 		if(co.indexOf(c) >=0){
-			var $btn = $("<button>").addClass("btn btn-xs btn-default front_filter_option_biguse").attr("type", "button").text(color[co][1]);
+			var $btn = $("<button>").addClass("btn btn-xs btn-default front_filter_option_biguse").attr("type", "button").text(color[co][1]).css("background", "rgb("+ color[co][0]+ ")").css("color","white").css("margin", "2px").css("padding", "4px").css("font-size", "15px");
 			$("#front_filter_div").append($btn);
 		}
 	}
