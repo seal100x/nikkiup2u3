@@ -2,7 +2,7 @@ function theadBiguse(isShoppingCart) {
 	var $thead = $("<div>").addClass("table-head");
 	$thead.append(td("分数", "score"));
 	$thead.append(td("名称", "name"));
-	$thead.append(td("图片", "score"));
+	$thead.append(td("图片", ""));
 	$thead.append(td("部件大小", "area"));
 	$thead.append(td("部件颜色", "color1"));
 	$thead.append(td("搜索用颜色", "color2"));
@@ -26,7 +26,7 @@ function rowBiguse(piece, isShoppingCart, index) {
 	var $row = $("<div>").addClass("table-row");
 	var $lineTop = $row;
 	//var $lineTop = $("<div>").addClass("table-line");
-	$lineTop.append(td(piece.tmpScore, 'score'));
+	$lineTop.append(td(piece.sumScore, 'score'));
 	if (isShoppingCart) {
 		$lineTop.append(td(piece.name, ''));
 	} else {
@@ -61,7 +61,7 @@ function rowBiguse(piece, isShoppingCart, index) {
 	colortd2.css("background", "rgb("+ color[wardrobe2[longid][2]][0]+ ")").css("color","white");
 		$lineTop.append(colortd2);
 	}
-	else{
+	else if(piece.name != "总分"){
 		$lineTop.append(td("尚未收录", "area"));
 		$lineTop.append(td("尚未收录", "color1"));
 		$lineTop.append(td("尚未收录", "color2"));
