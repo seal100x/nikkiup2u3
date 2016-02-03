@@ -35,11 +35,18 @@ function rowBiguse(piece, isShoppingCart, index) {
 	var csv = piece.toCsv();
 	
 	var $imagetd = td("点击查看", 'image');
-	var typeid = render(csv[0]).replace("发型","10").replace("连衣裙","20").replace("上装", "40").replace("下装", "50").replace("鞋子", "70").replace("妆容", "90");
+	var typename = render(csv[0]);
+	if(typename.indexOf("袜子-") >=0){
+		typename = "袜子"
+	}
+	if(typename.indexOf("饰品-") >=0){
+		typename = "饰品"
+	}
+	var typeid = typename.replace("发型","10").replace("连衣裙","20").replace("外套", "30").replace("上装", "40").replace("下装", "50").replace("袜子", "60").replace("鞋子", "70").replace("饰品", "80").replace("妆容", "90");
 	var longid = typeid + render(csv[1]);
 	$imagetd.click(function(){
 		$("#imgModel").show();
-		$("#imgModel").css("background-image", "url(http://seal100x.github.io/nikkiup2u3_img/" +  longid + ".jpg)");
+		$("#imgModel").css("background-image", "url(http://seal100x.github.io/nikkiup2u3_img/" +  longid + ".png)");
 		$("#imgInfo").text(piece.name);
 	});
 	$lineTop.append($imagetd);
