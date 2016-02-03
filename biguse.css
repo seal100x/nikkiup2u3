@@ -1,9 +1,7 @@
 #imgModel{
 	background-image: url("");    
-	height: 150px;
-    width: 100px;
-    background-position-x: -5px;
-    background-position-y: -50px;
+	height: 184px;
+    width: 120px;
 	position: fixed;
 	border: 2px solid #000;
 	background-color: #fff;
