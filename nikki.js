@@ -141,13 +141,24 @@ function onChangeUiFilter() {
 		uiFilter[$(this).val()] = true;
 	});
 
-	if (currentCategory) {
+	if (currentCategory && currentCategory != 'switchall') {
 		if (CATEGORY_HIERARCHY[currentCategory].length > 1) {
 			$('input[name=category-' + currentCategory + ']:checked').each(function () {
 				uiFilter[$(this).val()] = true;
 			});
 		} else {
 			uiFilter[currentCategory] = true;
+		}
+	}
+	
+	if(currentCategory == 'switchall'){
+		for (var c in CATEGORY_HIERARCHY) {
+			if (CATEGORY_HIERARCHY[c].length > 1) {
+				for (var i in CATEGORY_HIERARCHY[c]) {
+					uiFilter[CATEGORY_HIERARCHY[c][i]] = true;
+				}
+			}
+			uiFilter[c] = true;
 		}
 	}
 	refreshTable();
@@ -428,6 +439,7 @@ function drawFilter() {//refactor me
 	for (var c in CATEGORY_HIERARCHY) {
 		out += '<li id="' + c + '"><a href="javascript:void(0)" onClick="switchCate(\'' + c + '\')">' + c + '&nbsp;&nbsp;<span class="badge">0</span></a></li>';
 	}
+		out += '<li id="switchall"><a href="javascript:void(0)" onClick="switchCate(\'switchall\')">全部&nbsp;&nbsp;<span class="badge"></span></a></li>';
 	out += "</ul>";
 	for (var c in CATEGORY_HIERARCHY) {
 		out += '<div id="category-' + c + '">';
@@ -605,7 +617,9 @@ function goTop() {
 function initEvent() {
 	$("#show_history").click(function () {
 		$("#update_history").show();
-		$("#show_history").hide();
+		$("#show_history").hide();		
+		$("#history-update-info-2").html(clothesHistoryNotice);
+		$("#history-update-info-3").html(levelHistoryNotice);
 		return false;
 	});
 	$(".fliter").change(function () {
@@ -699,69 +713,69 @@ function initEvent() {
 function filterClotherHTML(btn){
 		var clothesDivList = $("#clothes .table-body .table-row");
 		var str = "";
+		var cls = ".source:first";
 		var type = 0;
 		switch($(btn).text()){
-			case "尚缺材料": str = ".deps"; type = -1; break;
-			case "少女级": str = "少";break;
+			case "清空筛选": type = 0; break;
+			case "尚缺材料": cls = ".deps:first"; type = 3; break;
+			case "少女级": str = "少"; type = 1; break;
 			case "少女染/进": str = "少"; type = 2; break;
-			case "公主级": str = "公";break;
+			case "公主级": str = "公"; type = 1;break;
 			case "公主染/进": str = "公"; type = 2; break;
-			case "店": str = "店";break;
+			case "店": str = "店"; type = 1;break;
 			case "店染/进": str = "店"; type = 2; break;
-			case "设计图": str = "设计图";break;
+			case "设计图": str = "设计图"; type = 1;break;
 			case "设计图染/进": str = "设计图"; type = 2; break;
-			case "活动": str = "活动";break;
-			case "迷/幻限定": str = "迷,幻"; type = 1; break;
-			case "赠送/签到": str = "送,签到";break;
+			case "活动": str = "活动"; type = 2; break;
+			case "迷幻限定": str = "迷,幻,云禅,时光,缥缈"; type = -2; break;
+			case "赠送/签到": str = "送,签到"; type = 1; break;
+			case "套装部件": cls = ".issuit:first"; type = 3; break;
+			case "新品": cls = ".version:first"; str=lastVersion; type = 1; break;
 		}
 		 for(var i = 0 ; i < clothesDivList.length; i++){
-			 if(type == -1){//材料查找
-				 if($(clothesDivList[i]).find(str).length <= 0){
-					$(clothesDivList[i]).remove();
-				 }
+			 if(type == 0){//清空
+				$(clothesDivList[i]).show();
+				continue;
 			 }
-			 else if(type == 0){//是否包含
-				 var strs = str.split(",");
-				 var ifhide = true;
-				 for(var j = 0; j < strs.length; j++){
-					 if($(clothesDivList[i]).find(".source:first").text().indexOf(strs[j]) >= 0){
-						ifhide = false;
-					 }
-				 }
-				 if(ifhide){
-					 $(clothesDivList[i]).remove();	
-				 }
-			 }
-			 else if(type == 1){//是否仅包含
-				 var strs = str.split(",");
-				 var ifhide = true;
-				 for(var j = 0; j < strs.length; j++){
-					 if($(clothesDivList[i]).find(".source:first").text() == strs[j]){
-						ifhide = false;
-					 }
-				 }
-				 if(ifhide){
-					 $(clothesDivList[i]).remove();	
-				 }
-			 }
-			 else if(type == 2){//是否包含且查找染色/进化
-				var ifhide = true;
-				if($(clothesDivList[i]).find(".source:first").text().indexOf(str) >= 0){
+			var ifhide = true;
+			var strs = str.split(",");
+			for(var j = 0; j < strs.length; j++){
+				if(filterCompare($(clothesDivList[i]), type, cls, strs[j])){
 					ifhide = false;
 				}
-				if($(clothesDivList[i]).find(".source:first").text().indexOf("定") >= 0 
-					|| $(clothesDivList[i]).find(".source:first").text().indexOf("进") >= 0 ){
+				if(filterCompare($(clothesDivList[i]), type, ".source:first", "定")
+					|| filterCompare($(clothesDivList[i]), type, ".source:first", "进")){
 					var id = $(clothesDivList[i]).find(".source:first").text().replace(/(定|进)([0-9]+)[^0-9]*/, "$2");
 					var $source = $("#clickable-" + $(clothesDivList[i]).find(".category:first").text().split("-")[0] + id).parent();
-					if($source.find(".source:first").text().indexOf(str) >= 0){
+					if(filterCompare($source, type, cls, strs[j])){
 						ifhide = false;
 					}
 				}
-				if(ifhide){
-					$(clothesDivList[i]).remove();	
-				}				 
-			 }
+			}
+			if(ifhide){
+				$(clothesDivList[i]).hide();	
+			}
 		 }
+}
+
+function filterCompare(obj, type, cls, str){
+	if(str == "定" || str == "进"){
+		if(type != 2 && type != -2){
+			return false;
+		}
+		else{
+			type = 2;
+		}
+	}
+	if(type == 3){
+		return obj.find(cls).text().length > 0;
+	}
+	if(type > 0){
+		return obj.find(cls).text().indexOf(str) >= 0;
+	}
+	if(type < 0){
+		return obj.find(cls).text() == str;
+	}
 }
 
 function initNotice() {

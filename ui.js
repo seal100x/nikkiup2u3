@@ -18,6 +18,8 @@ function thead(isShoppingCart) {
 	$thead.append(td("保暖", ""));
 	$thead.append(td("特殊属性", "th_tag"));
 	$thead.append(td("来源", "th_from"));
+	$thead.append(td("套装", "th_issuit hidden"));
+	$thead.append(td("版本", "th_version hidden"));
 	$td_nbsp = td("", "");
 	if (!isShoppingCart) {
 		$td_nbsp = td("回到顶部", "th_gotop");
@@ -62,6 +64,8 @@ function row(piece, isShoppingCart) {
 	$lineTop.append(td(render(csv[12]), getStyle(csv[12]), "暖"));
 	$lineTop.append(td(render(csv[13]), 'tag'));
 	$lineTop.append(td(render(csv[14]), 'source'));
+	$lineTop.append(td(render(csv[15]), 'issuit hidden'));
+	$lineTop.append(td(render(csv[16]), 'version hidden'));
 	if (isShoppingCart) {
 		if (piece.id) {
 			$lineTop.append(td(removeShoppingCartButton(piece.type.type), 'icon'));

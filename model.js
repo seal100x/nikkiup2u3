@@ -27,7 +27,9 @@ Clothes = function(csv) {
     pure: realRating(csv[11], csv[10], theType),
     cool: realRating(csv[12], csv[13], theType),
     tags: csv[14].split(','),
-    source: csv[15],
+    source: csv[15].replace(/浪·/g,"").replace(/设·/g,"").replace(/图/g,"设计图"),
+	isSuit: csv[16],
+	version: csv[17],
     deps: [],
     toCsv: function() {
       name = this.name;
@@ -41,9 +43,11 @@ Clothes = function(csv) {
       cool = this.cool;
       extra = this.tags.join(',');
       source = this.source;
+	  isSuit = this.isSuit;
+	  version = this.version;
       return [type.type, id, stars, simple[0], simple[1], cute[0], cute[1],
           active[0], active[1], pure[0], pure[1], cool[0],
-          cool[1], extra, source];
+          cool[1], extra, source, isSuit, version];
     },
     addDep: function(sourceType, depNum, c) {
 		var depinfo = {};
@@ -358,7 +362,7 @@ function fakeClothes(cart) {
           scoreWithBonusTd(scores.pure[0], bonus.pure[0]),
           scoreWithBonusTd(scores.pure[1], bonus.pure[1]),
           scoreWithBonusTd(scores.cool[0], bonus.cool[0]),
-          scoreWithBonusTd(scores.cool[1], bonus.cool[1]), '', ''];
+          scoreWithBonusTd(scores.cool[1], bonus.cool[1]), '', '', '', ''];
     }
   };
 }
