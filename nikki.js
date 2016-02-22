@@ -227,8 +227,6 @@ function drawLevelInfo() {
 				$categoryF.append($isF).append(currentLevel.hint[2]);
 			}
 		}
-		if (currentLevel.hint) {
-		}
 		if (currentLevel.skills) {
 			var $shaonv,
 			$gongzhu,
@@ -728,6 +726,9 @@ function filterClotherHTML(btn){
 			case "设计图染/进": str = "设计图"; type = 2; break;
 			case "活动": str = "活动"; type = 2; break;
 			case "迷幻限定": str = "迷,幻,云禅,时光,缥缈"; type = -2; break;
+			case "3星": str = "3"; cls = ".star:first"; type = 1; break;
+			case "4星": str = "4"; cls = ".star:first"; type = 1; break;
+			case "5星": str = "5"; cls = ".star:first"; type = 1; break;
 			case "赠送/签到": str = "送,签到"; type = 1; break;
 			case "套装部件": cls = ".issuit:first"; type = 3; break;
 			case "新品": cls = ".version:first"; str=lastVersion; type = 1; break;
