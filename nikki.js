@@ -725,7 +725,7 @@ function filterClotherHTML(btn){
 			case "设计图": str = "设计图"; type = 1;break;
 			case "设计图染/进": str = "设计图"; type = 2; break;
 			case "活动": str = "活动"; type = 2; break;
-			case "迷幻限定": str = "迷,幻,云禅,时光,缥缈"; type = -2; break;
+			case "迷幻限定": str = "迷,幻,云禅,昼夜,缥缈"; type = -2; break;
 			case "3星": str = "3"; cls = ".star:first"; type = 1; break;
 			case "4星": str = "4"; cls = ".star:first"; type = 1; break;
 			case "5星": str = "5"; cls = ".star:first"; type = 1; break;
