@@ -677,10 +677,17 @@ function initEvent() {
 		var idlist= [];
 		var clothesDivList = $("#clothes .table-body .table-row");		
 		for(var i = 0 ; i < clothesDivList.length; i++){
+			if($(clothesDivList[i]).find(".name.own:first").length > 0){
+				continue;
+			}
 			var id  = $(clothesDivList[i]).find(".id:first").text();
 			idmap[id] = true;
 			idlist.push(id);
 		}
+		if(idlist.length <= 0){
+			alert("没有需要添加的部件");
+			return;
+		}			
 		var type = $(clothesDivList[0]).find(".category:first").text().split("-")[0];
 		var updating = [];
 		for (var i in clothes) {
