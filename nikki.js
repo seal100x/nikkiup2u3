@@ -677,7 +677,7 @@ function initEvent() {
 		var idlist= [];
 		var clothesDivList = $("#clothes .table-body .table-row");		
 		for(var i = 0 ; i < clothesDivList.length; i++){
-			if($(clothesDivList[i]).find(".name.own:first").length > 0){
+			if($(clothesDivList[i]).find(".name.own:first").length > 0 || $(clothesDivList[i]).css("display") == "none"){
 				continue;
 			}
 			var id  = $(clothesDivList[i]).find(".id:first").text();
