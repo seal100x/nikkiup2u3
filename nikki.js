@@ -752,19 +752,29 @@ function filterClotherHTML(btn){
 				if(filterCompare($(clothesDivList[i]), type, cls, strs[j])){
 					ifhide = false;
 				}
-				if(filterCompare($(clothesDivList[i]), type, ".source:first", "定")
-					|| filterCompare($(clothesDivList[i]), type, ".source:first", "进")){
-					var id = $(clothesDivList[i]).find(".source:first").text().replace(/(定|进)([0-9]+)[^0-9]*/, "$2");
-					var $source = $("#clickable-" + $(clothesDivList[i]).find(".category:first").text().split("-")[0] + id).parent();
-					if(filterCompare($source, type, cls, strs[j])){
-						ifhide = false;
-					}
+				else{
+					ifhide &= filterLoop($(clothesDivList[i]), type, cls, strs[j]);
 				}
 			}
 			if(ifhide){
 				$(clothesDivList[i]).hide();	
 			}
 		 }
+}
+
+function filterLoop(obj, type, cls, str){	
+	if(filterCompare(obj, type, ".source:first", "定")
+		|| filterCompare(obj, type, ".source:first", "进")){
+		var id = obj.find(".source:first").text().replace(/(定|进)([0-9]+)[^0-9]*/, "$2");
+		var $source = $("#clickable-" + obj.find(".category:first").text().split("-")[0] + id).parent();
+		if(filterCompare($source, type, cls, str)){
+			return false;
+		}
+		else{
+			return filterLoop($source, type, cls, str);
+		}
+	}
+	return true;
 }
 
 function filterCompare(obj, type, cls, str){
