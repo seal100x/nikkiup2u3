@@ -222,6 +222,7 @@ function drawLevelInfo() {
 				var $notF = $("<font>").text("可穿戴部件:  ").addClass("not_f");
 				$categoryF.append($notF).append(currentLevel.hint[1]);
 			}
+			$categoryF.append($("<br>"));
 			if (currentLevel.hint[2] && currentLevel.hint[2] != '') {
 				var $isF = $("<font>").text("会导致F的部件: ").addClass("is_f");
 				$categoryF.append($isF).append(currentLevel.hint[2]);
@@ -673,44 +674,50 @@ function initEvent() {
 		 return false;
 	});
 	$("#add_all").click(function(){
-		var idmap = {};
-		var idlist= [];
+		var clotheslist = {};
 		var clothesDivList = $("#clothes .table-body .table-row");		
 		for(var i = 0 ; i < clothesDivList.length; i++){
-			if($(clothesDivList[i]).find(".name.own:first").length > 0 || $(clothesDivList[i]).css("display") == "none"){
+			var $row = $(clothesDivList[i])
+			if($row.find(".name.own:first").length > 0 || $row.css("display") == "none"){
 				continue;
 			}
-			var id  = $(clothesDivList[i]).find(".id:first").text();
-			idmap[id] = true;
-			idlist.push(id);
-		}
-		if(idlist.length <= 0){
-			alert("没有需要添加的部件");
-			return;
-		}			
-		var type = $(clothesDivList[0]).find(".category:first").text().split("-")[0];
-		var updating = [];
-		for (var i in clothes) {
-			if (clothes[i].type.mainType == type && idmap[clothes[i].id]) {
-				updating.push(clothes[i].name);
+			var id  = $row.find(".id:first").text();
+			var name  = $row.find(".name:first").text();
+			var type = $row.find(".category:first").text().split("-")[0];
+			if (clotheslist[type]) {
+				clotheslist[type]["idlist"].push(id);
+				clotheslist[type]["namelist"].push(name);
+			} else {
+				clotheslist[type] = {};
+				clotheslist[type]["idlist"] = [id];
+				clotheslist[type]["namelist"] = [name];
 			}
 		}
-		var names = updating.join(",");
-		if(names.length > 100){
-			names = names.substring(0,100) + ".....等" + updating.length + "件衣服";
+		if(clotheslist.length <= 0){
+			alert("没有需要添加的部件");
+			return;
 		}
-		if (confirm("你将要在>>" + type + "<<中导入：\n" + names)) {
+		var confirmStr = "";
+		for(var type in clotheslist){
+			var names = clotheslist[type]["namelist"].join(",");
+			if(names.length > 50){
+				names = names.substring(0,50) + "...等" + clotheslist[type]["namelist"].length + "件衣服";
+			}
+			confirmStr += "你将要在>>" + type + "<<中导入：\n" + names + "\n";
+		}
+		if (confirm(confirmStr)) {
 			var myClothes = MyClothes();
 			myClothes.filter(clothes);
-			if (myClothes.mine[type]) {
-				myClothes.mine[type] = myClothes.mine[type].concat(idlist);
-			} else {
-				myClothes.mine[type] = idlist;
+			for(var type in clotheslist){
+				if (myClothes.mine[type]) {
+					myClothes.mine[type] = myClothes.mine[type].concat(clotheslist[type]["idlist"]);
+				} else {
+					myClothes.mine[type] = clotheslist[type]["idlist"];
+				}
 			}
 			myClothes.update(clothes);
 			saveAndUpdate();
 			refreshTable();
-			clearImport();
 		}
 	});
 }

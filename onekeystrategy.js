@@ -49,8 +49,8 @@ function showStrategy(){
 		$strategy.append($hint);
 	}
 	if($("#categoryFInfo").text()){
-		var $F = p($("#categoryFInfo").text().replace("","").replace("会导致", "  |  会导致"), "hint", "", "");
-		// $strategy.append($F);
+		var $F = p($("#categoryFInfo").text().replace("","").replace("会导致", "  <br/>  会导致"), "hint", "", "");
+		$strategy.append($("#categoryFInfo").clone());
 	}
 		
 	var $clotheslist_title = p("推荐搭配: ", "clotheslist_title");
@@ -115,12 +115,7 @@ function showStrategy(){
 		$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
 	}
 	
-	var accCount = 20;
-	if(filters.bonus && filters.bonus[0] && filters.bonus[0].param
-		&& filters.bonus[0].param.indexOf("S") >= 0 ){
-		accCount = 8;
-	}
-	$strategy.append(p("————————————饰品(推荐佩戴" + accCount + "件)————————————", "divide"));
+	$strategy.append(p("————————饰品(高收集佩戴满, 低收集佩戴9件)————————", "divide"));
 		
 	for (var t in typeList){
 		var accList = [];

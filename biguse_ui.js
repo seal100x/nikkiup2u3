@@ -190,14 +190,14 @@ var match = function(query, done){
 	$('#autocomplete1').autocomplete({
 		lookup: match,
 		onSelect: function (suggestion) {
-			shoppingCart1.put(clothesSet[suggestion.data.type.type][suggestion.data.id]);
+			shoppingCart1.put(clothesSet[suggestion.data.type.mainType][suggestion.data.id]);
 			refreshShoppingCartBiguse();
 		}
 	});
 	$('#autocomplete2').autocomplete({
 		lookup: match,
 		onSelect: function (suggestion) {
-			shoppingCart2.put(clothesSet[suggestion.data.type.type][suggestion.data.id]);
+			shoppingCart2.put(clothesSet[suggestion.data.type.mainType][suggestion.data.id]);
 			refreshShoppingCartBiguse();
 		}
 	});
