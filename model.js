@@ -86,6 +86,9 @@ Clothes = function(csv) {
       return ret;
     },
     calc: function(filters) {
+	  var isf = 1 ;
+	  if(Flist && Flist[filters.levelName] && Flist[filters.levelName][this.name])
+		  isf = 0.1;
       var s = 0;
       var self = this;
       this.tmpScoreByCategory = ScoreByCategory();
@@ -93,7 +96,7 @@ Clothes = function(csv) {
       for (var i in FEATURES) {
         var f = FEATURES[i]; 
         if (filters[f]) {
-          var sub = filters[f] * self[f][2];
+          var sub = filters[f] * self[f][2] * isf;
           if (filters[f] > 0) {
             if (sub > 0) {
               this.tmpScoreByCategory.record(f, sub, 0); // matched with major
@@ -133,11 +136,11 @@ Clothes = function(csv) {
             }
           }
         }
-        this.bonusScore = 1 * total.toFixed(0);
+        this.bonusScore = Math.round(1 * total.toFixed(0) * isf);
       }
 	  
       this.tmpScore = Math.round(this.tmpScore);   
-	  this.sumScore = this.tmpScore + this.bonusScore;
+	  this.sumScore = this.tmpScore + this.bonusScore ;
     }
   };
 }

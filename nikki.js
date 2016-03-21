@@ -59,6 +59,7 @@ function onChangeCriteria() {
 	if (global.additionalBonus && global.additionalBonus.length > 0) {
 		criteria.bonus = global.additionalBonus;
 	}
+	criteria.levelName = $("#theme").val();
 	chooseAccessories(criteria);
 	drawLevelInfo();
 	refreshTable();
