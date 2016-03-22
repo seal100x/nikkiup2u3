@@ -86,9 +86,19 @@ Clothes = function(csv) {
       return ret;
     },
     calc: function(filters) {
-	  var isf = 1 ;
-	  if(Flist && Flist[filters.levelName] && Flist[filters.levelName][this.name])
-		  isf = 0.1;
+      var isf = 1 ;
+      if(Flist && Flist[filters.levelName]){
+        if (Flist[filters.levelName][this.name]){
+          if ($.inArray(this.type.type, Flist[filters.levelName]["type"])<0){
+            isf = 0.1;
+          }
+        }else if($.inArray(this.type.type, Flist[filters.levelName]["type"])>-1){
+          if (!Flist[filters.levelName][this.name]){
+            if ($.inArray(this.type.type, ["连衣裙","上装","下装"])>-1) isf = 0.1;
+            else isf = 0;
+          }
+        }
+      }
       var s = 0;
       var self = this;
       this.tmpScoreByCategory = ScoreByCategory();
@@ -293,7 +303,7 @@ var shoppingCart = {
   toList: function(sortBy) {
     var ret = [];
     for (var t in this.cart) {
-      ret.push(this.cart[t]);
+      if(this.cart[t].sumScore>0) ret.push(this.cart[t]);
     }
     return ret.sort(sortBy);
   },
