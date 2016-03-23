@@ -360,6 +360,9 @@ function filterTopClothes(filters) {
 			delete result["上装"];
 			delete result["下装"];
 		}
+	}else if((result["上装"] || result["下装"]) && result["连衣裙"]){
+		delete result["上装"];
+		delete result["下装"];
 	}
 	return result;
 }
