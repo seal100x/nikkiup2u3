@@ -93,9 +93,7 @@ Clothes = function(csv) {
             isf = 0.1;
           }
         }else if($.inArray(this.type.type, Flist[filters.levelName]["type"])>-1){
-          if (!Flist[filters.levelName][this.name]){
             isf = 0.1;
-          }
         }
       }
       var s = 0;
