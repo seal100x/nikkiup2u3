@@ -303,7 +303,7 @@ var shoppingCart = {
   toList: function(sortBy) {
     var ret = [];
     for (var t in this.cart) {
-      if(this.cart[t].sumScore>0) ret.push(this.cart[t]);
+      ret.push(this.cart[t]);
     }
     return ret.sort(sortBy);
   },
