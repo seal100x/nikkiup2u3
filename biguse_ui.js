@@ -201,6 +201,9 @@ var match = function(query, done){
 			refreshShoppingCartBiguse();
 		}
 	});
+	$('#imgInfo').click(function () {
+		$("#imgModel").hide();
+	});
 }
 
 $(document).ready(function () {
