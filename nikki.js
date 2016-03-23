@@ -298,6 +298,7 @@ function filterTopAccessories(filters) {
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
+			if (clothes[i].isF) continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = clothes[i];
 			} else if (clothes[i].sumScore > result[clothes[i].type.type].sumScore) {
@@ -343,6 +344,7 @@ function filterTopClothes(filters) {
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
+			if (clothes[i].isF) continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = clothes[i];
 			} else if (clothes[i].sumScore > result[clothes[i].type.type].sumScore) {
