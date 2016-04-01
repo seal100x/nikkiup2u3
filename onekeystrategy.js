@@ -42,15 +42,16 @@ function showStrategy(){
 	
 	if($("#hintInfo").text()){
 		var $hint = p($("#hintInfo").text().replace("过关提示:",""), "hint", "过关提示: ", "hint_tiele");
-		$strategy.append($hint);
+		$strategy.append($hint.clone());
 	}
 	else if($("#theme").val().indexOf("竞技场") < 0 && $("#theme").val().indexOf("联盟委托") < 0){
 		var $hint = p("本关暂无过关提示, 若出现F, 请参考失败后大喵的衣服提示, 或不穿外套进行尝试", "hint", "过关提示: ", "hint_tiele");
 		$strategy.append($hint);
 	}
+	
 	if($("#categoryFInfo").text()){
 		var $F = p($("#categoryFInfo").text().replace("","").replace("会导致", "  <br/>  会导致"), "hint", "", "");
-		$strategy.append($("#categoryFInfo").clone());
+		$strategy.append($("#categoryFInfo").clone().attr("id", ""));
 	}
 		
 	var $clotheslist_title = p("推荐搭配: ", "clotheslist_title");

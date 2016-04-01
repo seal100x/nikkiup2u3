@@ -35,7 +35,14 @@ legend {
     margin-bottom:0;
     font-size: 14px;
 }
-/************************/
+/**********duoshuo start**************/
+#ds-thread #ds-reset .ds-post-self {
+	padding: 10px 5px!important;
+}
+#ds-thread #ds-reset .ds-children .ds-post-self{
+	padding: 5px 2px!important;
+}
+/**********duoshuo end**************/
 .fliter_form_div_left{
 	float: left;
 	margin-right: 10px;
