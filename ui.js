@@ -126,6 +126,8 @@ function clothesNameTd(piece) {
 		tooltip = deps;
 		if (deps.indexOf('需') > 0) {
 			cls += ' deps';
+		}else{
+			cls += ' depsFin';
 		}
 	}
 	cls += piece.own ? ' own' : '';
