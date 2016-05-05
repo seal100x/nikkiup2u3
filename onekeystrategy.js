@@ -75,6 +75,7 @@ function showStrategy(){
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
+			if (clothes[i].isF||$.inArray(clothes[i].type.type,skipCategory)>=0) continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = new Object()
 				result[clothes[i].type.type][0] = clothes[i];
@@ -113,7 +114,8 @@ function showStrategy(){
 		var name = category[c];
 		if(name.indexOf("饰品")>=0)
 			continue;
-		$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
+		if (result[name])
+			$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
 	}
 	
 	$strategy.append(p("————————饰品(高收集佩戴满, 低收集佩戴9件)————————", "divide"));
