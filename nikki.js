@@ -736,6 +736,7 @@ function filterClotherHTML(btn){
 		switch($(btn).text()){
 			case "清空筛选": type = 0; break;
 			case "尚缺材料": cls = ".deps:first"; type = 3; break;
+			case "暂不缺材料": cls = ".depsFin:first"; type = 3; break;
 			case "少女级": str = "少"; type = 1; break;
 			case "少女染/进": str = "少"; type = 2; break;
 			case "公主级": str = "公"; type = 1;break;
