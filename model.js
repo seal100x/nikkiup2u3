@@ -335,7 +335,8 @@ function fakeClothes(cart) {
   var numAccessories = 0;
   for (var c in cart) {
     if (c.split('-')[0] == "饰品") {
-      totalAccessories += cart[c].sumScore;
+      totalAccessories += cart[c].tmpScore;
+      totalScore += cart[c].bonusScore;
       totalAccessoriesByCategory.add(cart[c].tmpScoreByCategory);
       totalAccessoriesBonusByCategory.add(cart[c].bonusByCategory);
       numAccessories ++;
@@ -350,10 +351,6 @@ function fakeClothes(cart) {
     totalAccessoriesByCategory.scores[c][0] = accScore(totalAccessoriesByCategory.scores[c][0],
         numAccessories);
     totalAccessoriesByCategory.scores[c][1] = accScore(totalAccessoriesByCategory.scores[c][1],
-        numAccessories);
-    totalAccessoriesBonusByCategory.scores[c][0] = accScore(totalAccessoriesBonusByCategory.scores[c][0],
-        numAccessories);
-    totalAccessoriesBonusByCategory.scores[c][1] = accScore(totalAccessoriesBonusByCategory.scores[c][1],
         numAccessories);
   }
   totalScoreByCategory.add(totalAccessoriesByCategory);
