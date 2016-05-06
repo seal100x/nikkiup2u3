@@ -327,7 +327,7 @@ function filterTopAccessories(filters) {
 	var toSort16 = []; var total16 = 0;
 	for (var c in result16) {
 		toSort16.push(result16[c]);
-		total16 += accSumScore(toSort9[i], 16);
+		total16 += accSumScore(result16[c], 16);
 	}
 	if (total9 > total16) return toSort9;
 	else return toSort16;
