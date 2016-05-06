@@ -282,6 +282,10 @@ function byScore(a, b) {
 	return a.sumScore - b.sumScore == 0 ? a.id - b.id : b.sumScore - a.sumScore;
 }
 
+function byScore9(a, b) {
+	return accSumScore(a,9) - accSumScore(b,9) == 0 ? a.id - b.id : accSumScore(b,9) - accSumScore(a,9);
+}
+
 function byId(a, b) {
 	var cata = category.indexOf(a.type.type);
 	var catb = category.indexOf(b.type.type);
@@ -294,38 +298,39 @@ function filterTopAccessories(filters) {
 	for (var i in accCate) {
 		filters[accCate[i]] = true;
 	}
-	var result = {};
+	var result9 = {}; var result16 = {};
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
-			if (clothes[i].isF||$.inArray(clothes[i].type.type,skipCategory)>=0) continue;
-			if (!result[clothes[i].type.type]) {
-				result[clothes[i].type.type] = clothes[i];
-			} else if (clothes[i].sumScore > result[clothes[i].type.type].sumScore) {
-				result[clothes[i].type.type] = clothes[i];
+			if (clothes[i].isF || $.inArray(clothes[i].type.type, skipCategory) >= 0) continue;
+			if (!result9[clothes[i].type.type]) {
+				result9[clothes[i].type.type] = clothes[i];
+			} else if (accSumScore(clothes[i],9) > accSumScore(result9[clothes[i].type.type],9)) {
+				result9[clothes[i].type.type] = clothes[i];
+			}
+			if (!result16[clothes[i].type.type]) {
+				result16[clothes[i].type.type] = clothes[i];
+			} else if (accSumScore(clothes[i],16) > accSumScore(result16[clothes[i].type.type],16)) {
+				result16[clothes[i].type.type] = clothes[i];
 			}
 		}
 	}
-	var toSort = [];
-	for (var c in result) {
-		toSort.push(result[c]);
+	var toSort9 = []; var total9 = 0;
+	for (var c in result9) {
+		toSort9.push(result9[c]);
 	}
-	toSort.sort(byScore);
-	var total = 0;
-	var totalBouns = 0;
-	var maxTotal = 0;
-	var maxIdx = -1;
-	for (var i = 0; i < toSort.length; i++) {
-		total += toSort[i].tmpScore;
-		totalBouns += toSort[i].bonusScore;
-		realScore = accScore(total, i+1);
-		realScore += totalBouns;
-		if (maxTotal  < realScore) {
-		  maxTotal = realScore;
-		  maxIdx = i;
-		}
+	toSort9.sort(byScore9);
+	if (toSort9.length > 9) toSort9 = toSort9.slice(0, 9);
+	for (var i in toSort9) {
+		total9 += accSumScore(toSort9[i], 9);
 	}
-	return toSort.slice(0, maxIdx+1);
+	var toSort16 = []; var total16 = 0;
+	for (var c in result16) {
+		toSort16.push(result16[c]);
+		total16 += accSumScore(toSort9[i], 16);
+	}
+	if (total9 > total16) return toSort9;
+	else return toSort16;
 }
 
 function filterTopClothes(filters) {
@@ -344,7 +349,7 @@ function filterTopClothes(filters) {
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
-			if (clothes[i].isF) continue;
+			if (clothes[i].isF || $.inArray(clothes[i].type.type, skipCategory) >= 0) continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = clothes[i];
 			} else if (clothes[i].sumScore > result[clothes[i].type.type].sumScore) {
