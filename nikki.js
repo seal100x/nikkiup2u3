@@ -302,7 +302,7 @@ function filterTopAccessories(filters) {
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
-			if (clothes[i].isF || $.inArray(clothes[i].type.type, skipCategory) >= 0) continue;
+			if (clothes[i].isF || $.inArray(clothes[i].type.type, skipCategory) >= 0 || clothes[i].sumScore <= 0) continue;
 			if (!result9[clothes[i].type.type]) {
 				result9[clothes[i].type.type] = clothes[i];
 			} else if (accSumScore(clothes[i],9) > accSumScore(result9[clothes[i].type.type],9)) {
