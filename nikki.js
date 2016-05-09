@@ -298,11 +298,14 @@ function filterTopAccessories(filters) {
 	for (var i in accCate) {
 		filters[accCate[i]] = true;
 	}
+	for (var i in skipCategory) {
+		filters[skipCategory[i]] = false;
+	}
 	var result9 = {}; var result16 = {};
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
-			if (clothes[i].isF || $.inArray(clothes[i].type.type, skipCategory) >= 0 || clothes[i].sumScore <= 0) continue;
+			if (clothes[i].isF || clothes[i].sumScore <= 0) continue;
 			if (!result9[clothes[i].type.type]) {
 				result9[clothes[i].type.type] = clothes[i];
 			} else if (accSumScore(clothes[i],9) > accSumScore(result9[clothes[i].type.type],9)) {
@@ -345,11 +348,14 @@ function filterTopClothes(filters) {
 			filters[CATEGORY_HIERARCHY[i]] = true;
 		}
 	}
+	for (var i in skipCategory) {
+		filters[skipCategory[i]] = false;
+	}
 	var result = {};
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
-			if (clothes[i].isF || $.inArray(clothes[i].type.type, skipCategory) >= 0) continue;
+			if (clothes[i].isF || clothes[i].sumScore <= 0) continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = clothes[i];
 			} else if (clothes[i].sumScore > result[clothes[i].type.type].sumScore) {
