@@ -282,8 +282,10 @@ function byScore(a, b) {
 	return a.sumScore - b.sumScore == 0 ? a.id - b.id : b.sumScore - a.sumScore;
 }
 
-function byScore9(a, b) {
-	return accSumScore(a,9) - accSumScore(b,9) == 0 ? a.id - b.id : accSumScore(b,9) - accSumScore(a,9);
+function byScoreS(Num) {
+	return function(a, b) {
+		return accSumScore(a,Num) - accSumScore(b,Num) == 0 ? a.id - b.id : accSumScore(b,Num) - accSumScore(a,Num);
+	}
 }
 
 function byId(a, b) {
@@ -295,45 +297,47 @@ function byId(a, b) {
 function filterTopAccessories(filters) {
 	filters['own'] = true;
 	var accCate = CATEGORY_HIERARCHY['饰品'];
+	var accCNum = CATEGORY_HIERARCHY['饰品'].length;
+	var accSNum = 9;
 	for (var i in accCate) {
 		filters[accCate[i]] = true;
 	}
 	for (var i in skipCategory) {
 		filters[skipCategory[i]] = false;
 	}
-	var result9 = {}; var result16 = {};
+	var resultS = {}; var resultAll = {};
 	for (var i in clothes) {
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
 			if (clothes[i].isF || clothes[i].sumScore <= 0) continue;
-			if (!result9[clothes[i].type.type]) {
-				result9[clothes[i].type.type] = clothes[i];
-			} else if (accSumScore(clothes[i],9) > accSumScore(result9[clothes[i].type.type],9)) {
-				result9[clothes[i].type.type] = clothes[i];
+			if (!resultS[clothes[i].type.type]) {
+				resultS[clothes[i].type.type] = clothes[i];
+			} else if (accSumScore(clothes[i],accSNum) > accSumScore(resultS[clothes[i].type.type],accSNum)) {
+				resultS[clothes[i].type.type] = clothes[i];
 			}
-			if (!result16[clothes[i].type.type]) {
-				result16[clothes[i].type.type] = clothes[i];
-			} else if (accSumScore(clothes[i],16) > accSumScore(result16[clothes[i].type.type],16)) {
-				result16[clothes[i].type.type] = clothes[i];
+			if (!resultAll[clothes[i].type.type]) {
+				resultAll[clothes[i].type.type] = clothes[i];
+			} else if (accSumScore(clothes[i],accCNum) > accSumScore(resultAll[clothes[i].type.type],accCNum)) {
+				resultAll[clothes[i].type.type] = clothes[i];
 			}
 		}
 	}
-	var toSort9 = []; var total9 = 0;
-	for (var c in result9) {
-		toSort9.push(result9[c]);
+	var toSortS = []; var totalS = 0;
+	for (var c in resultS) {
+		toSortS.push(resultS[c]);
 	}
-	toSort9.sort(byScore9);
-	if (toSort9.length > 9) toSort9 = toSort9.slice(0, 9);
-	for (var i in toSort9) {
-		total9 += accSumScore(toSort9[i], 9);
+	toSortS.sort(byScoreS(accSNum));
+	if (toSortS.length > accSNum) toSortS = toSortS.slice(0, accSNum);
+	for (var i in toSortS) {
+		totalS += accSumScore(toSortS[i], accSNum);
 	}
-	var toSort16 = []; var total16 = 0;
-	for (var c in result16) {
-		toSort16.push(result16[c]);
-		total16 += accSumScore(result16[c], 16);
+	var toSortAll = []; var totalAll = 0;
+	for (var c in resultAll) {
+		toSortAll.push(resultAll[c]);
+		totalAll += accSumScore(resultAll[c], accCNum);
 	}
-	if (total9 > total16 || uiFilter["acc9"]) return toSort9;
-	else return toSort16;
+	if (totalS > totalAll || uiFilter["acc9"] ) return toSortS;
+	else return toSortAll;
 }
 
 function filterTopClothes(filters) {
