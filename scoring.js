@@ -11,6 +11,7 @@ var base = {
 
 var hairSize = 0.5;
 var hairScoring = {
+  'SSS': base['SSS'] * hairSize,
   'SS': base['SS'] * hairSize,
   'S': base['S'] * hairSize,
   'A': base['A'] * hairSize,
@@ -20,6 +21,7 @@ var hairScoring = {
 
 var dressSize = 2;
 var dressScoring = {
+  'SSS': base['SSS'] * dressSize,
   'SS': base['SS'] * dressSize,
   'S': base['S'] * dressSize,
   'A': base['A'] * dressSize,
@@ -39,6 +41,7 @@ var coatScoring = {
 
 var topSize = 1;
 var topScoring = {
+  'SSS': base['SSS'] * topSize,
   'SS': base['SS'] * topSize,
   'S': base['S'] * topSize,
   'A': base['A'] * topSize,
@@ -48,6 +51,7 @@ var topScoring = {
 
 var bottomSize = 1;
 var bottomScoring = {
+  'SSS': base['SSS'] * bottomSize,
   'SS': base['SS'] * bottomSize,
   'S': base['S'] * bottomSize,
   'A': base['A'] * bottomSize,
@@ -57,6 +61,7 @@ var bottomScoring = {
 
 var sockSize = 0.3;
 var sockScoring = {
+  'SSS': base['SSS'] * sockSize,
   'SS': base['SS'] * sockSize,
   'S': base['S'] * sockSize,
   'A': base['A'] * sockSize,
@@ -66,6 +71,7 @@ var sockScoring = {
 
 var shoeSize = 0.4;
 var shoeScoring = {
+  'SSS': base['SSS'] * shoeSize,
   'SS': base['SS'] * shoeSize,
   'S': base['S'] * shoeSize,
   'A': base['A'] * shoeSize,
@@ -75,6 +81,7 @@ var shoeScoring = {
 
 var accessoriesSize = 0.2;
 var accessoriesScoring = {
+  'SSS': base['SSS'] * accessoriesSize,
   'SS': base['SS'] * accessoriesSize,
   'S': base['S'] * accessoriesSize,
   'A': base['A'] * accessoriesSize,
@@ -84,6 +91,7 @@ var accessoriesScoring = {
 
 var makeupSize = 0.1;
 var makeupScoring = {
+  'SSS': base['SSS'] * makeupSize,
   'SS': base['SS'] * makeupSize,
   'S': base['S'] * makeupSize,
   'A': base['A'] * makeupSize,
