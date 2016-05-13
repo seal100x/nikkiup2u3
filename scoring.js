@@ -135,7 +135,7 @@ var scoring = {
   '鞋子': shoeScoring,
   '饰品': accessoriesScoring,
   '妆容': makeupScoring,
-  '荧光之灵': lightScoring
+  '萤光之灵': lightScoring
 }
 
 var scoringSize = {
@@ -148,7 +148,7 @@ var scoringSize = {
   '鞋子': shoeSize,
   '饰品': accessoriesSize,
   '妆容': makeupSize,
-  '荧光之灵': lightSize
+  '萤光之灵': lightSize
 }
 
 var deviation = {
@@ -161,7 +161,7 @@ var deviation = {
   '鞋子': sigma(shoeScoring),
   '饰品': sigma(accessoriesScoring),
   '妆容': sigma(makeupScoring),
-  '荧光之灵': sigma(lightScoring),
+  '萤光之灵': sigma(lightScoring),
 }
 
 function getScore(clothesType) {
