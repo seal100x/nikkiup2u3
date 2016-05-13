@@ -91,6 +91,16 @@ var makeupScoring = {
   'C': base['C'] * makeupSize
 };
 
+var lightSize = 0.15;
+var lightScoring = {
+  'SS': base['SS'] * lightSize,
+  'S': base['S'] * lightSize,
+  'A': base['A'] * lightSize,
+  'B': base['B'] * lightSize,
+  'C': base['C'] * lightSize
+};
+
+
 function avg(score) {
   ret = {};
   for (s in score) {
@@ -116,7 +126,8 @@ var scoring = {
   '袜子': sockScoring,
   '鞋子': shoeScoring,
   '饰品': accessoriesScoring,
-  '妆容': makeupScoring
+  '妆容': makeupScoring,
+  '荧光之灵': lightScoring
 }
 
 var scoringSize = {
@@ -128,7 +139,8 @@ var scoringSize = {
   '袜子': sockSize,
   '鞋子': shoeSize,
   '饰品': accessoriesSize,
-  '妆容': makeupSize
+  '妆容': makeupSize,
+  '荧光之灵': lightSize
 }
 
 var deviation = {
@@ -140,7 +152,8 @@ var deviation = {
   '袜子': sigma(sockScoring),
   '鞋子': sigma(shoeScoring),
   '饰品': sigma(accessoriesScoring),
-  '妆容': sigma(makeupScoring)
+  '妆容': sigma(makeupScoring),
+  '荧光之灵': sigma(lightScoring),
 }
 
 function getScore(clothesType) {

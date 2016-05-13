@@ -25,6 +25,10 @@ input[type="checkbox"]{
     display: table-cell;
     width: 1%;
 }
+
+.nav-tabs.nav-justified>li#荧光之灵 a {
+	min-width: 65px;
+}
 fieldset {
     padding: .35em .625em .75em;
     border: 1px solid silver;

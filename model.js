@@ -1,6 +1,17 @@
-// Ivan's Workshop
-
+// Ivan's Worksho
 var FEATURES = ["simple", "cute", "active", "pure", "cool"];
+var CHINESE_TO_FEATURES = {
+	"简约":["simple","+"],
+	"华丽":["simple","-"],
+	"可爱":["cute","+"],
+	"成熟":["cute","-"],
+	"活泼":["active","+"],
+	"优雅":["active","-"],
+	"清纯":["pure","+"],
+	"性感":["pure","-"],
+	"清凉":["cool","+"],
+	"保暖":["cool","-"]
+};
 var ACCRATIO = [1, 1, 1, 1, 0.95, 0.9, 0.825, 0.75, 0.7, 0.65, 0.6, 0.55, 0.51, 0.47, 0.45, 0.425, 0.4];
 
 var global = {
@@ -128,6 +139,7 @@ Clothes = function(csv) {
       this.tmpScore = Math.round(s);
       this.bonusScore = 0;
 	  this.sumScore = 0;
+	  this.lightScore = 0;
       var total = 0;
       if (filters.bonus) {
         for (var i in filters.bonus) {
@@ -146,6 +158,23 @@ Clothes = function(csv) {
         }
         this.bonusScore = Math.round(1 * total.toFixed(0) * isf);
       }
+	  
+	  //荧光之灵
+	  if(this.type && "荧光之灵" == this.type.type && this.tags != null){
+		  var lights = this.tags[0].split("+");
+		  if(2 == lights.length && CHINESE_TO_FEATURES[lights[0]]){
+			var lightBonus = CHINESE_TO_FEATURES[lights[0]];
+			if(0 > filters[lightBonus[0]] && "-" == lightBonus[1]){
+				if("-" == lightBonus[1]){
+					this.bonusByCategory.scores[lightBonus[0]][1] += lights[1] * 1;
+				}
+				else{
+					this.bonusByCategory.scores[lightBonus[0]][0] += lights[1] * 1;
+				}
+				this.bonusScore += lights[1] * 1;
+			}
+		  }
+	  }
 	  
       this.tmpScore = Math.round(this.tmpScore);   
 	  this.sumScore = this.tmpScore + this.bonusScore ;
