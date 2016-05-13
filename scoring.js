@@ -101,6 +101,7 @@ var makeupScoring = {
 
 var lightSize = 0.15;
 var lightScoring = {
+  'SSS': base['SSS'] * lightSize,
   'SS': base['SS'] * lightSize,
   'S': base['S'] * lightSize,
   'A': base['A'] * lightSize,
