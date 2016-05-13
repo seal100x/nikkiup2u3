@@ -159,8 +159,8 @@ Clothes = function(csv) {
         this.bonusScore = Math.round(1 * total.toFixed(0) * isf);
       }
 	  
-	  //荧光之灵
-	  if(this.type && "荧光之灵" == this.type.type && this.tags != null){
+	  //萤光之灵
+	  if(this.type && "萤光之灵" == this.type.type && this.tags != null){
 		  var lights = this.tags[0].split("+");
 		  if(2 == lights.length && CHINESE_TO_FEATURES[lights[0]]){
 			var lightBonus = CHINESE_TO_FEATURES[lights[0]];
