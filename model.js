@@ -1,4 +1,4 @@
-// Ivan's Worksho
+// Ivan's Workshop
 var FEATURES = ["simple", "cute", "active", "pure", "cool"];
 var CHINESE_TO_FEATURES = {
 	"简约":["simple","+"],
@@ -121,11 +121,8 @@ Clothes = function(csv) {
 			var lightFilter = CHINESE_TO_FEATURES[lights[0]];
 			var lightScore = lights[1];
 			if(f == lightFilter[0]){
-				if (uiFilter["highscore"]) {
-					var highscore1 = $('#' + f + "1d778.active").length ? 1.778 : 1;
-					var highscore2 = $('#' + f + "1d27.active").length ? 1.27 : 1;
-					lightScore = accMul(accMul(lightScore, highscore1), highscore2);
-				}
+				if(filters.highscore1==f) lightScore=accMul(lightScore, 1.27);
+				if(filters.highscore2==f) lightScore=accMul(lightScore, 1.778);
 				if(0 > filters[f] && "-" == lightFilter[1]){	
 					sub += lightScore * 1;				
 				}
@@ -342,6 +339,22 @@ var shoppingCart = {
     }
     // fake a clothes
     this.totalScore = fakeClothes(this.cart);
+  },
+  validate: function(criteria){
+    if(this.cart["上装"] && this.cart["下装"] && this.cart["连衣裙"]){
+      this.cart['上装'].calc(criteria);
+      this.cart['下装'].calc(criteria);
+      this.cart['连衣裙'].calc(criteria);
+      if(this.cart['上装'].sumScore + this.cart['下装'].sumScore > this.cart['连衣裙'].sumScore){
+        shoppingCart.remove('连衣裙');
+      }else{
+        shoppingCart.remove('上装');
+        shoppingCart.remove('下装');
+      }
+    }else if((this.cart["上装"] || this.cart["下装"]) && this.cart["连衣裙"]){
+        shoppingCart.remove('上装');
+        shoppingCart.remove('下装');
+    }
   }
 };
 
@@ -355,6 +368,17 @@ function accScore(total, items) {
 function accSumScore(a,items){
 	return accScore(a.tmpScore, items)+a.bonusScore;
 }
+
+var accCateNum = function() {
+	var cnt = 0;
+	for (var i in category) {
+		if (category[i].split('-')[0] == "饰品") cnt++;
+	}
+	for (var i in skipCategory) {
+		if (skipCategory[i].split('-')[0] == "饰品") cnt--;
+	}
+	return cnt;
+}();
 
 function fakeClothes(cart) {
   var totalScore = 0;
