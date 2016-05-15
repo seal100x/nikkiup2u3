@@ -114,7 +114,26 @@ Clothes = function(csv) {
       for (var i in FEATURES) {
         var f = FEATURES[i]; 
         if (filters[f]) {
-          var sub = filters[f] * self[f][2] * isf;
+          var sub = filters[f] * self[f][2] * isf;		  
+		  //萤光之灵
+		  if(this.type && "萤光之灵" == this.type.type && this.tags != null){
+			var lights = this.tags[0].split("+");
+			var lightFilter = CHINESE_TO_FEATURES[lights[0]];
+			var lightScore = lights[1];
+			if(f == lightFilter[0]){
+				if (uiFilter["highscore"]) {
+					var highscore1 = $('#' + f + "1d778.active").length ? 1.778 : 1;
+					var highscore2 = $('#' + f + "1d27.active").length ? 1.27 : 1;
+					lightScore = accMul(accMul(lightScore, highscore1), highscore2);
+				}
+				if(0 > filters[f] && "-" == lightFilter[1]){	
+					sub += lightScore * 1;				
+				}
+				else if(0 < filters[f] && "+" == lightFilter[1]){
+					sub += lightScore * 1;
+				}
+			}
+		  }		  
           if (filters[f] > 0) {
             if (sub > 0) {
               this.tmpScoreByCategory.record(f, sub, 0); // matched with major
@@ -139,7 +158,6 @@ Clothes = function(csv) {
       this.tmpScore = Math.round(s);
       this.bonusScore = 0;
 	  this.sumScore = 0;
-	  this.lightScore = 0;
       var total = 0;
       if (filters.bonus) {
         for (var i in filters.bonus) {
@@ -159,22 +177,6 @@ Clothes = function(csv) {
         this.bonusScore = Math.round(1 * total.toFixed(0) * isf);
       }
 	  
-	  //萤光之灵
-	  if(this.type && "萤光之灵" == this.type.type && this.tags != null){
-		  var lights = this.tags[0].split("+");
-		  if(2 == lights.length && CHINESE_TO_FEATURES[lights[0]]){
-			var lightBonus = CHINESE_TO_FEATURES[lights[0]];
-			if(0 > filters[lightBonus[0]] && "-" == lightBonus[1]){
-				if("-" == lightBonus[1]){
-					this.bonusByCategory.scores[lightBonus[0]][1] += lights[1] * 1;
-				}
-				else{
-					this.bonusByCategory.scores[lightBonus[0]][0] += lights[1] * 1;
-				}
-				this.bonusScore += lights[1] * 1;
-			}
-		  }
-	  }
 	  
       this.tmpScore = Math.round(this.tmpScore);   
 	  this.sumScore = this.tmpScore + this.bonusScore ;
@@ -415,7 +417,10 @@ function scoreWithBonusTd(score, bonus) {
 function realRating(a, b, type) {
   real = a ? a : b;
   symbol = a ? 1 : -1;
-  score = symbol * type.score[real];
+  if(isNaN(real))
+	score = symbol * type.score[real];
+  else
+	score = symbol * real * 15;
   dev = type.deviation[real];
   return [a, b, score, dev];
 }
