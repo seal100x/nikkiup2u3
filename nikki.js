@@ -668,6 +668,7 @@ function autogenLimit(){
 	//start loop
 	var scoreTotal=0;
 	var boosts=[];
+	var ownCnt=loadFromStorage().length>0 ? 1 : 0;
 	for (var a in FEATURES){
 		for (var b in FEATURES){
 			if (FEATURES[b]==FEATURES[a]) continue;
@@ -696,7 +697,7 @@ function autogenLimit(){
 			shoppingCart.clear();
 			var currScoreByCate=[];
 			for (var i in clothes){
-				if (!clothes[i].own) continue;
+				if (!clothes[i].own&&ownCnt) continue;
 				var c=clothes[i].type.type;
 				if ($.inArray(c, skipCategory)>=0) continue;
 				if (!currScoreByCate[c]) currScoreByCate[c]=0;
