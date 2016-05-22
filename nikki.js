@@ -668,7 +668,7 @@ function autogenLimit(){
 	//start loop
 	var scoreTotal=0;
 	var boosts=[];
-	var ownCnt=loadFromStorage().length>0 ? 1 : 0;
+	var ownCnt=loadFromStorage().size>0 ? 1 : 0;
 	for (var a in FEATURES){
 		for (var b in FEATURES){
 			if (FEATURES[b]==FEATURES[a]) continue;
