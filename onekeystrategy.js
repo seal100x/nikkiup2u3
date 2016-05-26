@@ -1,5 +1,16 @@
 
-function showStrategy(){
+function showStrategy2(keywords){
+	function haveKeywords(str){
+		if(keywords == null){
+			return true;
+		}
+		var strs = $.unique(str.split(""));
+		_size = strs.length + keywords.length;
+		var newArray = $.merge(strs, keywords);
+		size_ = $.unique(newArray).length;
+		return _size > size_;
+	}
+	
 	var $strategy = $("<div/>").addClass("strategy_info_div");
 		
 	var theme = allThemes[$("#theme").val()];
@@ -12,6 +23,11 @@ function showStrategy(){
 	
 	var $author = p("配装器一键攻略@黑的升华", "author");
 	$strategy.append($author);
+	
+	if(keywords != null){
+		var $keywords_p = p("关键字: "+keywords, "");
+		$strategy.append($keywords_p);		
+	}
 	
 	var $skill_title = p("技能: ", "skill_title");
 	$strategy.append($skill_title);
@@ -72,10 +88,11 @@ function showStrategy(){
 		}
 	}
 	var result = {};
-	for (var i in clothes) {
+	for (var i in clothes) {		
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
 			if (clothes[i].isF||$.inArray(clothes[i].type.type,skipCategory)>=0) continue;
+			if(!haveKeywords(clothes[i].name))  continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = new Object()
 				result[clothes[i].type.type][0] = clothes[i];
