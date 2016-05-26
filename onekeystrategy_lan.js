@@ -52,7 +52,7 @@ function showStrategy(){
 	var resultWords = {};
 	for(var i in result){
 		result[i].sort(byScore);
-		result[i].splice(50,999);
+		result[i].splice(80,999);
 		resultWords[i] = [];
 		for(var j in result[i]){
 			resultWords[i].push.apply( resultWords[i], result[i][j].name.split('') );
