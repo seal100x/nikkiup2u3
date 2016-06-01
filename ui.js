@@ -92,6 +92,8 @@ function getStyle(rating) {
 		return '';
 	}
 	switch (rating) {
+	case "SSS":
+		return 'SSS';
 	case "SS":
 		return 'SS';
 	case "S":
@@ -141,6 +143,29 @@ function clothesNameTd(piece) {
 	$clothesNameA.click(function () {
 		toggleInventory(piece.type.mainType, piece.id, this);
 		return false;
+	});
+	var $clothesNameTd = $("<div>");
+	$clothesNameTd.attr("id", "clickable-" + (piece.type.mainType + piece.id));
+	$clothesNameTd.addClass(cls);
+	$clothesNameTd.append($clothesNameA);
+	return $clothesNameTd;
+}
+
+function clothesNameTd_Search(piece) {
+	var cls = "name table-td";
+	cls += piece.own ? ' own' : '';
+
+	var $clothesNameA = $("<a>").attr("href", "#").addClass("button");
+	$clothesNameA.text(piece.name);
+	$clothesNameA.click(function () {
+		if ($('#searchResultMode').hasClass("active")){
+			shoppingCart.put(clothesSet[piece.type.mainType][piece.id]);
+			refreshShoppingCart();
+			return false;
+		}else{
+			toggleInventory(piece.type.mainType, piece.id, this);
+			return false;
+		}
 	});
 	var $clothesNameTd = $("<div>");
 	$clothesNameTd.attr("id", "clickable-" + (piece.type.mainType + piece.id));
