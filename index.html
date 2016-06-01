@@ -145,11 +145,12 @@
 					4.1 : 修复部分细节问题<br/>
 					5.5 : 一键攻略去除F品；双手持部位调整；部分tag关卡的推荐饰品调整；筛选增加暂不缺材料，但有机会成为以后设计图的材料，分解时请注意<br/>
 					5.9 : 新增9件饰品选项给不想带饰品的小黑<br/>
+					5.13: 更新萤光之灵, 感谢楼上的rean帮忙更新配装器~ o&gt;,&lt;o <br/>
 					<br/>
 				</div>
 					功能更新：by 黑的升华 & Rean翎<br/>
-					5.13: 更新萤光之灵, 感谢楼上的rean帮忙更新配装器~ o&gt;,&lt;o <br/>
 					5.15: 调整萤光之灵权重比例, 计分方法；点击高分权重自动推荐最高分的组合<br/>
+					6.1: 新增搜索功能，支持按套装名搜索，可选择添加到衣柜/购物车，暂时也想不到好的展示方法，先这样吧<br/>
 					<hr/>
 					衣柜、设计图更新：by 翡翠<br/>
 					<div id="history-update-info-2"></div>
@@ -252,6 +253,7 @@
 							<div class="fliter_option clear">
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="own" checked /> 拥有<span id='inventoryCount'/></label></div>
 								<div class="checkbox"><label><input type="checkbox" class="fliter" value="missing" checked /> 没有</label></div>
+								<div class="checkbox"><label><input type="checkbox" id="searchResultCheck" onclick="toggleSearchResult()" checked /> 搜索</label></div>
 								<a href="#" class = "showmore" style="display:inline-block;cursor:pointer">↓显示全部衣服↓</a>
 							</div><!-- fliter_option -->
 						</div>
@@ -294,6 +296,11 @@
 			</div><!-- fliter -->
 		</div><!-- top -->
 		<hr>
+		<div id = 'searchResult'>
+			<input type="text" id="searchResultInput" placeholder="输入名字搜索" /><button class="btn btn-default btn-sm" onclick="searchResult()">搜索</button><button class="btn btn-default btn-sm" id="searchResultMode">→衣柜</button>
+			<div id='searchResultList' width="100%"></div>
+		<hr>
+		</div>
 		<div id = 'shoppingCartContainer'>
 		  推荐穿戴部件  <button class="btn btn-default" style="float:right" onclick="clearShoppingCart()">清空</button>
 		  <div id='shoppingCart' class="table"></div>
