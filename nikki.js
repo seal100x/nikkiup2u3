@@ -618,6 +618,9 @@ function doImport() {
 		}
 	}
 	var names = updating.join(",");
+	if(names.length > 50){
+		names = names.substring(0,50) + "...等" + updating.length + "件衣服";
+	}
 	if (confirm("你将要在>>" + type + "<<中导入：\n" + names)) {
 		var myClothes = MyClothes();
 		myClothes.filter(clothes);
