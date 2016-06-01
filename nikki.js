@@ -481,6 +481,7 @@ function drawFilter() {//refactor me
 
 var currentCategory;
 function switchCate(c) {
+	$("#searchResultList").html('');
 	currentCategory = c;
 	$("ul#categoryTab li").removeClass("active");
 	$("#category_container div").removeClass("active");
@@ -638,6 +639,59 @@ function goTop() {
 	}, 500);
 }
 
+function getDistinct(arr){
+	var newArr=[];
+	for (var i in arr){
+		if(jQuery.inArray(arr[i], newArr)<0){
+			newArr.push(arr[i]);
+		}
+	}
+	return newArr;
+}
+
+function toggleSearchResult(){
+	if($("#searchResultCheck").is(':checked')) $('#searchResult').show();
+	else $('#searchResult').hide();
+}
+
+function searchResult(){
+	switchCate(0);
+	var searchTxt=$('#searchResultInput').val();
+	if (searchTxt){
+		var outSet=[];
+		for (var i in clothes){
+			if(clothes[i].isSuit.indexOf(searchTxt)>=0) {outSet.push(clothes[i].isSuit);}
+		}
+		if (outSet.length>0) {
+			outSet=getDistinct(outSet);
+			$('#searchResultList').append('<div class="name table-td search searchCate"><span class="button">套装：</span></div>');
+			for (var i in outSet) {$('#searchResultList').append('<div class="name table-td search"><span class="button searchResultSet">'+outSet[i]+'</span></div>');}
+			$(".searchResultSet").click(function () {
+				switchCate(0);
+				var setName=this.innerHTML;
+				$('#searchResultList').append('<div class="name table-td search searchCate"><span class="button">'+setName+'：</span></div>');
+				for (var i in clothes){
+					if(clothes[i].isSuit==setName) {$('#searchResultList').append(clothesNameTd_Search(clothes[i],1).css('float','left'));}
+				}
+			});
+		}
+		for (var h in CATEGORY_HIERARCHY){
+			var outCate=[];
+			for (var i in clothes){
+				if (clothes[i].type.mainType==h&&clothes[i].name.indexOf(searchTxt)>=0){
+					outCate.push(clothesNameTd_Search(clothes[i],1).css('float','left'));
+				}
+			}
+			if (outCate.length>0){
+				$('#searchResultList').append('<div class="name table-td search searchCate"><span class="button">'+h+'：</span></div>');
+				for (var i in outCate){
+					$('#searchResultList').append(outCate[i]);
+				}
+			}
+		}
+	}
+}
+
 function autogenLimit(){
 	//onChangeCriteria, calc normal weight
 	criteria = {};
@@ -782,6 +836,17 @@ function initEvent() {
 		menuFixed("clothes");
 		return false;
 	});
+	$("#searchResultMode").click(function(){
+		if ($(this).hasClass("active")) {$(this).removeClass("active");$(this).html('→衣柜');}
+		else {$(this).addClass("active");$(this).html('→购物车');}
+	});
+	$('#searchResultInput').keydown(function(e) {
+		if (e.keyCode==13) {
+			$(this).blur();
+			searchResult();
+		}
+	});
+	toggleSearchResult();
 	initOnekey();
 	
 	//前台筛选
