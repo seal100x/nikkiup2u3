@@ -54,6 +54,10 @@ legend {
 #filtersTop select{
 	height:34px;
 }
+#onekey{
+    margin-top: -4px;
+    border-radius: 0 4px 4px 0;
+}
 
 .weightContainer{
 	clear: left;
