@@ -12,6 +12,8 @@ function unique3(toUnique) {
 }
 
 function showStrategy(){
+	var suitSet = {};
+	
 	if(!uiFilter["toulan"]){
 		showStrategy2();
 		return;
@@ -46,8 +48,18 @@ function showStrategy(){
 			clothes[i].calc(filters);
 			if (clothes[i].isF||$.inArray(type,skipCategory)>=0) continue;
 			result[type].push(clothes[i]);
+			if(clothes[i].isSuit != "" && type.indexOf("饰品") < 0){
+				suitSet[clothes[i].isSuit] = suitSet[clothes[i].isSuit] == null ? clothes[i].sumScore : suitSet[clothes[i].isSuit] + clothes[i].sumScore;
+			}
 		}
 	}
+	var suitArray = [];
+	for(var i in suitSet){
+		suitArray.push({"name": i, "score": suitSet[i]});
+	}
+	suitArray.sort(function(a,b){
+		return  b["score"] - a["score"];
+	});
 	
 	var resultWords = {};
 	for(var i in result){
@@ -87,7 +99,14 @@ function showStrategy(){
 	for(var i =0; i<4 && i < mostNum.length; i++){
 		str += mostNum[i].name;
 	}	
+		
+	showStrategy2(str.split(""), suitArray.slice(0,3));
 	
-	showStrategy2(str.split(""));
+	$(".stgy_clothes").each(function(){
+		var $p = $(this)
+		$.each(str.split(""), function(){
+			$p.html($p.html().replace(""+this, "<red>"+this+"</red>"))			
+		})
+	})
 }
 

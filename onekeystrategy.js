@@ -1,14 +1,17 @@
 
-function showStrategy2(keywords){
-	function haveKeywords(str){
+function showStrategy2(keywords, suits){
+	var suitNames = [];
+	function haveKeywords(clothes){
 		if(keywords == null){
 			return true;
 		}
-		var strs = $.unique(str.split(""));
+		var strs = $.unique(clothes["name"].split(""));
 		_size = strs.length + keywords.length;
 		var newArray = $.merge(strs, keywords);
 		size_ = $.unique(newArray).length;
-		return _size > size_;
+		if(_size > size_)
+			return true;
+		return ($.inArray(clothes["isSuit"],suitNames)>0);
 	}
 	
 	var $strategy = $("<div/>").addClass("strategy_info_div");
@@ -26,7 +29,12 @@ function showStrategy2(keywords){
 	
 	if(keywords != null){
 		var $keywords_p = p("关键字: "+keywords, "");
-		$strategy.append($keywords_p);		
+		$strategy.append($keywords_p);
+		$.each(suits, function(){
+			suitNames.push(this.name);
+		});
+		var $suits = p("套装: "+suitNames.join(", "), "");
+		$strategy.append($suits);
 	}
 	
 	var $skill_title = p("技能: ", "skill_title");
@@ -92,7 +100,7 @@ function showStrategy2(keywords){
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
 			if (clothes[i].isF||$.inArray(clothes[i].type.type,skipCategory)>=0) continue;
-			if(!haveKeywords(clothes[i].name))  continue;
+			if(!haveKeywords(clothes[i]))  continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = new Object()
 				result[clothes[i].type.type][0] = clothes[i];
