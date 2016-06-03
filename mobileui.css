@@ -71,7 +71,7 @@ div.fliter_option .checkbox{
 .table-td.tag{
 	color: blue;
 }
-.table-td:nth-child(6), .table-td:nth-child(7){
+.table-td.star+.table-td,.table-td.star+.table-td+.table-td{
 	clear: left
 }
 .table-td{
