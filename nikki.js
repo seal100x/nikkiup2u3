@@ -667,14 +667,14 @@ function searchResult(){
 		}
 		if (outSet.length>0) {
 			outSet=getDistinct(outSet);
-			$('#searchResultList').append('<div class="name table-td search searchCate"><span class="button">套装：</span></div>');
-			for (var i in outSet) {$('#searchResultList').append('<div class="name table-td search"><span class="button searchResultSet">'+outSet[i]+'</span></div>');}
+			$('#searchResultList').append(button_search('套装：','searchCate'));
+			for (var i in outSet) {$('#searchResultList').append(button_search(outSet[i],'','searchResultSet'));}
 			$(".searchResultSet").click(function () {
 				switchCate(0);
 				var setName=this.innerHTML;
-				$('#searchResultList').append('<div class="name table-td search searchCate"><span class="button">'+setName+'：</span></div>');
+				$('#searchResultList').append(button_search(setName+'：','searchCate'));
 				for (var i in clothes){
-					if(clothes[i].isSuit==setName) {$('#searchResultList').append(clothesNameTd_Search(clothes[i],1).css('float','left'));}
+					if(clothes[i].isSuit==setName) {$('#searchResultList').append(clothesNameTd_Search(clothes[i]));}
 				}
 			});
 		}
@@ -682,11 +682,11 @@ function searchResult(){
 			var outCate=[];
 			for (var i in clothes){
 				if (clothes[i].type.mainType==h&&clothes[i].name.indexOf(searchTxt)>=0){
-					outCate.push(clothesNameTd_Search(clothes[i],1).css('float','left'));
+					outCate.push(clothesNameTd_Search(clothes[i]));
 				}
 			}
 			if (outCate.length>0){
-				$('#searchResultList').append('<div class="name table-td search searchCate"><span class="button">'+h+'：</span></div>');
+				$('#searchResultList').append(button_search(h+'：','searchCate'));
 				for (var i in outCate){
 					$('#searchResultList').append(outCate[i]);
 				}
