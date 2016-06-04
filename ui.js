@@ -152,7 +152,7 @@ function clothesNameTd(piece) {
 }
 
 function clothesNameTd_Search(piece) {
-	var cls = "name table-td";
+	var cls = "name table-td search";
 	cls += piece.own ? ' own' : '';
 
 	var $clothesNameA = $("<a>").attr("href", "#").addClass("button");
@@ -170,6 +170,17 @@ function clothesNameTd_Search(piece) {
 	var $clothesNameTd = $("<div>");
 	$clothesNameTd.attr("id", "clickable-" + (piece.type.mainType + piece.id));
 	$clothesNameTd.addClass(cls);
+	$clothesNameTd.append($clothesNameA);
+	return $clothesNameTd;
+}
+
+function button_search(txt,cls1,cls2) {
+	var $clothesNameA = $("<span>").addClass("button");
+	if(cls2) $clothesNameA.addClass(cls2);
+	$clothesNameA.text(txt);
+	
+	var $clothesNameTd = $("<div>").addClass('name table-td search');
+	if(cls1) $clothesNameTd.addClass(cls1);
 	$clothesNameTd.append($clothesNameA);
 	return $clothesNameTd;
 }
