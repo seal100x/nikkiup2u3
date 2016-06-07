@@ -11,7 +11,7 @@ function showStrategy2(keywords, suits){
 		size_ = $.unique(newArray).length;
 		if(_size > size_)
 			return true;
-		return ($.inArray(clothes["isSuit"],suitNames)>0);
+		return ($.inArray(clothes["isSuit"],suitNames)>=0);
 	}
 	
 	var $strategy = $("<div/>").addClass("strategy_info_div");
@@ -99,61 +99,44 @@ function showStrategy2(keywords, suits){
 	for (var i in clothes) {		
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
-			if (clothes[i].isF||$.inArray(clothes[i].type.type,skipCategory)>=0) continue;
-			if(!haveKeywords(clothes[i]))  continue;
+			if (clothes[i].isF||$.inArray(clothes[i].type.type,skipCategory)>=0||clothes[i].sumScore == 0) continue;
+			if (keywords != null && clothes[i].type.type == "连衣裙") {
+				if (!result["先手选一个连衣裙"]) {
+					result["先手选一个连衣裙"] = [];
+				}
+				result["先手选一个连衣裙"].push(clothes[i]);
+			}
+			if (!haveKeywords(clothes[i])) continue;
 			if (!result[clothes[i].type.type]) {
-				result[clothes[i].type.type] = new Object()
-				result[clothes[i].type.type][0] = clothes[i];
-			} else if (clothes[i].sumScore > result[clothes[i].type.type][0].sumScore) {
-				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
-				result[clothes[i].type.type][2] = result[clothes[i].type.type][1];
-				result[clothes[i].type.type][1] = result[clothes[i].type.type][0];
-				result[clothes[i].type.type][0] = clothes[i];
-			} else if (!result[clothes[i].type.type][1] || clothes[i].sumScore > result[clothes[i].type.type][1].sumScore) {
-				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
-				result[clothes[i].type.type][2] = result[clothes[i].type.type][1];
-				result[clothes[i].type.type][1] = clothes[i];				
-			} else if (!result[clothes[i].type.type][2] || clothes[i].sumScore > result[clothes[i].type.type][2].sumScore) {
-				result[clothes[i].type.type][3] = result[clothes[i].type.type][2];
-				result[clothes[i].type.type][2] = clothes[i];				
-			} else if (!result[clothes[i].type.type][3] || clothes[i].sumScore > result[clothes[i].type.type][3].sumScore) {
-				result[clothes[i].type.type][3] = clothes[i];				
+				result[clothes[i].type.type] = [];
 			}
+			result[clothes[i].type.type].push(clothes[i]);
 		}
-	}
-	var typeList = [];
-	var resultList = [];
-	for (var r in result){
-		if(r.indexOf("饰品") >= 0){
-			for(var c in result[r]){
-				resultList.push(result[r][c]);				
-			}
-			typeList.push(r);
-			delete result[r];
-		}
-	}
-	typeList.sort(byCategory);
-	resultList.sort(byScore);
+	}	
 	
+	for (var r in result){
+		result[r].sort(byScore);
+	}
+	
+	if(keywords != null)
+		$strategy.append(p(getstrClothes(result["先手选一个连衣裙"]), "clothes", "先手选一个连衣裙", "clothes_category"));
 	for (var c in category){
 		var name = category[c];
 		if(name.indexOf("饰品")>=0)
 			continue;
-		if (result[name])
+		if (result[name]){			
 			$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
+		}
 	}
 	
 	$strategy.append(p("————————饰品(高收集佩戴满, 低收集佩戴9件)————————", "divide"));
-		
-	for (var t in typeList){
-		var accList = [];
-		for (var i = 0; i < resultList.length-2; i++){
-			if (resultList[i] && resultList[i].type.type == typeList[t]){
-				accList.push(resultList[i]);
-			}
-		}
-		if(accList.length > 0)
-			$strategy.append(p(getstrClothes(accList), "clothes", typeList[t], "clothes_category"));
+			
+	for (var c in category){
+		var name = category[c];
+		if(name.indexOf("饰品")<0)
+			continue;
+		if (result[name])
+			$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
 	}
 
 	$author_sign = $("<div/>").addClass("stgy_author_sign_div");
@@ -224,23 +207,25 @@ function getstrTag(filters){
 function getstrClothes(result){
 	if(result.length == 0)
 		return " : 无";
-	 var str = " : " + result[0].name + "「" + result[0].sumScore + " " + removeNum(result[0].source) + "」";
-	 if(result[1])
-		str += " > " + result[1].name + "「" + result[1].sumScore + " " + removeNum(result[1].source) + "」";
-	 if(result[2])
-		str += " > " + result[2].name + "「" + result[2].sumScore + " " + removeNum(result[2].source) + "」";
-	 if(result[3])
-		str += " > " + result[3].name + "「" + result[3].sumScore + " " + removeNum(result[3].source) + "」";
-	 return str;
+	var str = " :";
+	var max = 4;
+	for(var i in result){
+		if(max > 0){
+			str += " " + result[i].name + "「" + result[i].sumScore + " " + removeNum(result[i].source) + "」" + ">";		
+			max--;
+		}
+		else if(result[i].source.indexOf("少") >=0 || result[i].source.indexOf("公") >= 0 || result[i].source.indexOf("店") >= 0 || result[i].source.indexOf("送") >= 0 ){
+			str += "> " + result[i].name + "「" + result[i].sumScore + " " + removeNum(result[i].source) + "」" + " ";
+			break;
+		}
+	}
+	 return str.slice(0, str.length-1);
 }
 
 function removeNum(str){
 	if(str.indexOf("定")>=0 || str.indexOf("进")>=0)
 		str = str.replace(/[0-9]/g,"");
-	str = str.replace("联盟小铺", "盟");
-	str = str.replace("设计图", "设");
-	str = str.replace("元素重构", "重构");
-	str = str.replace("评选赛商店", "评选赛");
+	str = str.replace("联盟小铺", "盟").replace("设计图", "设").replace("元素重构", "重构").replace("评选赛商店", "评选赛").replace("活动·", "");
 	return str;
 }
 

@@ -6,7 +6,7 @@
 		<link rel="icon" href="favicon.ico" type="image/x-icon" />
 		<meta name="renderer" content="webkit">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>~庆祝奇暖一周年~ 奇迹暖暖在线工具</title>
+		<title>~粉色和紫色的粽子~ 奇迹暖暖在线工具</title>
 		<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
 		<link rel="stylesheet" href="onekeystrategy.css">
 		<link rel="stylesheet" href="style.css">
@@ -146,11 +146,12 @@
 					5.5 : 一键攻略去除F品；双手持部位调整；部分tag关卡的推荐饰品调整；筛选增加暂不缺材料，但有机会成为以后设计图的材料，分解时请注意<br/>
 					5.9 : 新增9件饰品选项给不想带饰品的小黑<br/>
 					5.13: 更新萤光之灵, 感谢楼上的rean帮忙更新配装器~ o&gt;,&lt;o <br/>
+					5.15: 调整萤光之灵权重比例, 计分方法；点击高分权重自动推荐最高分的组合<br/>
 					<br/>
 				</div>
 					功能更新：by 黑的升华 & Rean翎<br/>
-					5.15: 调整萤光之灵权重比例, 计分方法；点击高分权重自动推荐最高分的组合<br/>
 					6.1: 新增搜索功能，支持按套装名搜索，可选择添加到衣柜/购物车，暂时也想不到好的展示方法，先这样吧；顺便修复了导入时提示框过长的问题<br/>
+					6.7: 调整一键攻略, 现在各分类最后一件必定是比较容易获得的单品, 预祝大家端午快乐~<br/>
 					<hr/>
 					衣柜、设计图更新：by 翡翠<br/>
 					<div id="history-update-info-2"></div>
@@ -161,7 +162,7 @@
 					<div id="update-info-3"></div>
 					<br/>
 					<a href="#" id="show_history">查看历史更新</a><br/><br/>
-					预告: newUIv3(delay), 衣柜分享(doing), qjnn.gift域名试用中, 微信版(plan)
+					好记的域名: qjnn.gift
 			</div><!-- announcement -->	
 			<div class="fliter">
 				距离搭配赛结束还有<span id="showTime">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -264,7 +265,7 @@
 									<div class="checkbox"><label><input type="checkbox" class="fliter" value="balance" /> 均衡权重</label></div>
 									<div class="checkbox"><label><input type="checkbox" class="fliter" value="highscore" /> 高分权重</label></div>
 									<div class="checkbox"><label><input type="checkbox" class="fliter" value="acc9" /> 9件饰品</label></div>
-									<div class="checkbox"><label><input type="checkbox" class="fliter" value="toulan" /> 偷懒模式(测试2)</label></div>
+									<div class="checkbox"><label><input type="checkbox" class="fliter" value="toulan" /> 偷懒模式(测试3)</label></div>
 							</fieldset>
 							<fieldset>
 								<legend>筛选(先点击显示全部衣服)</legend>
@@ -297,7 +298,7 @@
 		</div><!-- top -->
 		<hr>
 		<div id = 'searchResult'>
-			<input type="text" id="searchResultInput" placeholder="输入名字搜索" /><button class="btn btn-default btn-sm" onclick="searchResult()">搜索</button><button class="btn btn-default btn-sm" id="searchResultMode">→衣柜</button>
+			<input type="text" id="searchResultInput" class="btn-sm" placeholder="输入名字搜索" /><button class="btn btn-default btn-sm" onclick="searchResult()">搜索</button><button class="btn btn-default btn-sm" id="searchResultMode">→衣柜</button>
 			<div id='searchResultList' width="100%"></div>
 		<hr>
 		</div>

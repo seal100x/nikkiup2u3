@@ -48,8 +48,13 @@ function showStrategy(){
 			clothes[i].calc(filters);
 			if (clothes[i].isF||$.inArray(type,skipCategory)>=0) continue;
 			result[type].push(clothes[i]);
-			if(clothes[i].isSuit != "" && type.indexOf("饰品") < 0){
-				suitSet[clothes[i].isSuit] = suitSet[clothes[i].isSuit] == null ? clothes[i].sumScore : suitSet[clothes[i].isSuit] + clothes[i].sumScore;
+			if(clothes[i].isSuit != "" && type.indexOf("连衣裙") < 0 && type.indexOf("上装") < 0 && type.indexOf("下装") < 0){
+				var quanzhong = 1;
+				if(type.indexOf("饰品") > 0)
+					quanzhong = 0.5;
+				if(suitSet[clothes[i].isSuit] == null)
+					suitSet[clothes[i].isSuit] = 0;				
+				suitSet[clothes[i].isSuit] +=  clothes[i].sumScore * quanzhong;
 			}
 		}
 	}
@@ -60,6 +65,8 @@ function showStrategy(){
 	suitArray.sort(function(a,b){
 		return  b["score"] - a["score"];
 	});
+	
+	console.log(suitArray);
 	
 	var resultWords = {};
 	for(var i in result){
@@ -74,38 +81,37 @@ function showStrategy(){
 	var wordNums = {};
 	for(var i in resultWords){
 		for(var j in resultWords[i]){
-			var quanzhong = 0.15;
+			var quanzhong = 0.35;
 			if(i.indexOf("饰品") < 0)
 				quanzhong = 1
 			wordNums[resultWords[i][j]] = (wordNums[resultWords[i][j]] == null ? quanzhong : wordNums[resultWords[i][j]] + quanzhong);
 		}
 	}
 	
-	var str = "粉毛运动少年雅公子家雪美学长神奇幻者主银金红白发黑蓝小·棕灰之歌黄冰士枫蔷薇女墨绿人精灵马尾紫花蝶童心青月云舞娘轻音光曲幽语天兔乐珠华丽珍稀娃可时蕾鹿头古英糕满梦星莉蝴水兰千罗帽甜力宝温夜爱丝手果泡流的短生恋色姐茶影暖锦圣信海风莓园普通情落香清下意奶高娜暗耳桃带玫日夏典柔春竹巧调蜜草糖喵樱叶羽迹火皮空包迷球瑰克魔裙格结冬衣祥纹上凉牛仔领点巾纱服绒枝套礼外背衫披装条链环裤靴袜饰圈鞋跟冠项颈";
+	var str = "粉毛运动少年雅公子家雪美学长神奇幻者主银金红白发黑蓝小·棕灰之歌黄冰士枫蔷薇女墨绿人精灵马尾紫花蝶童心青月云舞娘轻音光曲幽语天兔乐珠华丽珍稀娃可时蕾鹿头古英糕满梦星莉蝴水兰千罗帽甜力宝温夜爱丝手果泡流的短生恋色姐茶影暖锦圣信海风莓园普通情落香清下意奶高娜暗耳桃带玫日夏典柔春竹巧调蜜草糖樱叶羽迹火皮空包迷球瑰克魔裙格结冬衣祥纹上凉牛仔领点巾纱服绒枝套礼外背衫披装条链环裤靴袜饰圈鞋跟冠项颈";
 	var notArray = str.split("");
 		
-	var mostNum = [];
+	var wordMostNum = [];
 	for(var i in wordNums){
 		if(wordNums[i] > 3 &&  $.inArray(i, notArray) < 0){
-			mostNum.push({"name" : i , "num" : wordNums[i]});
+			wordMostNum.push({"name" : i , "num" : wordNums[i]});
 		}
-	}
-	
-	mostNum.sort(function(a,b){
+	}	
+	wordMostNum.sort(function(a,b){
 		return a["num"][1] - b["num"][1];
 	});
 	
-	var str = "";
-	for(var i =0; i<4 && i < mostNum.length; i++){
-		str += mostNum[i].name;
+	var strWordMostNum = "";
+	for(var i =0; i<4 && i < wordMostNum.length; i++){
+		strWordMostNum += wordMostNum[i].name;
 	}	
 		
-	showStrategy2(str.split(""), suitArray.slice(0,3));
+	showStrategy2(strWordMostNum.split(""), suitArray.slice(0,3));
 	
 	$(".stgy_clothes").each(function(){
 		var $p = $(this)
-		$.each(str.split(""), function(){
-			$p.html($p.html().replace(""+this, "<red>"+this+"</red>"))			
+		$.each(strWordMostNum.split(""), function(){
+			$p.html($p.html().replace(new RegExp(""+this, "g"), "<red>"+this+"</red>"))			
 		})
 	})
 }

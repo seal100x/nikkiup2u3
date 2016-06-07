@@ -144,6 +144,13 @@ function onChangeUiFilter() {
 		uiFilter[$(this).val()] = true;
 	});
 
+	if(uiFilter["toulan"]){
+		$("#onekey").text("懒黑攻略");
+	}
+	else{
+		$("#onekey").text("一键攻略");		
+	}
+	
 	if (currentCategory && currentCategory != 'switchall') {
 		if (CATEGORY_HIERARCHY[currentCategory].length > 1) {
 			$('input[name=category-' + currentCategory + ']:checked').each(function () {
