@@ -68,6 +68,9 @@
 .table-td.negative{
 	color: #eee;
 }
+.table-td.new{
+	color: #38F;
+}
 .table-td.name .button {
   border: 0.1em solid #ccc;
   padding: 0.5em;
