@@ -43,7 +43,7 @@ function row(piece, isShoppingCart) {
 	//var $lineTop = $("<div>").addClass("table-line");
 	$lineTop.append(td(piece.sumScore, 'score'));
 	if (isShoppingCart) {
-		$lineTop.append(td(piece.name, ''));
+		$lineTop.append(td(piece.name, (piece.version==lastVersion ? 'new' : '' )));
 	} else {
 		$lineTop.append(clothesNameTd(piece));
 	}
