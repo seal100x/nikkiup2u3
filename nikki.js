@@ -444,7 +444,15 @@ function matches(c, criteria, filters) {
 }
 
 function loadCustomInventory() {
+
 	var myClothes = $("#myClothes").val();
+
+	// Ivangift's version uses "上衣" instead of "上装".
+	if (myClothes.indexOf("上衣:") > 0) {
+		myClothes = myClothes.replace("上衣:", "上装:");
+		$("#myClothes").text(myClothes);
+	}
+
 	if (myClothes.indexOf('|') > 0) {
 		loadNew(myClothes);
 	} else {
