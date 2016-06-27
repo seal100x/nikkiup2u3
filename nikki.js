@@ -506,21 +506,6 @@ function changeFilter() {
 	else onChangeCriteria();
 }
 
-function changeThemeFliter(){
-	var themeOptions = $("#theme option");
-	var fliterStr = $("#theme-fliter").val();
-	for(var i = 1; i < themeOptions.length; i++){
-		var themeOption = $(themeOptions[i]);
-		if(themeOption.text().indexOf(fliterStr)>=0 || fliterStr == "custom"){
-			themeOption.show();			
-		}
-		else{
-			themeOption.hide();
-		}
-	}
-	
-}
-
 function changeTheme() {
 	currentLevel = null;
 	global.additionalBonus = null;
@@ -591,6 +576,24 @@ function drawTheme() {
 		option.text = themeFilter[index][0];
 		option.value = themeFilter[index][1];
 		dropdown2.add(option);
+	}
+}
+
+function reDrawTheme() {
+	var fliterStr = $("#theme-fliter").val();
+	var dropdown = $("#theme");
+	dropdown.empty();
+	var def = document.createElement('option');
+	def.text = '自定义关卡';
+	def.value = 'custom';
+	dropdown.add(def);
+	for (var theme in allThemes) {
+		var option = document.createElement('option');
+		option.text = theme;
+		option.value = theme;
+		if(theme.indexOf(fliterStr)>=0 || fliterStr == "custom"){
+			dropdown[0].add(option);			
+		}
 	}
 }
 
