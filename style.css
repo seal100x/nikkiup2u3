@@ -51,12 +51,18 @@ legend {
 	float: left;
 	margin-right: 10px;
 }
+@media ( max-width : 1020px){
+	.fliter_form_div_left{
+		float: none;
+	}
+}
 #filtersTop select{
 	height:34px;
 }
-#onekey{
-    margin-top: -4px;
-    border-radius: 0 4px 4px 0;
+
+#theme:hover, #theme:active, #theme:focus,
+#theme-fliter:hover, #theme-fliter:active, #theme-fliter:focus{
+	background-color: #fff;
 }
 
 .weightContainer{

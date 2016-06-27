@@ -506,6 +506,21 @@ function changeFilter() {
 	else onChangeCriteria();
 }
 
+function changeThemeFliter(){
+	var themeOptions = $("#theme option");
+	var fliterStr = $("#theme-fliter").val();
+	for(var i = 1; i < themeOptions.length; i++){
+		var themeOption = $(themeOptions[i]);
+		if(themeOption.text().indexOf(fliterStr)>=0){
+			themeOption.show();			
+		}
+		else{
+			themeOption.hide();
+		}
+	}
+	
+}
+
 function changeTheme() {
 	currentLevel = null;
 	global.additionalBonus = null;
@@ -564,6 +579,18 @@ function drawTheme() {
 		option.text = theme;
 		option.value = theme;
 		dropdown.add(option);
+	}
+	
+	var dropdown2 = $("#theme-fliter")[0];
+	var def2 = document.createElement('option');
+	def2.text = '筛选';
+	def2.value = 'custom';
+	dropdown2.add(def2);
+	for (var index in themeFilter) {
+		var option = document.createElement('option');
+		option.text = themeFilter[index][0];
+		option.value = themeFilter[index][1];
+		dropdown2.add(option);
 	}
 }
 

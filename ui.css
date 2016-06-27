@@ -117,7 +117,3 @@
 .table-td.deps [tooltip]:after {
   background-color: #ddf;
 }
-
-#searchResultList {
-  line-height:2em;
-}
