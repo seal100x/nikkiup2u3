@@ -511,7 +511,7 @@ function changeThemeFliter(){
 	var fliterStr = $("#theme-fliter").val();
 	for(var i = 1; i < themeOptions.length; i++){
 		var themeOption = $(themeOptions[i]);
-		if(themeOption.text().indexOf(fliterStr)>=0 || fliterStr == "筛选"){
+		if(themeOption.text().indexOf(fliterStr)>=0 || fliterStr == "custom"){
 			themeOption.show();			
 		}
 		else{
