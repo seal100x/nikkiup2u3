@@ -60,6 +60,8 @@ function typeToggleChar(source){
 		return 'h';
 	if(source  == '饰品')
 		return 'i';
+	if(source  == '荧光之灵')
+		return 'j';
 	
 	if(source  == 'a')
 		return '发型';
@@ -79,6 +81,8 @@ function typeToggleChar(source){
 		return '妆容';
 	if(source  == 'i')
 		return '饰品';
+	if(source  == 'j')
+		return '荧光之灵';
 }
 
 function getWardrobe() {
@@ -151,18 +155,34 @@ function zipNum(num){
 }
 
 function unzipNum(num){
-    if(!unzipNum.unzip){
-        unzipNum.unzip = function(inputNum){
-			if(inputNum == "(")
-				return "111110";
-			if(inputNum == ")")
-				return "111111";
-            return inputNum.charCodeAt().toString(2);
-        }
-    }
 	var result = "";
 	for(var i = num.length; i>=0; i--){
-		result = unzipNum.unzip(num.substr(i-1,1)) + result;
+		result = unzip(num.substr(i-1,1)) + result;
 	}
     return result;
 }
+
+function unzip(inputNum){	
+	if(inputNum == "(")
+		return "111110";
+	if(inputNum == ")")
+		return "111111";
+	if(inputNum <= 9){
+		return pad(inputNum.toString(2), 6);
+	}
+	if(inputNum.charCodeAt() <= 'Z'.charCodeAt(0)){
+		return pad((inputNum.charCodeAt() - 'A'.charCodeAt(0) + 36).toString(2), 6);
+	}
+	if(inputNum.charCodeAt() <= 'z'.charCodeAt(0)){
+		return pad((inputNum.charCodeAt() - 'a'.charCodeAt(0) + 10).toString(2), 6);
+	}
+}
+
+function pad(num, n) { 
+	var len = num.toString().length; 
+	while(len < n) { 
+		num = "0" + num; 
+		len++; 
+	} 
+	return num; 
+} 
