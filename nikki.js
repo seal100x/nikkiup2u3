@@ -586,7 +586,7 @@ function reDrawTheme() {
 	var def = document.createElement('option');
 	def.text = '自定义关卡';
 	def.value = 'custom';
-	dropdown.add(def);
+	dropdown[0].add(def);
 	for (var theme in allThemes) {
 		var option = document.createElement('option');
 		option.text = theme;
