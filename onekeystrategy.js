@@ -205,7 +205,7 @@ function getstrTag(filters){
 }
 
 function getstrClothes(result){
-	if(result.length == 0)
+	if(result == null || result.length == 0)
 		return " : 无";
 	var str = " :";
 	var max = 4;
