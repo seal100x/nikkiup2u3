@@ -44,3 +44,11 @@ function filterClotherHTMLBiguse(btn){
 		 }
 	 }
 }
+
+//tmp function to prevent nikki.js dying
+function menuFixed(tmp){
+}
+
+$(document).ready(function () {
+	switchCate('妆容');
+});
