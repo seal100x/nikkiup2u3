@@ -42,8 +42,8 @@ function rowBiguse(piece, isShoppingCart, index) {
 	if(typename.indexOf("饰品-") >=0){
 		typename = "饰品"
 	}
-	var typeid = typename.replace("发型","10").replace("连衣裙","20").replace("外套", "30").replace("上装", "40").replace("下装", "50").replace("袜子", "60").replace("鞋子", "70").replace("饰品", "80").replace("妆容", "90");
-	var longid = typeid + render(csv[1]);
+	var typeid = typename.replace("发型","10").replace("连衣裙","20").replace("外套", "30").replace("上装", "40").replace("下装", "50").replace("袜子", "60").replace("鞋子", "70").replace("饰品", "80").replace("妆容", "90").replace("萤光之灵", "100");
+	var longid = (render(csv[1]).length>3 ? typeid.replace("0","") : typeid) + render(csv[1]);
 	$imagetd.click(function(){
 		$("#imgModel").show();
 		$("#imgModel").css("background-image", "url(http://seal100x.github.io/nikkiup2u3_img/" +  longid + ".png)");
