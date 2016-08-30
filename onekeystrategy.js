@@ -31,7 +31,7 @@ function showStrategy2(keywords, suits){
 		var $keywords_p = p("关键字: "+keywords, "");
 		$strategy.append($keywords_p);
 		$.each(suits, function(){
-			suitNames.push(this.name);
+			suitNames.push(this.name + "(" + this.score + ")");
 		});
 		var $suits = p("套装: "+suitNames.join(", "), "");
 		$strategy.append($suits);
@@ -100,13 +100,17 @@ function showStrategy2(keywords, suits){
 		if (matches(clothes[i], {}, filters)) {
 			clothes[i].calc(filters);
 			if (clothes[i].isF||$.inArray(clothes[i].type.type,skipCategory)>=0||clothes[i].sumScore == 0) continue;
-			if (keywords != null && clothes[i].type.type == "连衣裙") {
-				if (!result["先手选一个连衣裙"]) {
-					result["先手选一个连衣裙"] = [];
+			if (keywords != null 
+				&& (clothes[i].type.type == "连衣裙"
+				|| clothes[i].type.type == "上装"
+				|| clothes[i].type.type == "下装")
+			) {
+				if (!result["手选" + clothes[i].type.type]) {
+					result["手选" + clothes[i].type.type] = [];
 				}
-				result["先手选一个连衣裙"].push(clothes[i]);
+				result["手选" + clothes[i].type.type].push(clothes[i]);
 			}
-			if (!haveKeywords(clothes[i])) continue;
+			if (!haveKeywords(clothes[i]) && clothes[i].type.type != "萤光之灵") continue;
 			if (!result[clothes[i].type.type]) {
 				result[clothes[i].type.type] = [];
 			}
@@ -118,8 +122,11 @@ function showStrategy2(keywords, suits){
 		result[r].sort(byScore);
 	}
 	
-	if(keywords != null)
-		$strategy.append(p(getstrClothes(result["先手选一个连衣裙"]), "clothes", "先手选一个连衣裙", "clothes_category"));
+	if(keywords != null){
+		$strategy.append(p(getstrClothes(result["手选连衣裙"]), "clothes", "手选连衣裙", "clothes_category"));
+		$strategy.append(p(getstrClothes(result["手选上装"]), "clothes", "手选上装", "clothes_category"));		
+		$strategy.append(p(getstrClothes(result["手选下装"]), "clothes", "手选下装", "clothes_category"));
+	}
 	for (var c in category){
 		var name = category[c];
 		if(name.indexOf("饰品")>=0)
@@ -208,7 +215,7 @@ function getstrClothes(result){
 	if(result == null || result.length == 0)
 		return " : 无";
 	var str = " :";
-	var max = 4;
+	var max = 5;
 	for(var i in result){
 		if(max > 0){
 			str += " " + result[i].name + "「" + result[i].sumScore + " " + removeNum(result[i].source) + "」" + ">";		

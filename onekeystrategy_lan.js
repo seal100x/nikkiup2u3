@@ -12,7 +12,6 @@ function unique3(toUnique) {
 }
 
 function showStrategy(){
-	var suitSet = {};
 	
 	if(!uiFilter["toulan"]){
 		showStrategy2();
@@ -39,6 +38,8 @@ function showStrategy(){
 		}
 	}
 	var result = {};
+	//套装
+	var suitSet = {};
 	for (var i in clothes) {
 		var type = clothes[i].type.type
 		if (!result[type]) {
@@ -48,7 +49,11 @@ function showStrategy(){
 			clothes[i].calc(filters);
 			if (clothes[i].isF||$.inArray(type,skipCategory)>=0) continue;
 			result[type].push(clothes[i]);
-			if(clothes[i].isSuit != "" && type.indexOf("连衣裙") < 0 && type.indexOf("上装") < 0 && type.indexOf("下装") < 0){
+			if(clothes[i].isSuit != "" 
+				&& type.indexOf("连衣裙") < 0 
+				&& type.indexOf("上装") < 0 
+				&& type.indexOf("下装") < 0
+			){
 				var quanzhong = 1;
 				if(type.indexOf("饰品") > 0)
 					quanzhong = 0.5;
@@ -68,6 +73,7 @@ function showStrategy(){
 	
 	console.log(suitArray);
 	
+	//单品
 	var resultWords = {};
 	for(var i in result){
 		result[i].sort(byScore);
@@ -83,7 +89,7 @@ function showStrategy(){
 		for(var j in resultWords[i]){
 			var quanzhong = 0.35;
 			if(i.indexOf("饰品") < 0)
-				quanzhong = 1
+				quanzhong = 1;
 			wordNums[resultWords[i][j]] = (wordNums[resultWords[i][j]] == null ? quanzhong : wordNums[resultWords[i][j]] + quanzhong);
 		}
 	}
@@ -102,11 +108,13 @@ function showStrategy(){
 	});
 	
 	var strWordMostNum = "";
-	for(var i =0; i<4 && i < wordMostNum.length; i++){
+	var selectWordNum = 6;
+	for(var i =0; i<selectWordNum && i < wordMostNum.length; i++){
 		strWordMostNum += wordMostNum[i].name;
 	}	
 		
-	showStrategy2(strWordMostNum.split(""), suitArray.slice(0,3));
+	var selectSuitNum = 6;
+	showStrategy2(strWordMostNum.split(""), suitArray.slice(0,selectSuitNum));
 	
 	$(".stgy_clothes").each(function(){
 		var $p = $(this)
