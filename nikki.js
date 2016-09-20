@@ -708,7 +708,7 @@ function searchResult(){
 			for (var i in outSet) {$('#searchResultList').append(button_search(outSet[i],'','searchResultSet'));}
 			$(".searchResultSet").click(function () {
 				switchCate(0);
-				var setName=this.innerHTML;
+				var setName=$(this).attr('id').replace('search-','');
 				$('#searchResultList').append(button_search(setName+'：','searchCate'));
 				for (var i in clothes){
 					if(clothes[i].isSuit==setName) {$('#searchResultList').append(clothesNameTd_Search(clothes[i]));}
