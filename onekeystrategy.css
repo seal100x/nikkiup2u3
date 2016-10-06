@@ -43,8 +43,13 @@
 	font-weight: bold;
 	color: Red;	
 }
+
 .stgy_clothes_category{
 	font-weight: bold;
+}
+
+.stgy_grey{
+	opacity: 0.5;
 }
 
 .stgy_author_sign_div{
