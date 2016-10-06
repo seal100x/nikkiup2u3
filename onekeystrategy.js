@@ -141,10 +141,11 @@ function showStrategy2(keywords, suits){
 		var name = category[c];
 		if(name.indexOf("饰品")<0)
 			continue;
-		if (result[name])
+		if (result[name]) {
 			var categoryContent = p(getstrClothes(result[name]), "clothes", name, "clothes_category");
 			if (isGrey(name,result)) categoryContent.addClass("stgy_grey");
 			$strategy.append(categoryContent);
+		}
 	}
 
 	$author_sign = $("<div/>").addClass("stgy_author_sign_div");
