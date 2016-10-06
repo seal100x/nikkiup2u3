@@ -182,11 +182,11 @@ function chooseAccessories(accfilters) {
 	shoppingCart.clear();
 	shoppingCart.putAll(filterTopAccessories(clone(accfilters)));
 	shoppingCart.putAll(filterTopClothes(clone(accfilters)));
+	shoppingCart.validate(clone(accfilters));
 	refreshShoppingCart();
 }
 
 function refreshShoppingCart() {
-	shoppingCart.validate(criteria);
 	shoppingCart.calc(criteria);
 	drawTable(shoppingCart.toList(byCategoryAndScore), "shoppingCart", true);
 }
@@ -336,13 +336,15 @@ function filterTopAccessories(filters) {
 	shoppingCart.clear();
 	shoppingCart.putAll(resultS);
 	shoppingCart.validate(filters,accSNum);
-	var totalS = shoppingCart.totalScore;
+	shoppingCart.calc(filters);
+	var totalS = shoppingCart.totalScore.sumScore;
 	var toSortS = clone(shoppingCart.cart);
 	
 	shoppingCart.clear();
 	shoppingCart.putAll(resultAll);
 	shoppingCart.validate(filters);
-	var totalAll = shoppingCart.totalScore;
+	shoppingCart.calc(filters);
+	var totalAll = shoppingCart.totalScore.sumScore;
 	var toSortAll = clone(shoppingCart.cart);
 	
 	shoppingCart.clear();
