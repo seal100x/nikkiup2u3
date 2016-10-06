@@ -1,4 +1,3 @@
-
 function showStrategy2(keywords, suits){
 	var suitNames = [];
 	function haveKeywords(clothes){
@@ -124,26 +123,28 @@ function showStrategy2(keywords, suits){
 	
 	if(keywords != null){
 		$strategy.append(p(getstrClothes(result["手选连衣裙"]), "clothes", "手选连衣裙", "clothes_category"));
-		$strategy.append(p(getstrClothes(result["手选上装"]), "clothes", "手选上装", "clothes_category"));		
+		$strategy.append(p(getstrClothes(result["手选上装"]), "clothes", "手选上装", "clothes_category"));	
 		$strategy.append(p(getstrClothes(result["手选下装"]), "clothes", "手选下装", "clothes_category"));
 	}
 	for (var c in category){
 		var name = category[c];
 		if(name.indexOf("饰品")>=0)
 			continue;
-		if (result[name]){			
+		if (result[name]){
 			$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
 		}
 	}
 	
 	$strategy.append(p("————————饰品(高收集佩戴满, 低收集佩戴9件)————————", "divide"));
-			
+	
 	for (var c in category){
 		var name = category[c];
 		if(name.indexOf("饰品")<0)
 			continue;
 		if (result[name])
-			$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
+			var categoryContent = p(getstrClothes(result[name]), "clothes", name, "clothes_category");
+			if (isGrey(name,result)) categoryContent.addClass("stgy_grey");
+			$strategy.append(categoryContent);
 	}
 
 	$author_sign = $("<div/>").addClass("stgy_author_sign_div");
@@ -218,11 +219,11 @@ function getstrClothes(result){
 	var max = 5;
 	for(var i in result){
 		if(max > 0){
-			str += " " + result[i].name + "「" + result[i].sumScore + " " + removeNum(result[i].source) + "」" + ">";		
+			str += " " + result[i].name + "「" + actScore(result[i]) + " " + removeNum(result[i].source) + "」" + ">";		
 			max--;
 		}
 		else if(result[i].source.indexOf("少") >=0 || result[i].source.indexOf("公") >= 0 || result[i].source.indexOf("店") >= 0 || result[i].source.indexOf("送") >= 0 ){
-			str += "> " + result[i].name + "「" + result[i].sumScore + " " + removeNum(result[i].source) + "」" + " ";
+			str += "> " + result[i].name + "「" + actScore(result[i]) + " " + removeNum(result[i].source) + "」" + " ";
 			break;
 		}
 	}
@@ -234,6 +235,32 @@ function removeNum(str){
 		str = str.replace(/[0-9]/g,"");
 	str = str.replace("联盟小铺", "盟").replace("设计图", "设").replace("元素重构", "重构").replace("评选赛商店", "评选赛").replace("活动·", "");
 	return str;
+}
+
+function actScore(obj){
+	return (obj.type.mainType=='饰品'&&!uiFilter["toulan"]) ? Math.round(accSumScore(obj,accCateNum)) : obj.sumScore;
+}
+
+function isGrey(c,result){
+	for (var i in repelCates){
+		var sumFirst=0;
+		var sumOthers=0;
+		if($.inArray(c, repelCates[i])>=0){
+			for (var j in repelCates[i]){
+				if (j>0) {
+					if (result[repelCates[i][j]]&&result[repelCates[i][j]][0]) sumOthers+=actScore(result[repelCates[i][j]][0]);
+				}else {
+					if (result[repelCates[i][j]]&&result[repelCates[i][j]][0]) sumFirst+=actScore(result[repelCates[i][j]][0]);
+				}
+			}
+			if($.inArray(c, repelCates[i])==0){
+				if (sumFirst<sumOthers) return true;
+			}else if($.inArray(c, repelCates[i])>0){
+				if (sumOthers<sumFirst) return true;
+			}
+		}
+	}
+	return false;
 }
 
 function initOnekey(){
