@@ -186,6 +186,7 @@ function chooseAccessories(accfilters) {
 }
 
 function refreshShoppingCart() {
+	shoppingCart.validate(criteria);
 	shoppingCart.calc(criteria);
 	drawTable(shoppingCart.toList(byCategoryAndScore), "shoppingCart", true);
 }
