@@ -331,27 +331,27 @@ function filterTopAccessories(filters) {
 			}
 		}
 	}
-	var toSortS = []; var totalS = 0;
-	for (var c in resultS) {
-		toSortS.push(resultS[c]);
-	}
-	toSortS.sort(byScoreS(accSNum));
-	if (toSortS.length > accSNum) toSortS = toSortS.slice(0, accSNum);
-	for (var i in toSortS) {
-		totalS += accSumScore(toSortS[i], accSNum);
-	}
-	var toSortAll = []; var totalAll = 0;
-	for (var c in resultAll) {
-		toSortAll.push(resultAll[c]);
-		totalAll += accSumScore(resultAll[c], accCNum);
-	}
+	
+	shoppingCart.clear();
+	shoppingCart.putAll(resultS);
+	shoppingCart.validate(filters,accSNum);
+	var totalS = shoppingCart.totalScore;
+	var toSortS = clone(shoppingCart.cart);
+	
+	shoppingCart.clear();
+	shoppingCart.putAll(resultAll);
+	shoppingCart.validate(filters);
+	var totalAll = shoppingCart.totalScore;
+	var toSortAll = clone(shoppingCart.cart);
+	
+	shoppingCart.clear();
+	
 	if (totalS > totalAll || uiFilter["acc9"] ) return toSortS;
 	else return toSortAll;
 }
 
 function filterTopClothes(filters) {
 	filters['own'] = true;
-	//var accCate = CATEGORY_HIERARCHY['饰品'];
 	for (var i in CATEGORY_HIERARCHY) {
 		if (i == "袜子") {
 			filters[CATEGORY_HIERARCHY[i][0]] = true;
@@ -375,18 +375,6 @@ function filterTopClothes(filters) {
 				result[clothes[i].type.type] = clothes[i];
 			}
 		}
-	}
-	if(result["上装"] && result["下装"] && result["连衣裙"]){
-		if(result["上装"].sumScore + result["下装"].sumScore > result["连衣裙"].sumScore){
-			delete result["连衣裙"];
-		}
-		else{
-			delete result["上装"];
-			delete result["下装"];
-		}
-	}else if((result["上装"] || result["下装"]) && result["连衣裙"]){
-		delete result["上装"];
-		delete result["下装"];
 	}
 	return result;
 }
