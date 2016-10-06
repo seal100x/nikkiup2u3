@@ -239,7 +239,7 @@ function removeNum(str){
 }
 
 function actScore(obj){
-	return (obj.type.mainType=='饰品'&&!uiFilter["toulan"]) ? Math.round(accSumScore(obj,accCateNum)) : obj.sumScore;
+	return (obj.type.mainType=='饰品'&&!uiFilter["toulan"]) ? (uiFilter["acc9"] ? Math.round(accSumScore(obj,9)) : Math.round(accSumScore(obj,accCateNum))) : obj.sumScore;
 }
 
 function isGrey(c,result){
