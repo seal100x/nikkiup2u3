@@ -340,21 +340,41 @@ var shoppingCart = {
     // fake a clothes
     this.totalScore = fakeClothes(this.cart);
   },
-  validate: function(criteria){
-    if(this.cart["上装"] && this.cart["下装"] && this.cart["连衣裙"]){
-      this.cart['上装'].calc(criteria);
-      this.cart['下装'].calc(criteria);
-      this.cart['连衣裙'].calc(criteria);
-      if(this.cart['上装'].sumScore + this.cart['下装'].sumScore > this.cart['连衣裙'].sumScore){
-        shoppingCart.remove('连衣裙');
-      }else{
-        shoppingCart.remove('上装');
-        shoppingCart.remove('下装');
-      }
-    }else if((this.cart["上装"] || this.cart["下装"]) && this.cart["连衣裙"]){
-        shoppingCart.remove('上装');
-        shoppingCart.remove('下装');
-    }
+  validate: function(criteria,accNum){ //accNum is the number of accessories kept finally
+	for (var i in repelCates){ //remove repelCates
+		var sumFirst = 0;
+		var sumOthers = 0;
+		for (var j in repelCates[i]){
+			currCate=repelCates[i][j];
+			if (this.cart[currCate]) {
+				this.cart[currCate].calc(criteria);
+				var currSumScore = currCate.split('-')[0] == '饰品' ? accSumScore(this.cart[currCate], accNum?accNum:accCateNum) : this.cart[currCate].sumScore;
+				if (j>0) sumOthers+=currSumScore;
+				else sumFirst+=currSumScore;
+			}
+		}
+		if (sumOthers > sumFirst) {
+			shoppingCart.remove(repelCates[i][0]);
+		}else{
+			for (var j in repelCates[i]){
+				if (j>0) shoppingCart.remove(repelCates[i][j]);
+			}
+		}
+	}
+	if (accNum) {//keep accessories base on accNum
+		var sortCates=[];
+		for (var i in category){
+			var currCate=category[i];
+			if (currCate.split('-')[0] == '饰品' && this.cart[currCate]) {
+				sortCates.push([currCate, accSumScore(this.cart[currCate], accNum)]);
+			}
+		}
+		if (sortCates.length > accNum) {
+			sortCates.sort(function(a,b){return b[1] - a[1]});
+			sortCates = sortCates.slice(accNum);
+			for (var i in sortCates) shoppingCart.remove(sortCates[i][0]);
+		}
+	}
   }
 };
 
