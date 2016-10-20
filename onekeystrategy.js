@@ -118,7 +118,7 @@ function showStrategy2(keywords, suits){
 	}	
 	
 	for (var r in result){
-		result[r].sort(byScore);
+		result[r].sort(byActScore);
 	}
 	
 	if(keywords != null){
@@ -155,6 +155,10 @@ function showStrategy2(keywords, suits){
 	$strategy.append($author_sign);
 	
 	$("#StrategyInfo").empty().append($strategy);
+}
+
+function byActScore(a, b) {
+	return actScore(a) - actScore(b) == 0 ? a.id - b.id : actScore(b) - actScore(a);
 }
 
 function p(text, cls, text2, cls2){
