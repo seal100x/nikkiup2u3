@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html lang="zh">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="icon" href="favicon.ico" type="image/x-icon" />
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>奇迹暖暖在线工具 - 衣柜对比</title>
+		<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="ui.css">
+		<link rel="stylesheet" type="text/css" href="mobileui.css" media="only screen and (max-width: 650px)">
+		<style>table td {vertical-align:top;}</style>
+		<script type='text/javascript' charset="UTF-8" src='jquery.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='data/wardrobe.js'></script>
+		<script type='text/javascript' charset="UTF-8" src='wardrobechk.js'></script>
+	</head>
+	<body>
+		<div class='title' id="title">
+			<a href="index.html">奇迹暖暖在线工具 by @黑的升华</a><br/>
+			本页面为衣柜对比工具，配装器、衣柜录入等功能请到上面的链接使用～<br/>
+			<br/>
+			使用说明：<br/>
+			1）在配装器完成衣柜录入后，刷新此页面（一定要刷新！）<br/>
+			2）游戏中点衣柜，选择对应分类<br/>
+			3）检查此页面衣服排版是否和游戏中衣柜一致，若此页左边的衣服游戏中在右边，则前面肯定少了一件<br/>
+		</div>
+		<hr>
+		<div id ='category_container'></div>
+		<div>
+			<table>
+				<tr>
+					<td id='check_container_left'></td>
+					<td id='check_container_right'></td>
+				</tr>
+			</table>
+		</div>
+		<textarea id='myClothes' style='display:none'></textarea>
+	</body>
+</html>
