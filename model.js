@@ -100,11 +100,22 @@ Clothes = function(csv) {
       var isf = 1 ;
       if(Flist && Flist[filters.levelName]){
         if (Flist[filters.levelName][this.name]){
-          if ($.inArray(this.type.type, Flist[filters.levelName]["type"])<0){
-            isf = 0.1;
+          if (Flist[filters.levelName][this.name] == "F"){
+            isf = 0.1; //in blacklist
           }
         }else if($.inArray(this.type.type, Flist[filters.levelName]["type"])>-1){
-            isf = 0.1;
+            //not in whitelist, check whether in tag list
+            if(!Flist[filters.levelName]["tag"]) isf = 0.1; 
+            else if(!this.tags) isf = 0.1; 
+            else{
+              var isf_tag=0;
+              for(var t in this.tags){
+                if($.inArray(this.tags[t], Flist[filters.levelName]["tag"])>-1){
+                  isf_tag=1; break;
+                }
+              }
+              if(!isf_tag) isf = 0.1; 
+          } 
         }
       }
       var s = 0;
