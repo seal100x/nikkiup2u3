@@ -31,6 +31,7 @@ Clothes = function(csv) {
     name: csv[0],
     type: theType,
     id: csv[2],
+	longid: clotonum(csv[1],csv[2]),
     stars: csv[3],
     simple: realRating(csv[5], csv[4], theType),
     cute: realRating(csv[9], csv[8], theType),
@@ -112,8 +113,8 @@ Clothes = function(csv) {
     calc: function(filters) {
       var isf = 1 ;
       if(Flist && Flist[filters.levelName]){
-        if (Flist[filters.levelName][this.name]){
-          if (Flist[filters.levelName][this.name] == "F"){
+        if (Flist[filters.levelName][this.longid]){
+          if (Flist[filters.levelName][this.longid] == "F"){
             isf = 0.1; //in blacklist
           }
         }else if($.inArray(this.type.type, Flist[filters.levelName]["type"])>-1){
@@ -203,6 +204,24 @@ Clothes = function(csv) {
 	  this.sumScore = this.tmpScore + this.bonusScore ;
     }
   };
+}
+
+function clotonum(type,id){
+	var mainType='';
+	switch(type.split('-')[0]){
+		case '发型': mainType='1'; break;
+		case '连衣裙': mainType='2'; break;
+		case '外套': mainType='3'; break;
+		case '上装': mainType='4'; break;
+		case '下装': mainType='5'; break;
+		case '袜子': mainType='6'; break;
+		case '鞋子': mainType='7'; break;
+		case '饰品': mainType='8'; break;
+		case '妆容': mainType='9'; break;
+		case '萤光之灵': mainType='A'; break;
+	}
+	if (parseInt(id) >= 1000) return mainType + id;
+	else return mainType + '0' + id;
 }
 
 function ScoreByCategory() {
