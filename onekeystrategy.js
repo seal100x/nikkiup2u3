@@ -1,4 +1,8 @@
-function showStrategy2(keywords, suits){
+function showStrategy(keywords, suits){
+	if(uiFilter["toulan"]){
+		lanStrategy();
+		return;
+	}
 	var suitNames = [];
 	function haveKeywords(clothes){
 		if(keywords == null){
@@ -169,6 +173,14 @@ function p(text, cls, text2, cls2){
 	return $p;
 }
 
+function pspan(text, cls, text2, cls2){
+	var $p = $("<span/>").text(text).addClass("stgy_" + cls);
+	if(text2){
+		$p.prepend($("<span/>").text(text2).addClass("stgy_" + cls2));
+	}
+	return $p;
+}
+
 function ifCriteriaHighLow(theme){
 	var a,b,c,d,e;
 	theme.weight["simple"] >= 0 ? a = theme.weight["simple"] : a = -theme.weight["simple"];
@@ -243,7 +255,7 @@ function removeNum(str){
 }
 
 function actScore(obj){
-	return (obj.type.mainType=='饰品'&&!uiFilter["toulan"]) ? (uiFilter["acc9"] ? Math.round(accSumScore(obj,9)) : Math.round(accSumScore(obj,accCateNum))) : obj.sumScore;
+	return (obj.type.mainType=='饰品') ? (uiFilter["acc9"] ? Math.round(accSumScore(obj,9)) : Math.round(accSumScore(obj,accCateNum))) : obj.sumScore;
 }
 
 function isGrey(c,result){
