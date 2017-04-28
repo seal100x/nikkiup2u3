@@ -48,6 +48,14 @@
 	font-weight: bold;
 }
 
+.stgy_clothes_hover:hover{
+	background-color:#DDD;
+}
+
+.stgy_greyBackGround{
+	background-color:#DDD;
+}
+
 .stgy_grey{
 	opacity: 0.5;
 }
