@@ -109,6 +109,7 @@ function lanStrategy_init(){
 				tagSet[tagCate]['clothes'] = {};
 				tagSet[tagCate]['acc'] = {};
 				tagSet[tagCate]['typeCount'] = {};
+				tagSet[tagCate]['count'] = 0;
 			}
 			var sumScore = Math.round(clothes[i].sumScore);
 			var tmpScore = Math.round(clothes[i].tmpScore);
@@ -129,6 +130,7 @@ function lanStrategy_init(){
 			
 			if (tagSet[tagCate]['typeCount'][type] == null) tagSet[tagCate]['typeCount'][type] = 0;
 			tagSet[tagCate]['typeCount'][type] += 1;
+			tagSet[tagCate]['count'] += 1;
 		}
 	}
 	for (var i in tagSet){//remove keywords with too many returns
@@ -136,6 +138,7 @@ function lanStrategy_init(){
 			if (j=='袜子-袜套') tagSet[i]['typeCount'][j] += tagSet[i]['typeCount']['袜子-袜子'];
 			else if (j=='袜子-袜子') tagSet[i]['typeCount'][j] += tagSet[i]['typeCount']['袜子-袜套'];
 			if (tagSet[i]['typeCount'][j] > limitRet){
+				tagSet[tagCate]['count'] -= tagSet[i]['typeCount'][j];
 				delete tagSet[i]['clothes'][j];
 				delete tagSet[i]['acc'][j];
 			}
