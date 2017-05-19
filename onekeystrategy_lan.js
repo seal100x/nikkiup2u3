@@ -391,7 +391,7 @@ function lanStrategy_print(lazySet){
 	
 	$author_sign = $("<div/>").addClass("stgy_author_sign_div");
 	var d = new Date();
-	$author_sign.append(p("nikkiup2u3 Lazy Strategy@Black Sublimation, Rean, Zcthebunny", "author_sign_name"));
+	$author_sign.append(p("nikkiup2u3 Lazy Strategy@Black Sublimation, rean, zcthebunny", "author_sign_name"));
 	$author_sign.append(p("Generated at " + (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes(), "author_sign_name"));
 	$strategy.append($author_sign);
 	
