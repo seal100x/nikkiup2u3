@@ -38,10 +38,11 @@ Clothes = function(csv) {
     active: realRating(csv[7], csv[6], theType),
     pure: realRating(csv[11], csv[10], theType),
     cool: realRating(csv[12], csv[13], theType),
-    tags: csv[14].split(','),
+    tags: csv[14].split('/'),
     source: csv[15].replace(/设·图/g,"设计图").replace(/浪·/g,"").replace(/设·/g,""),
-	isSuit: csv[16],
-	version: csv[17],
+    isSuit: csv[16],
+    version: csv[17],
+    src_short: csv[18]?csv[18]:csv[15],
     deps: [],
     toCsv: function() {
       name = this.name;
@@ -55,8 +56,9 @@ Clothes = function(csv) {
       cool = this.cool;
       extra = this.tags.join(',');
       source = this.source;
-	  isSuit = this.isSuit;
-	  version = this.version;
+      isSuit = this.isSuit;
+      version = this.version;
+      src_short = this.src_short;
       return [type.type, id, stars, simple[0], simple[1], cute[0], cute[1],
           active[0], active[1], pure[0], pure[1], cool[0],
           cool[1], extra, source, isSuit, version];
