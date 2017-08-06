@@ -236,11 +236,11 @@ function getstrClothes(result){
 	var max = 5;
 	for(var i in result){
 		if(max > 0){
-			str += " " + result[i].name + "「" + actScore(result[i]) + " " + removeNum(result[i].source) + "」" + ">";		
+			str += " " + result[i].name + "「" + actScore(result[i]) + " " + result[i].src_short /*removeNum(result[i].source)*/ + "」" + ">";		
 			max--;
 		}
 		else if(result[i].source.indexOf("少") >=0 || result[i].source.indexOf("公") >= 0 || result[i].source.indexOf("店") >= 0 || result[i].source.indexOf("送") >= 0 ){
-			str += "> " + result[i].name + "「" + actScore(result[i]) + " " + removeNum(result[i].source) + "」" + " ";
+			str += "> " + result[i].name + "「" + actScore(result[i]) + " " + result[i].src_short /*removeNum(result[i].source)*/ + "」" + " ";
 			break;
 		}
 	}
