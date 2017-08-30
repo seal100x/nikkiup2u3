@@ -9,104 +9,106 @@ var base = {
   'C': 817.5
 }
 
+//upd170830: sync with milu scoring
+
 var hairSize = 0.5;
 var hairScoring = {
-  'SSS': base['SSS'] * hairSize,
-  'SS': base['SS'] * hairSize,
-  'S': base['S'] * hairSize,
-  'A': base['A'] * hairSize,
-  'B': base['B'] * hairSize,
-  'C': base['C'] * hairSize
+  'SSS': 1762.5,
+  'SS': 1324.5,
+  'S': 1089,
+  'A': 837,
+  'B': 682.5,
+  'C': 517.5,
 }
 
 var dressSize = 2;
 var dressScoring = {
-  'SSS': base['SSS'] * dressSize,
-  'SS': base['SS'] * dressSize,
-  'S': base['S'] * dressSize,
-  'A': base['A'] * dressSize,
-  'B': base['B'] * dressSize,
-  'C': base['C'] * dressSize
+  'SSS': 6450,
+  'SS': 5269.5,
+  'S': 4305,
+  'A': 3366,
+  'B': 2749.5,
+  'C': 2028,
 };
 
 var coatSize = 0.2;
 var coatScoring = {
-  'SSS': base['SSS'] * coatSize,
-  'SS': base['SS'] * coatSize,
-  'S': base['S'] * coatSize,
-  'A': base['A'] * coatSize,
-  'B': base['B'] * coatSize,
-  'C': base['C'] * coatSize
+  'SSS': 645,
+  'SS': 525,
+  'S': 423,
+  'A': 331.5,
+  'B': 270,
+  'C': 207,
 };
 
 var topSize = 1;
 var topScoring = {
-  'SSS': base['SSS'] * topSize,
-  'SS': base['SS'] * topSize,
-  'S': base['S'] * topSize,
-  'A': base['A'] * topSize,
-  'B': base['B'] * topSize,
-  'C': base['C'] * topSize
+  'SSS': 3225,
+  'SS': 2619,
+  'S': 2140.5,
+  'A': 1678.5,
+  'B': 1369.5,
+  'C': 1041,
 };
 
 var bottomSize = 1;
 var bottomScoring = {
-  'SSS': base['SSS'] * bottomSize,
-  'SS': base['SS'] * bottomSize,
-  'S': base['S'] * bottomSize,
-  'A': base['A'] * bottomSize,
-  'B': base['B'] * bottomSize,
-  'C': base['C'] * bottomSize
+  'SSS': 3225,
+  'SS': 2632.5,
+  'S': 2137.5,
+  'A': 1678.5,
+  'B': 1357.5,
+  'C': 1026,
 };
 
 var sockSize = 0.3;
 var sockScoring = {
-  'SSS': base['SSS'] * sockSize,
-  'SS': base['SS'] * sockSize,
-  'S': base['S'] * sockSize,
-  'A': base['A'] * sockSize,
-  'B': base['B'] * sockSize,
-  'C': base['C'] * sockSize
+  'SSS': 967.5,
+  'SS': 789,
+  'S': 648,
+  'A': 502.5,
+  'B': 403.5,
+  'C': 306,
 };
 
 var shoeSize = 0.4;
 var shoeScoring = {
-  'SSS': base['SSS'] * shoeSize,
-  'SS': base['SS'] * shoeSize,
-  'S': base['S'] * shoeSize,
-  'A': base['A'] * shoeSize,
-  'B': base['B'] * shoeSize,
-  'C': base['C'] * shoeSize
+  'SSS': 1290,
+  'SS': 1050,
+  'S': 855,
+  'A': 667.5,
+  'B': 541.5,
+  'C': 408,
 };
 
 var accessoriesSize = 0.2;
 var accessoriesScoring = {
-  'SSS': base['SSS'] * accessoriesSize,
-  'SS': base['SS'] * accessoriesSize,
-  'S': base['S'] * accessoriesSize,
-  'A': base['A'] * accessoriesSize,
-  'B': base['B'] * accessoriesSize,
-  'C': base['C'] * accessoriesSize
+  'SSS': 705,
+  'SS': 526.5,
+  'S': 424.5,
+  'A': 330,
+  'B': 271.5,
+  'C': 166.5,
 };
 
 var makeupSize = 0.1;
 var makeupScoring = {
-  'SSS': base['SSS'] * makeupSize,
-  'SS': base['SS'] * makeupSize,
-  'S': base['S'] * makeupSize,
-  'A': base['A'] * makeupSize,
-  'B': base['B'] * makeupSize,
-  'C': base['C'] * makeupSize
+  'SSS': 322.5,
+  'SS': 267,
+  'S': 213,
+  'A': 168,
+  'B': 130.5,
+  'C': 75,
 };
 
 var lightSize = 0.2;
 var lightScoring = {
-  'SSS': base['SSS'] * lightSize,
-  'SS': base['SS'] * lightSize,
-  'S': base['S'] * lightSize,
-  'A': base['A'] * lightSize,
-  'B': base['B'] * lightSize,
-  'C': base['C'] * lightSize
+  'SSS': 645,
+  'SS': 517.5,
+  'S': 421.5,
+  'A': 325.5,
+  'B': 264,
+  'C': 208.5,
 };
 
 

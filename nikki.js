@@ -228,6 +228,8 @@ function drawLevelInfo() {
 			if (currentLevel.hint[0] && currentLevel.hint[0] != '') {
 				var $hintInfo = $("<font>").text("过关提示:  ").addClass("hintInfo");
 				$hint.append($hintInfo).append(currentLevel.hint[0]);
+				if (currentLevel.hint[0][0].indexOf("必做")>=0) $hint.addClass("hintInfo");
+				else $hint.removeClass("hintInfo");
 			}
 			if (currentLevel.hint[1] && currentLevel.hint[1] != '') {
 				var $notF = $("<font>").text("可穿戴部件:  ").addClass("not_f");
@@ -952,12 +954,12 @@ function filterClotherHTML(btn){
 			case "设计图": str = "设计图"; type = 1;break;
 			case "设计图染/进": str = "设计图"; type = 2; break;
 			case "活动": str = "活动"; type = 2; break;
-			case "迷之屋限定": str = "迷,幻,迷/幻,云禅,昼夜,缥缈,昼夜/兑·时光,云禅/兑·卧云,缥缈/兑·翡翠"; type = -1; break;
-			case "迷之屋限定染/进": str = "迷,幻,迷/幻,云禅,昼夜,缥缈,昼夜/兑·时光,云禅/兑·卧云,缥缈/兑·翡翠"; type = -2; break;
+			case "迷之屋限定": str = "谜,幻,谜/幻,云禅,昼夜,缥缈,流光,昼夜/兑·时光,云禅/兑·卧云,缥缈/兑·翡翠,流光/兑·琉璃"; type = -1; break;
+			case "迷之屋限定染/进": str = "谜,幻,谜/幻,云禅,昼夜,缥缈,流光,昼夜/兑·时光,云禅/兑·卧云,缥缈/兑·翡翠,流光/兑·琉璃"; type = -2; break;
 			case "3星": str = "3"; cls = ".star:first"; type = 1; break;
 			case "4星": str = "4"; cls = ".star:first"; type = 1; break;
 			case "5星": str = "5"; cls = ".star:first"; type = 1; break;
-			case "赠送/签到": str = "送,签到"; type = 1; break;
+			case "赠送/签到": str = "赠送,签到"; type = 1; break;
 			case "套装部件": cls = ".issuit:first"; type = 3; break;
 			case "新品": cls = ".version:first"; str=lastVersion; type = 1; break;
 		}

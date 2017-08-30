@@ -153,12 +153,12 @@ function lanStrategy(){
 	//calculate all clothes
 	allScores = {};
 	for (var i in clothes) {//calc each clothes, put to allScores[type], and sort
-		if (lanOwnChk(clothes[i], lanOwn)) {
+		//if (lanOwnChk(clothes[i], lanOwn)) {
 			clothes[i].calc(criteria);
 			if (clothes[i].isF) continue;
 			if (!allScores[clothes[i].type.type]) allScores[clothes[i].type.type] = [];
 			allScores[clothes[i].type.type].push(clothes[i]);
-		}
+		//}
 	}
 	for (var i in allScores) allScores[i].sort(function(a,b){return isAccSumScore(b) - isAccSumScore(a);});
 	
@@ -243,12 +243,14 @@ function lanStrategy_print(lazySet){
 				}
 				if (!ownType) whiteTodo.push(type); //not own, alert to create
 			}
-			else whiteTodo.push(type); //not own, alert to create
+			//else whiteTodo.push(type); //not own, alert to create
+			//upd170830: disable this as whiteType without available clothes will not be displayed
 		}
 	}
 	
 	//remove whiteTodo elements if corresponding repelCates already have (not in whiteType)
-	for (var i in repelCates){
+	//upd170830: disable this as whiteType without available clothes will not be displayed
+	/*for (var i in repelCates){
 		if ($.inArray(repelCates[i][0],whiteTodo)>=0) {//check others, if no others, remove [0]
 			var rm = true;
 			for (var k in repelCates[i]){
@@ -269,7 +271,7 @@ function lanStrategy_print(lazySet){
 			}
 		}
 		if (whiteTodoTmp.length) whiteTodo.push(whiteTodoTmp.join('/'));
-	}
+	}*/
 	
 	//if other parts in lazySet isF, alert to take down
 	var takeDown = [];
