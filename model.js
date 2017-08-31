@@ -89,24 +89,12 @@ Clothes = function(csv) {
               + c.name + ((c.own || depNumAll == 0)? '' : '[需' + (depNumAll)  + ']')+ '\n';
           ret += c.getDeps(indent + "   ", depNumAll);
         }
-		/*var splits = ret.split(/[^0-9]+/);
-		splits = splits.splice(1,splits.length-2);
-		splits.push(0);
 		var depNumAlls = 0;
-		if(splits.length > 1)
-			depNumAlls = eval(splits.join("+"));
-		*/
-		//rean - may miscalc when numbers in clothes name
-		var splits1=ret.split('[');
-		var splits2='';
-		for (var i =1; i<splits1.length; i++){
-			splits2 += splits1[i].split(']')[0];
+		var splits=ret.split('\n');
+		for (var i = 0; i<splits.length; i++){
+			var depNums = splits[i].indexOf('需') < 0 ? 0 : splits[i].replace(/[^(需)]*(需)([0-9]+)[^0-9]*/,"$2");
+			if (depNums) depNumAlls += Number(depNums);
 		}
-		//get text in [] and join tgt
-		var splits = splits2.split(/[^0-9]+/);
-		//split by and keep numbers
-		var depNumAlls = 0;
-		if (splits.length > 1) for (i=0;i<splits.length;i++) if(splits[i]) depNumAlls += Number(splits[i]);
 		
 		if(indent == '   ' && ret != '')
 			ret = "[材料]" + this.name + (depNumAlls > 0 ?  ' - 总计需 '+ depNumAlls + ' 件' : '') + "\n" + ret;
@@ -207,6 +195,14 @@ Clothes = function(csv) {
     }
   };
 }
+
+var lastVersion = function() {
+	var last = ''; var largest = 0;
+	for (var i in wardrobe) {
+		if (wardrobe[i][17].replace(/[^0-9]/g,'') > largest) last = wardrobe[i][17];
+	}
+	return last;
+}();
 
 function clotonum(type,id){
 	var mainType='';
