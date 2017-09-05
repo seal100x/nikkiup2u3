@@ -953,7 +953,8 @@ function filterClotherHTML(btn){
 			case "店染/进": str = "店"; type = 2; break;
 			case "设计图": str = "设计图"; type = 1;break;
 			case "设计图染/进": str = "设计图"; type = 2; break;
-			case "活动": str = "活动"; type = 2; break;
+			case "活动": str = "活动·"; type = 2; break;
+			case "梦境": str = "梦境·"; type = 2; break;
 			case "迷之屋限定": str = "谜,幻,谜/幻,云禅,昼夜,缥缈,流光,昼夜/兑·时光,云禅/兑·卧云,缥缈/兑·翡翠,流光/兑·琉璃"; type = -1; break;
 			case "迷之屋限定染/进": str = "谜,幻,谜/幻,云禅,昼夜,缥缈,流光,昼夜/兑·时光,云禅/兑·卧云,缥缈/兑·翡翠,流光/兑·琉璃"; type = -2; break;
 			case "3星": str = "3"; cls = ".star:first"; type = 1; break;
