@@ -95,14 +95,12 @@ function lanStrategy_init(){
 		if (!lanOwnChk(clothes[i], lanOwn)) continue;
 		if (clothes[i].isF) continue;
 		var mainType = clothes[i].type.mainType;
-		if (mainType!='袜子'&&mainType!='饰品') continue; //skip unrelated
 		var type = clothes[i].type.type;
 		var tags = clothes[i].tags;
 		for (var j in tags){
 			if (!tags[j]) continue;
-			//if (tags[j].indexOf('+')>=0) continue; //skip 萤光之灵
-			var subtype = mainType=='袜子' ? mainType : type.split('·')[0];
-			tagCate = [subtype,tags[j]].join(' + ');
+			if (tags[j].indexOf('+')>=0) continue; //skip 萤光之灵
+			tagCate = 'tag:' + tags[j];
 			if (tagSet[tagCate] == null){
 				tagSet[tagCate] = {};
 				tagSet[tagCate]['name'] = tagCate;
@@ -135,8 +133,6 @@ function lanStrategy_init(){
 	}
 	for (var i in tagSet){//remove keywords with too many returns
 		for (var j in tagSet[i]['typeCount']){
-			if (j=='袜子-袜套') tagSet[i]['typeCount'][j] += tagSet[i]['typeCount']['袜子-袜子'];
-			else if (j=='袜子-袜子') tagSet[i]['typeCount'][j] += tagSet[i]['typeCount']['袜子-袜套'];
 			if (tagSet[i]['typeCount'][j] > limitRet){
 				tagSet[tagCate]['count'] -= tagSet[i]['typeCount'][j];
 				delete tagSet[i]['clothes'][j];
@@ -248,6 +244,47 @@ function lanStrategy_print(lazySet){
 		}
 	}
 	
+	//check spRange items
+	if(Flist && Flist[themeName] && Flist[themeName]["range"]){
+		
+		//if lazySet already contains, do nothing
+		var containing = 0;
+		for (var type in lazySet){
+			if (lazySet[type].spRange) {
+				containing = 1;
+				break;
+			}
+		}
+		
+		//get most diffScore for own and not own respectively
+		if (!containing){
+			var ownType = false; 
+			var diffScore_own = getLazySetScore(lazySet) * (-1); var extra_own = new Object();
+			var diffScore_oth = diffScore_own; var extra_oth = new Object();
+			for (var type in allScores){
+				for (var j in allScores[type]){
+					if (allScores[type][j].spRange) {
+						var diff = diffScore_lan(allScores[type][j], lazySet);
+						if (lanOwnChk(allScores[type][j], lanOwn)){
+							if (diff > diffScore_own){
+								var diffScore_own = diff;
+								extra_own = allScores[type][j]
+							}
+						}else {
+							if (diff > diffScore_own){
+								var diffScore_oth = diff;
+								extra_oth = allScores[type][j]
+							}
+						}
+						break;
+					}
+				}
+			}
+			if (!($.isEmptyObject(extra_own))) whiteExtra[extra_own.type.type] = extra_own; 
+			else whiteTodo.push('必带(如:'+extra_oth.name+')');
+		}
+	}
+	
 	//remove whiteTodo elements if corresponding repelCates already have (not in whiteType)
 	//upd170830: disable this as whiteType without available clothes will not be displayed
 	/*for (var i in repelCates){
@@ -355,13 +392,12 @@ function lanStrategy_print(lazySet){
 		categoryContent.attr('id','step-'+ii);
 		
 		if (i.indexOf('套装·')>=0) categoryContent.append(pspan_id(ii+'. '+i+" ", "clothes_category stgy_clothes",i.replace('套装·','')));
-		else if (i.indexOf('+')>0) categoryContent.append(pspan(ii+'. tag搜索【' + i + '】'+" ", "clothes_category"));
 		else categoryContent.append(pspan(ii+'. 【' + i + '】'+" ", "clothes_category"));
 		
 		if (i.indexOf('套装·')!=0) {
 			for (var c in category){ //sort by category
 				if (lazyKeywords[i][category[c]]) {
-					if (i.indexOf('+')>0) {
+					if (i.indexOf('tag:')>=0) {
 						var type = category[c].substr(Math.max(category[c].indexOf('-'),category[c].indexOf('·'))+1);
 						categoryContent.append(pspan_id('('+type+')'+lazyKeywords[i][category[c]].name,"clothes",lazyKeywords[i][category[c]].longid));
 					}else categoryContent.append(pspan_id(lazyKeywords[i][category[c]].name,"clothes",lazyKeywords[i][category[c]].longid));
@@ -376,10 +412,11 @@ function lanStrategy_print(lazySet){
 	
 	if (!($.isEmptyObject(whiteExtra))){
 		var categoryContentExtra = $("<p/>");
-		categoryContentExtra.append(pspan('加【过关必做】', "clothes_category"));
+		categoryContentExtra.append(pspan('加【过关必带】', "clothes_category"));
 		for (var i in whiteExtra){
 			lazySet[i] = whiteExtra[i];
-			categoryContentExtra.append(pspan(listCateName(whiteExtra[i])+' | ',"nm"));
+			categoryContentExtra.append(pspan_id(listCateName(whiteExtra[i]),"clothes",whiteExtra[i].longid));
+			categoryContent.append(pspan(' | ',"nm"));
 			
 		}
 		categoryContentExtra.append(pspan('（'+getLazySetScore(lazySet)+'分）',"nm"));
@@ -387,7 +424,7 @@ function lanStrategy_print(lazySet){
 	}
 	
 	if (whiteTodo.length)
-		$strategy.append(p(whiteTodo.join(' | '),"clothes_category",'需制作【过关必做】: ','hint_tiele'));
+		$strategy.append(p(whiteTodo.join(' | '),"clothes_category",'需制作【过关必带】: ','hint_tiele'));
 	if (takeDown.length)
 		$strategy.append(p(takeDown.join(' | '),"nm",'取消F品: ','hint_tiele'));
 	
@@ -404,7 +441,7 @@ function lanStrategy_print(lazySet){
 function getLazySetScore(obj){
 	var lazySetAccNum = 0; //see how much accesories it has
 	for (var i in obj){
-		if (i.indexOf('饰品')==0) lazySetAccNum ++;
+		if (isAcc_c(i)) lazySetAccNum ++;
 	}
 	var sumScore = 0; //calc
 	for (var i in obj){
@@ -502,6 +539,36 @@ function evalSets(resultObj,existObj){
 	return resultObj;
 }
 
+function diffScore_lan(obj, set){
+	var lazySetAccNum = 0; //see how much accesories it has
+	for (var i in set){
+		if (isAcc_c(i)) lazySetAccNum ++;
+	}
+	
+	var c = obj.type.type;
+	var thisScore = isAccSumScore(obj, lazySetAccNum);
+	
+	for (var i in repelCates){
+		var sumFirst=0;
+		var sumOthers=0;
+		if($.inArray(c, repelCates[i])>=0){
+			for (var j in repelCates[i]){
+				if (j>0) {
+					if (set[repelCates[i][j]]) sumOthers+=isAccSumScore(set[repelCates[i][j]], lazySetAccNum);
+				}else {
+					if (set[repelCates[i][j]]) sumFirst+=isAccSumScore(set[repelCates[i][j]], lazySetAccNum);
+				}
+			}
+			if($.inArray(c, repelCates[i])==0){
+				if (sumFirst<sumOthers) return thisScore - sumOthers;
+			}else if($.inArray(c, repelCates[i])>0){
+				if (sumOthers<sumFirst) return thisScore - sumFirst;
+			}
+		}
+	}
+	return thisScore - isAccSumScore(set[c], lazySetAccNum);
+}
+
 function listCateName(c){
 	return '[' + c.type.type + ']' + c.name;
 }
@@ -554,7 +621,7 @@ function min_limitRet(){
 
 function cntKeywordsReturns(kw){
 	if (kw.indexOf('套装·')>=0) return 0;
-	else if (kw.indexOf('+')>0) {
+	else if (kw.indexOf('tag:')>=0) {
 		var max = 0;
 		for (var type in tagSet[kw]['typeCount']){
 			if (tagSet[kw]['typeCount'][type]>max) max = tagSet[kw]['typeCount'][type];
@@ -586,7 +653,7 @@ function initOnekey_lan(){
 		if (!$(".stgy_clothes").hasClass("stgy_clothes_hover")) return;
 		lackClothes.push($(this).attr('id'));
 		var stgy_save_lackClothes = $("#stgy_save_lackClothes").html();
-		var step = parseInt($(this).closest('p').attr('id').replace('step-',''));
+		var step = parseInt($(this).closest('p').attr('id') ? $(this).closest('p').attr('id').replace('step-','') : 1);
 		lanStrategy_init();
 		lanStrategy_recalc(step);
 		$("#stgy_save_lackClothes").html(stgy_save_lackClothes);

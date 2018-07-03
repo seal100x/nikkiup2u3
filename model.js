@@ -98,8 +98,21 @@ Clothes = function(csv) {
 			if (depNums) depNumAlls += Number(depNums);
 		}
 		
-		if(indent == '   ' && ret != '')
-			ret = "[材料]" + this.name + (depNumAlls > 0 ?  ' - 总计需 '+ depNumAlls + ' 件' : '') + "\n" + ret;
+		if(indent == '   ' && ret != ''){
+			ret = "[材料]" + this.name + (' - 总计需 '+ depNumAlls + ' 件') + "\n" + ret;
+			var ret2 = ret.split('\n'); //mod 180322: avoid reoccurring refer to same clothes
+			for (var i=0;i<ret2.length;i++){
+				for (var j=0;j<ret2.length;j++){
+					if (j>=i) break;
+					if (ret2[i].trim()==ret2[j].trim()) {
+						ret2.splice(i, 1);
+						i--;
+						break;
+					}
+				}
+			}
+			ret = ret2.join('\n');
+		}
       return ret;
     },
     calc: function(filters) {
@@ -168,7 +181,17 @@ Clothes = function(csv) {
         }
       }
 
+      var spRange = 0 ;
+      if(Flist && Flist[filters.levelName] && Flist[filters.levelName]["range"]){
+        for (var i in Flist[filters.levelName]["range"])
+          if(this.longid == Flist[filters.levelName]["range"][i]) {
+            spRange = 1;
+            break;
+          }
+      }
+
       this.isF = (isf==1? 0:1);
+      this.spRange = spRange;
       this.tmpScore = Math.round(s);
       this.bonusScore = 0;
 	  this.sumScore = 0;
@@ -199,12 +222,28 @@ Clothes = function(csv) {
 }
 
 var lastVersion = function() {
-	var last = ''; var largest = 0;
+	var last = ''; var largest = ['0'];
 	for (var i in wardrobe) {
-		if (wardrobe[i][17].replace(/[^0-9]/g,'') > largest) last = wardrobe[i][17];
+		var tmpArr = wardrobe[i][17].replace(/V/g,'').split('.');
+		if (greaterVer(tmpArr,largest)) {
+			last = wardrobe[i][17];
+			largest = tmpArr;
+		}
 	}
 	return last;
 }();
+
+function greaterVer(a,b){
+	for (var j=0; j<Math.min(a.length,b.length); j++){
+		if (a[j]&&b[j]) {
+			if (Number(a[j]) > Number(b[j])) return true;
+			else if (Number(a[j]) < Number(b[j])) return false;
+			else continue;
+		}else if (a[j]) return true;
+		else return false;
+	}
+	return false;
+}
 
 function clotonum(type,id){
 	var mainType='';

@@ -126,16 +126,18 @@ function showStrategy(keywords, suits){
 	}
 	
 	if(keywords != null){
-		$strategy.append(p(getstrClothes(result["手选连衣裙"]), "clothes", "手选连衣裙", "clothes_category"));
-		$strategy.append(p(getstrClothes(result["手选上装"]), "clothes", "手选上装", "clothes_category"));	
-		$strategy.append(p(getstrClothes(result["手选下装"]), "clothes", "手选下装", "clothes_category"));
+		$strategy.append(p(getstrClothes(result["手选连衣裙"],'actScore'), "clothes", "手选连衣裙", "clothes_category"));
+		$strategy.append(p(getstrClothes(result["手选上装"],'actScore'), "clothes", "手选上装", "clothes_category"));	
+		$strategy.append(p(getstrClothes(result["手选下装"],'actScore'), "clothes", "手选下装", "clothes_category"));
 	}
 	for (var c in category){
 		var name = category[c];
 		if(name.indexOf("饰品")>=0)
 			continue;
 		if (result[name]){
-			$strategy.append(p(getstrClothes(result[name]), "clothes", name, "clothes_category"));
+			var categoryContent = p(getstrClothes(result[name],'actScore'), "clothes", name, "clothes_category");
+			if (isGrey(name,result)) categoryContent.addClass("stgy_grey");
+			$strategy.append(categoryContent);
 		}
 	}
 	
@@ -146,16 +148,32 @@ function showStrategy(keywords, suits){
 		if(name.indexOf("饰品")<0)
 			continue;
 		if (result[name]) {
-			var categoryContent = p(getstrClothes(result[name]), "clothes", name, "clothes_category");
+			var categoryContent = p(getstrClothes(result[name],'actScore'), "clothes", name, "clothes_category");
 			if (isGrey(name,result)) categoryContent.addClass("stgy_grey");
 			$strategy.append(categoryContent);
 		}
 	}
-
+	
+	if (result["range"]){
+		$strategy.append(p("————————以下必带一件————————", "divide"));
+		
+		for (var i in result["range"]){
+			var clo = result["range"][i];
+			var comp = result[clo.type.type][0];
+			clo.diffScore = actScore(clo) - ( isGrey(clo.type.type,result) ? isGrey(clo.type.type,result) : actScore(comp) );
+		}
+		result["range"].sort(function(a,b){return b.diffScore - a.diffScore});
+		
+		var categoryContent = $("<p/>");
+		categoryContent.append(pspan("必带 : ", "hint_tiele"));
+		categoryContent.append(getstrClothes(result["range"],'diffScore'));
+		$strategy.append(categoryContent);
+	}
+	
 	$author_sign = $("<div/>").addClass("stgy_author_sign_div");
 	var d = new Date();
 	$author_sign.append(p("nikkiup2u3 One Key Strategy@Black Sublimation", "author_sign_name"));
-	$author_sign.append(p("generate in " + (1900+d.getYear()) + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes(), "author_sign_name"));
+	$author_sign.append(p("generate at " + (1900+d.getYear()) + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes(), "author_sign_name"));
 	$strategy.append($author_sign);
 	
 	$("#StrategyInfo").empty().append($strategy);
@@ -229,23 +247,41 @@ function getstrTag(filters){
 	return str;
 }
 
-function getstrClothes(result){
+function getstrClothes(result, scoreFunction){
 	if(result == null || result.length == 0)
 		return " : 无";
 	var str = " :";
 	var max = 5;
 	for(var i in result){
 		if(max > 0){
-			str += " " + result[i].name + "「" + actScore(result[i]) + " " + result[i].src_short /*removeNum(result[i].source)*/ + "」" + ">";		
+			str += " " + result[i].name + "「" + eval(scoreFunction+'(result[i])') + " " + result[i].src_short /*removeNum(result[i].source)*/ + "」" + ">";		
 			max--;
 		}
 		else if(result[i].source.indexOf("少") >=0 || result[i].source.indexOf("公") >= 0 || result[i].source.indexOf("店") >= 0 || result[i].source.indexOf("送") >= 0 ){
-			str += "> " + result[i].name + "「" + actScore(result[i]) + " " + result[i].src_short /*removeNum(result[i].source)*/ + "」" + " ";
+			str += "> " + result[i].name + "「" + eval(scoreFunction+'(result[i])') + " " + result[i].src_short /*removeNum(result[i].source)*/ + "」" + " ";
 			break;
 		}
 	}
 	 return str.slice(0, str.length-1);
 }
+
+/*function getstrClothes(result){
+	if(result == null || result.length == 0)
+		return " : 无";
+	var str = " :";
+	var max = 5;
+	for(var i in result){
+		if(max > 0){
+			str += " " + result[i].name + "「" + actScore(result[i]) + " " + result[i].src_short+ "」" + ">";		
+			max--;
+		}
+		else if(result[i].source.indexOf("少") >=0 || result[i].source.indexOf("公") >= 0 || result[i].source.indexOf("店") >= 0 || result[i].source.indexOf("送") >= 0 ){
+			str += "> " + result[i].name + "「" + actScore(result[i]) + " " + result[i].src_short+ "」" + " ";
+			break;
+		}
+	}
+	 return str.slice(0, str.length-1);
+}*/
 
 function removeNum(str){
 	if (str.indexOf("定")>=0 || str.indexOf("进")>=0) str = str.replace(/[0-9]/g,"");
@@ -263,6 +299,10 @@ function actScore(obj){
 	return (obj.type.mainType=='饰品') ? (uiFilter["acc9"] ? Math.round(accSumScore(obj,9)) : Math.round(accSumScore(obj,accCateNum))) : obj.sumScore;
 }
 
+function diffScore(obj){
+	return obj.diffScore;
+}
+
 function isGrey(c,result){
 	for (var i in repelCates){
 		var sumFirst=0;
@@ -276,9 +316,9 @@ function isGrey(c,result){
 				}
 			}
 			if($.inArray(c, repelCates[i])==0){
-				if (sumFirst<sumOthers) return true;
+				if (sumFirst<sumOthers) return sumOthers;
 			}else if($.inArray(c, repelCates[i])>0){
-				if (sumOthers<sumFirst) return true;
+				if (sumOthers<sumFirst) return sumFirst;
 			}
 		}
 	}
