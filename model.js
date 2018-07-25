@@ -99,7 +99,7 @@ Clothes = function(csv) {
 		}
 		
 		if(indent == '   ' && ret != ''){
-			ret = "[材料]" + this.name + (' - 总计需 '+ depNumAlls + ' 件') + "\n" + ret;
+			ret = "[材料]" + this.name + (depNumAlls > 0 ?  ' - 总计需 '+ depNumAlls + ' 件' : '') + "\n" + ret;
 			var ret2 = ret.split('\n'); //mod 180322: avoid reoccurring refer to same clothes
 			for (var i=0;i<ret2.length;i++){
 				for (var j=0;j<ret2.length;j++){
