@@ -268,10 +268,10 @@ function lanStrategy_print(lazySet){
 						if (lanOwnChk(allScores[type][j], lanOwn)){
 							if (diff > diffScore_own){
 								var diffScore_own = diff;
-								extra_own = allScores[type][j]
+								extra_own = allScores[type][j];
 							}
 						}else {
-							if (diff > diffScore_own){
+							if (diff > diffScore_oth){
 								var diffScore_oth = diff;
 								extra_oth = allScores[type][j]
 							}
@@ -566,7 +566,8 @@ function diffScore_lan(obj, set){
 			}
 		}
 	}
-	return thisScore - isAccSumScore(set[c], lazySetAccNum);
+	var setScore = set[c] ? isAccSumScore(set[c], lazySetAccNum) : 0;
+	return thisScore - setScore;
 }
 
 function listCateName(c){
