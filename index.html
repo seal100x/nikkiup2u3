@@ -158,11 +158,12 @@
 					10.6: 优化排斥品推荐计算；一键攻略改为按满饰品衰减计算（懒黑模式按无衰减计算、9饰品模式按9饰品衰减计算）<br/>
 					12.6: 鉴于很多人问怎么检查少了一件衣服的问题，做了一个游戏衣柜对比页，<a href="wardrobechk.html">连接点此</a><br/>
 					4.28: 偷懒攻略大改版，测试中欢迎反馈<br/>
+					8.31: 重新计算了衣服属性取值，推荐结果会有所不同<br/>
+					9.5: 衣服筛选增加梦境选项<br/>
 					<br/>
 				</div>
 					功能更新：by 黑的升华 & Rean翎<br/>
-					8.31: 重新计算了衣服属性取值，推荐结果会有所不同<br/>
-					9.5: 衣服筛选增加梦境选项<br/>
+					8.4: 衣服越来越多，为了方便拷贝备份，做了一个短版的衣柜备份文本，可以生成短版文本并恢复备份。测试阶段暂时不动原本备份区的逻辑，建议大家试用前先备份一次长版，以免丢失衣柜<br/>
 					<hr/>
 					衣柜、设计图更新：by 翡翠<br/>
 					<div id="history-update-info-2"></div>
@@ -343,7 +344,7 @@
 		<p style="width:60%; display:none">衣柜数量记录 （复制衣橱文本框内容以备份衣橱）</p>
 		<textarea id="myClothesNum" rows=10 style="width:60%; display:none"></textarea>
 		<br/>
-		<button onClick="loadCustomInventory()">恢复备份</button>
+		<button onClick="loadCustomInventory()">恢复备份</button> <button onClick="genShortInventory()">生成短文本(测试)</button>
 		<br/>
 		<hr>
 		

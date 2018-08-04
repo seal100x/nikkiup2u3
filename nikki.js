@@ -436,8 +436,68 @@ function matches(c, criteria, filters) {
 	return ((c.own && filters.own) || (!c.own && filters.missing)) && filters[c.type.type];
 }
 
+function genShortInventory() {
+	var ret = '';
+	var txt = $("#myClothes").val();
+	var sections = txt.split('|');
+	for (var i in sections) {
+		if (sections[i].length < 1) continue;
+		var section = sections[i].split(':');
+		var content = section[1].split(',');
+		for (var j in content) content[j] = Number(content[j]);
+		content.sort(function(a, b){return a - b;});
+		
+		var ret2 = []; var start = 0; var end = 0;
+		for (j = 0; j < content.length; j++){
+			if (content[j+1] && content[j+1] - content[j] == 1){
+				if (start ==0){
+					start = content[j];
+					end = content[j+1];
+				}else 
+					end = content[j+1];
+			}else {
+				if (end == content[j]) {
+					ret2.push(start + '-' + end);
+					start = 0;
+					end = 0;
+				}else 
+					ret2.push(content[j]);
+			}
+		}
+		ret += section[0] + ':' + ret2.join(',') + '|';
+	}
+	$("#myClothes").val(ret);
+}
+
+function decodeShortInventory(txt){
+	var ret = '';
+	var sections = txt.split('|');
+	for (var i in sections) {
+		if (sections[i].length < 1) continue;
+		var section = sections[i].split(':');
+		var content = section[1].split(',');
+		var ret2 = [];
+		for (var j in content) {
+			if (!isNaN(Number(content[j]))) ret2.push(numberToInventoryId(content[j]));
+			else if (content[j].indexOf('-') > 0){
+				var serials = content[j].split('-');
+				for (var k = Number(serials[0]); k <= Number(serials[1]); k++) ret2.push(numberToInventoryId(k));
+			}
+		}
+		ret += section[0] + ':' + ret2.join(',') + '|';
+	}
+	return ret;
+}
+
+function numberToInventoryId(num){
+	if (num < 10) return '00' + num;
+	else if (num < 100) return '0' + num;
+	else return num;
+}
+
 function loadCustomInventory() {
 	var myClothes = $("#myClothes").val();
+	if (myClothes.indexOf('-') > 0) myClothes = decodeShortInventory(myClothes);
 	if (myClothes.indexOf('|') > 0) {
 		loadNew(myClothes);
 	} else {
