@@ -479,7 +479,7 @@ function decodeShortInventory(txt){
 		var content = section[1].split(',');
 		var ret2 = [];
 		for (var j in content) {
-			if (!isNaN(Number(content[j]))) ret2.push(numberToInventoryId(content[j]));
+			if (!isNaN(Number(content[j]))) ret2.push(numberToInventoryId(Number(content[j])));
 			else if (content[j].indexOf('-') > 0){
 				var serials = content[j].split('-');
 				for (var k = Number(serials[0]); k <= Number(serials[1]); k++) ret2.push(numberToInventoryId(k));
