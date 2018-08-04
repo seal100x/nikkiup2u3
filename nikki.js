@@ -439,6 +439,7 @@ function matches(c, criteria, filters) {
 function genShortInventory() {
 	var ret = '';
 	var txt = $("#myClothes").val();
+	if (txt.indexOf('-') > 0) txt = decodeShortInventory(txt);
 	var sections = txt.split('|');
 	for (var i in sections) {
 		if (sections[i].length < 1) continue;
