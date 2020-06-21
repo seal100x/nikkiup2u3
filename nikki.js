@@ -188,7 +188,10 @@ function chooseAccessories(accfilters) {
 
 function refreshShoppingCart() {
 	shoppingCart.calc(criteria);
-	drawTable(shoppingCart.toList(byCategoryAndScore), "shoppingCart", true);
+	if (uiFilter["byCategoryAndId"])
+		drawTable(shoppingCart.toList(byCategoryAndId), "shoppingCart", true);
+	else
+		drawTable(shoppingCart.toList(byCategoryAndScore), "shoppingCart", true);
 }
 
 function drawLevelInfo() {
@@ -279,11 +282,26 @@ function drawLevelInfo() {
 	$("#tagInfo").text(info);
 }
 
+function byCategoryAndId(a, b) {
+	function mainTypeIndex(a) {
+		for (var i = 0; i < category.length; i++) {
+			if (category[i].indexOf(a.type.mainType) == 0) {
+				return i;
+			}
+		}
+		return category.length;
+	}
+	var cata = mainTypeIndex(a);
+	var catb = mainTypeIndex(b);
+	return (cata - catb == 0) ? a.id - b.id : cata - catb;
+}
+
 function byCategoryAndScore(a, b) {
 	var cata = category.indexOf(a.type.type);
 	var catb = category.indexOf(b.type.type);
 	return (cata - catb == 0) ? b.sumScore - a.sumScore : cata - catb;
 }
+
 function byCategory(a, b) {
 	var cata = category.indexOf(a);
 	var catb = category.indexOf(b);
@@ -894,6 +912,9 @@ function initEvent() {
 		}
 		if (this.value == "acc9") {
 			onChangeCriteria();
+		}
+		if (this.value == "byCategoryAndId") {
+			refreshShoppingCart();
 		}
 	});
 	$(".filter-radio").change(function () {
