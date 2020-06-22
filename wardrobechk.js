@@ -74,7 +74,27 @@ function MyClothes() {
     serialize: function() {
       var txt = "";
       for (var type in this.mine) {
-        txt += type + ":" + this.mine[type].join(',') + "|";
+		var content = this.mine[type];
+		for (var j in content) content[j] = Number(content[j]);
+		content.sort(function(a, b){return a - b;});
+		var ret = []; var start = 0; var end = 0;
+		for (j = 0; j < content.length; j++){
+			if (content[j+1] && content[j+1] - content[j] == 1){
+				if (start ==0){
+					start = content[j];
+					end = content[j+1];
+				}else 
+					end = content[j+1];
+			}else {
+				if (end == content[j]) {
+					ret.push(start + '-' + end);
+					start = 0;
+					end = 0;
+				}else 
+					ret.push(content[j]);
+			}
+		}
+        txt += type + ":" + ret.join(',') + "|";
       }
       return txt;
     },
@@ -83,12 +103,18 @@ function MyClothes() {
       this.mine = {};
       this.size = 0;
       for (var i in sections) {
-        if (sections[i].length < 1) {
-          continue;
-        }
+        if (sections[i].length < 1) continue;
         var section = sections[i].split(':');
         var type = section[0];
-        this.mine[type] = section[1].split(',');
+		var content = section[1].split(',');
+		this.mine[type] = [];
+		for (var j in content) {
+			if (!isNaN(Number(content[j]))) this.mine[type].push(numberToInventoryId(Number(content[j])));
+			else if (content[j].indexOf('-') > 0){
+				var serials = content[j].split('-');
+				for (var k = Number(serials[0]); k <= Number(serials[1]); k++) this.mine[type].push(numberToInventoryId(k));
+			}
+		}
         this.size += this.mine[type].length;
       }
     },
@@ -111,6 +137,12 @@ function MyClothes() {
       }
     }
   };
+}
+
+function numberToInventoryId(num){
+	if (num < 10) return '00' + num;
+	else if (num < 100) return '0' + num;
+	else return num;
 }
 
 function load(myClothes) {
