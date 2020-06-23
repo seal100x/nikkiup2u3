@@ -139,12 +139,6 @@ function MyClothes() {
   };
 }
 
-function numberToInventoryId(num){
-	if (num < 10) return '00' + num;
-	else if (num < 100) return '0' + num;
-	else return num;
-}
-
 function load(myClothes) {
   var cs = myClothes.split(",");
   for (var i in clothes) {
