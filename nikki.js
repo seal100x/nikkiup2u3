@@ -651,13 +651,16 @@ function doImport() {
 	var dropdown = $("#importCate")[0];
 	var type = dropdown.options[dropdown.selectedIndex].value;
 	var raw = $("#importData").val();
-	var data = raw.match(/\d+/g);
+    var data = raw.split(',');
 	var mapping = {}
 	for (var i in data) {
-		while (data[i].length < 3) {
-			data[i] = "0" + data[i];
+		if (!isNaN(Number(data[i]))) 
+			mapping[numberToInventoryId(Number(data[i]))] = true;
+		else if (data[i].indexOf('-') > 0){
+			var serials = data[i].split('-');
+			for (var k = Number(serials[0]); k <= Number(serials[1]); k++)
+				mapping[numberToInventoryId(k)] = true;
 		}
-		mapping[data[i]] = true;
 	}
 	var updating = [];
 	for (var i in clothes) {
