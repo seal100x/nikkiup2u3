@@ -651,7 +651,7 @@ function doImport() {
 	var dropdown = $("#importCate")[0];
 	var type = dropdown.options[dropdown.selectedIndex].value;
 	var raw = $("#importData").val();
-    var data = raw.split(',');
+	var data = raw.match(/[\d-]+/g);
 	var mapping = {}
 	for (var i in data) {
 		if (!isNaN(Number(data[i]))) 
