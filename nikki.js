@@ -652,14 +652,19 @@ function doImport() {
 	var type = dropdown.options[dropdown.selectedIndex].value;
 	var raw = $("#importData").val();
 	var data = raw.match(/[\d-]+/g);
+    var imdata = [];
 	var mapping = {}
 	for (var i in data) {
-		if (!isNaN(Number(data[i]))) 
+		if (!isNaN(Number(data[i]))) {
 			mapping[numberToInventoryId(Number(data[i]))] = true;
+            imdata.push(numberToInventoryId(Number(data[i])));
+        }
 		else if (data[i].indexOf('-') > 0){
 			var serials = data[i].split('-');
-			for (var k = Number(serials[0]); k <= Number(serials[1]); k++)
+			for (var k = Number(serials[0]); k <= Number(serials[1]); k++) {
 				mapping[numberToInventoryId(k)] = true;
+                imdata.push(numberToInventoryId(k));
+            }
 		}
 	}
 	var updating = [];
@@ -676,9 +681,9 @@ function doImport() {
 		var myClothes = MyClothes();
 		myClothes.filter(clothes);
 		if (myClothes.mine[type]) {
-			myClothes.mine[type] = myClothes.mine[type].concat(data);
+			myClothes.mine[type] = myClothes.mine[type].concat(imdata);
 		} else {
-			myClothes.mine[type] = data;
+			myClothes.mine[type] = imdata;
 		}
 		myClothes.update(clothes);
 		saveAndUpdate();
