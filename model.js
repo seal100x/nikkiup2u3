@@ -20,8 +20,8 @@ var global = {
 };
 
 // parses a csv row into object
-// Clothes: name, type, id, stars, gorgeous, simple, elegant, active, mature, cute, sexy, pure, cool, warm，extra
-//          0     1     2   3      4         5       6        7       8       9     10    11    12    13    14
+// Clothes: name, type, id, stars, gorgeous, simple, elegant, active, mature, cute, sexy, pure, cool, warm, extra, source, set, version, srcShort, pose
+//          0     1     2   3      4         5       6        7       8       9     10    11    12    13    14     15      16   17       18        19
 Clothes = function(csv) {
   var theType = typeInfo[csv[1]];
   if(!theType)
@@ -43,6 +43,7 @@ Clothes = function(csv) {
     isSuit: csv[16],
     version: csv[17],
     src_short: csv[18]?csv[18]:csv[15],
+    pose: csv[19] ? true : false,
     deps: [],
     toCsv: function() {
       name = this.name;
@@ -415,6 +416,13 @@ var clothesSet = function() {
 var shoppingCart = {
   cart: {},
   totalScore: fakeClothes(this.cart),
+  accNum: function() {
+    var cnt=0;
+    for (var i in this.cart) {
+        if (this.cart[i].type.mainType == '饰品') cnt++;
+    }
+    return cnt;
+  },
   clear: function() {
     this.cart = {};
   },
@@ -454,7 +462,7 @@ var shoppingCart = {
 			currCate=repelCates[i][j];
 			if (this.cart[currCate]) {
 				this.cart[currCate].calc(criteria);
-				var currSumScore = currCate.split('-')[0] == '饰品' ? accSumScore(this.cart[currCate], accNum?accNum:accCateNum) : this.cart[currCate].sumScore;
+				var currSumScore = realSumScore(this.cart[currCate], accNum);
 				if (j>0) sumOthers+=currSumScore;
 				else sumFirst+=currSumScore;
 			}
@@ -467,6 +475,12 @@ var shoppingCart = {
 			}
 		}
 	}
+    for (var c in this.cart) { //remove 皮肤 if there is pose
+        if (this.cart[c].pose) {
+            shoppingCart.remove('饰品-皮肤');
+            break;
+        }
+    }
 	if (accNum) {//keep accessories base on accNum
 		var sortCates=[];
 		for (var i in category){
@@ -491,9 +505,14 @@ function accScore(total, items) {
   return total * 0.4;
 }
 
-function accSumScore(a,items){
-	return accScore(a.tmpScore, items)+a.bonusScore;
+function accSumScore(a, items){
+	return Math.round(accScore(a.tmpScore, items) + a.bonusScore);
 }
+
+function realSumScore(c, items){
+	return c.type.mainType=='饰品' ? accSumScore(c, items) : c.sumScore;
+}
+
 
 var accCateNum = function() {
 	var cnt = 0;
@@ -544,6 +563,7 @@ function fakeClothes(cart) {
   return {
     name: '总分',
     sumScore: Math.round(totalScore),
+    type: '',
     toCsv: function() {
       return ['', '', '',
           scoreWithBonusTd(scores.simple[0], bonus.simple[0]), 

@@ -589,7 +589,7 @@ function isAcc_c(type){
 }
 
 function isAccSumScore(c,num){
-	return c.isF ? 0 : (isAcc(c) ? Math.round(accSumScore(c,num?num:accCateNum)) : c.sumScore);
+	return c.isF ? 0 : realSumScore(c, num?num:accCateNum);
 }
 
 function lanOwnChk(c, lanOwn) {
