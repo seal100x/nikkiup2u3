@@ -184,7 +184,7 @@ function chooseAccessories(accfilters) {
     
     //calc for clothes with pose
 	shoppingCart.clear();
-	shoppingCart.putAll(topAccessories);
+	shoppingCart.putAll(topAccessories[1]);
 	shoppingCart.putAll(topClothes[1]);
 	shoppingCart.validate(clone(accfilters));
 	shoppingCart.calc(criteria);
@@ -192,7 +192,7 @@ function chooseAccessories(accfilters) {
     
     //calc for clothes without pose
 	shoppingCart.clear();
-	shoppingCart.putAll(topAccessories);
+	shoppingCart.putAll(topAccessories[0]);
 	shoppingCart.putAll(topClothes[0]);
 	shoppingCart.validate(clone(accfilters));
 	shoppingCart.calc(criteria);
@@ -200,7 +200,7 @@ function chooseAccessories(accfilters) {
     
     if (score1 > score2) {
         shoppingCart.clear();
-        shoppingCart.putAll(topAccessories);
+        shoppingCart.putAll(topAccessories[1]);
         shoppingCart.putAll(topClothes[1]);
         shoppingCart.validate(clone(accfilters));
     }
@@ -411,11 +411,7 @@ function filterTopAccessories(filters) {
 	var toSortNorm = clone(shoppingCart.cart);
 	
 	shoppingCart.clear();
-	var max = Math.max(totalS, totalAll, totalNorm);
-    
-	if (totalS == max) return toSortS;
-	else if (totalAll == max) return toSortAll;
-	else return toSortNorm;
+    return [totalS > totalNorm ? toSortS : toSortNorm, totalS > totalAll ? toSortS : toSortAll];
 }
 
 function filterTopClothes(filters) {
