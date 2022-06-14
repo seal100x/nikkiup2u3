@@ -344,7 +344,7 @@ function MyClothes() {
 					end = content[j+1];
 			}else {
 				if (end == content[j]) {
-					ret.push(start + '-' + end);
+					ret.push(start + '+' + Number(end - start));
 					start = 0;
 					end = 0;
 				}else 
@@ -370,6 +370,10 @@ function MyClothes() {
 			else if (content[j].indexOf('-') > 0){
 				var serials = content[j].split('-');
 				for (var k = Number(serials[0]); k <= Number(serials[1]); k++) this.mine[type].push(numberToInventoryId(k));
+			}
+			else if (content[j].indexOf('+') > 0){
+				var serials = content[j].split('+');
+				for (var k = Number(serials[0]); k <= Number(serials[0]) + Number(serials[1]); k++) this.mine[type].push(numberToInventoryId(k));
 			}
 		}
         this.size += this.mine[type].length;
