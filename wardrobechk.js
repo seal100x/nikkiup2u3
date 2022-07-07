@@ -114,6 +114,10 @@ function MyClothes() {
 				var serials = content[j].split('-');
 				for (var k = Number(serials[0]); k <= Number(serials[1]); k++) this.mine[type].push(numberToInventoryId(k));
 			}
+            else if (content[j].indexOf('+') > 0){
+                var serials = content[j].split('+');
+                for (var k = Number(serials[0]); k <= Number(serials[0]) + Number(serials[1]); k++) this.mine[type].push(numberToInventoryId(k));
+            }
 		}
         this.size += this.mine[type].length;
       }
