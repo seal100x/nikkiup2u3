@@ -64,6 +64,11 @@
   align-items: center;
   gap: 8px;
 }
+.panel-section-subtitle {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.38);
+}
 .panel-section-title :where(.anticon) {
   color: #803fef;
 }

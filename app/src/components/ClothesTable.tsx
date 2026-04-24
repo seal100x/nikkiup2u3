@@ -153,6 +153,21 @@ function useIsMobile() {
   return mobile;
 }
 
+/** 触屏 / 窄屏：不包 Tooltip，避免触摸后 hover 粘住导致要点两次 */
+function usePreferNoTooltip() {
+  const mq = React.useRef(
+    window.matchMedia("(max-width: 991px), (pointer: coarse)"),
+  );
+  const [preferNo, setPreferNo] = React.useState(() => mq.current.matches);
+  React.useEffect(() => {
+    const mql = mq.current;
+    const handler = (e: MediaQueryListEvent) => setPreferNo(e.matches);
+    mql.addEventListener("change", handler);
+    return () => mql.removeEventListener("change", handler);
+  }, []);
+  return preferNo;
+}
+
 const SCORE_KEYS = [
   { key: "simple" as const, pos: "简", neg: "华" },
   { key: "cute" as const, pos: "可", neg: "成" },
@@ -170,6 +185,14 @@ function MobileRow({
   onToggleOwn: (t: string, id: string) => void;
   onAddCart: (t: string, id: string) => void;
 }) {
+  const noTooltip = usePreferNoTooltip();
+  const addBtn = (
+    <Button
+      size='small'
+      icon={<PlusOutlined />}
+      onClick={() => onAddCart(r.type.mainType, r.id)}
+    />
+  );
   return (
     <div
       style={{
@@ -212,13 +235,11 @@ function MobileRow({
         >
           {getScore(r)}
         </span>
-        <Tooltip title='加入购物车'>
-          <Button
-            size='small'
-            icon={<PlusOutlined />}
-            onClick={() => onAddCart(r.type.mainType, r.id)}
-          />
-        </Tooltip>
+        {noTooltip ? (
+          addBtn
+        ) : (
+          <Tooltip title='加入购物车'>{addBtn}</Tooltip>
+        )}
       </div>
       <div
         style={{
@@ -290,6 +311,7 @@ const ClothesTable: React.FC<ClothesTableProps> = ({
   onAddCart,
 }) => {
   const isMobile = useIsMobile();
+  const noActionTooltip = usePreferNoTooltip();
   const [page, setPage] = React.useState(1);
   const PAGE_SIZE = 50;
 
@@ -486,15 +508,20 @@ const ClothesTable: React.FC<ClothesTableProps> = ({
       key: "action",
       width: 40,
       fixed: "right" as const,
-      render: (_: unknown, record: ClothesItem) => (
-        <Tooltip title='加入购物车'>
+      render: (_: unknown, record: ClothesItem) => {
+        const btn = (
           <Button
             size='small'
             icon={<PlusOutlined />}
             onClick={() => onAddCart(record.type.mainType, record.id)}
           />
-        </Tooltip>
-      ),
+        );
+        return noActionTooltip ? (
+          btn
+        ) : (
+          <Tooltip title='加入购物车'>{btn}</Tooltip>
+        );
+      },
     },
   ];
 

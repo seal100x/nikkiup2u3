@@ -59,6 +59,9 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
         <span className='panel-section-title-left'>
           <ShoppingOutlined />
           <span>推荐搭配</span>
+          <span className='panel-section-subtitle'>
+            若衣橱有更新点击刷新搭配
+          </span>
         </span>
       </div>
       <div className='sc-panel-header'>
