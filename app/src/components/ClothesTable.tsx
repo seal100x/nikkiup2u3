@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Tag, Button, Checkbox, Tooltip } from "antd";
 import { PlusOutlined, StarFilled } from "@ant-design/icons";
+import { usePreferNoTooltip } from "../hooks/usePreferNoTooltip";
 
 interface ClothesItem {
   name: string;
@@ -151,21 +152,6 @@ function useIsMobile() {
     return () => mql.removeEventListener("change", handler);
   }, []);
   return mobile;
-}
-
-/** 触屏 / 窄屏：不包 Tooltip，避免触摸后 hover 粘住导致要点两次 */
-function usePreferNoTooltip() {
-  const mq = React.useRef(
-    window.matchMedia("(max-width: 991px), (pointer: coarse)"),
-  );
-  const [preferNo, setPreferNo] = React.useState(() => mq.current.matches);
-  React.useEffect(() => {
-    const mql = mq.current;
-    const handler = (e: MediaQueryListEvent) => setPreferNo(e.matches);
-    mql.addEventListener("change", handler);
-    return () => mql.removeEventListener("change", handler);
-  }, []);
-  return preferNo;
 }
 
 const SCORE_KEYS = [

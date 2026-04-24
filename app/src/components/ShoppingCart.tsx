@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Button, Tooltip } from "antd";
 import { DeleteOutlined, ShoppingOutlined } from "@ant-design/icons";
+import { usePreferNoTooltip } from "../hooks/usePreferNoTooltip";
 import "./panel.css";
 
 interface CartItem {
@@ -26,6 +27,7 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   onClear,
   onRefresh,
 }) => {
+  const noActionTooltip = usePreferNoTooltip();
   const columns = [
     { title: "名称", dataIndex: "name", key: "name" },
     { title: "分类", dataIndex: ["type", "type"], key: "type", width: 100 },
@@ -40,16 +42,21 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
       title: "操作",
       key: "action",
       width: 60,
-      render: (_: unknown, record: CartItem) => (
-        <Tooltip title='移除'>
+      render: (_: unknown, record: CartItem) => {
+        const btn = (
           <Button
             size='small'
             danger
             icon={<DeleteOutlined />}
             onClick={() => onRemove(record.type.type)}
           />
-        </Tooltip>
-      ),
+        );
+        return noActionTooltip ? (
+          btn
+        ) : (
+          <Tooltip title='移除'>{btn}</Tooltip>
+        );
+      },
     },
   ];
 
