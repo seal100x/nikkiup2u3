@@ -1,0 +1,80 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* 仅作用于非 Ant Design 按钮，避免与 .ant-btn 的焦点环叠加成黑框 */
+/* .fp-qf-tag 由 panel.css 自管边框与悬停色，避免被全局 border 覆盖 */
+button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall) {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):hover {
+  border-color: #646cff;
+}
+button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus,
+button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus-visible {
+  outline: none;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall) {
+    background-color: #f9f9f9;
+  }
+}
+
+/* 防止 iOS Safari 在 font-size < 16px 的输入框/选择框获焦时自动缩放页面 */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}

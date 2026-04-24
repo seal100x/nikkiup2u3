@@ -1,0 +1,62 @@
+#root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+}
+
+.app-layout {
+  min-height: 100vh;
+  background: transparent;
+  position: relative;
+}
+
+.app-content {
+  padding: 16px 24px;
+}
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* keep all layout children above the bg */
+.app-layout > *:not(.app-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* 顶栏样式见 components/AppHeader.css */
+.app-only-mobile {
+  display: none;
+}
+.app-only-desktop {
+  display: block;
+}
+
+@media (max-width: 991px) {
+  .app-content {
+    padding: 16px 12px;
+  }
+
+  .app-only-mobile {
+    display: block;
+  }
+  .app-only-desktop {
+    display: none;
+  }
+  .app-bg {
+    background-position: center top;
+    background-size: 200% auto;
+    opacity: 0.35;
+  }
+  .wardrobe-panel-col {
+    margin-top: 12px;
+  }
+}

@@ -1,0 +1,33 @@
+.app-header {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0 24px;
+  border-bottom: 1px solid #f0f0f0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-sizing: border-box;
+}
+
+.app-header-history-btn.ant-btn {
+  border-radius: 20px !important;
+  font-size: 12px !important;
+  color: rgba(0, 0, 0, 0.45) !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  box-shadow: none !important;
+}
+.app-header-history-btn.ant-btn:hover {
+  color: #7c3aed !important;
+  border-color: rgba(124, 58, 237, 0.35) !important;
+}
+
+.update-log-content {
+  max-height: 55vh;
+  overflow: auto;
+  padding: 4px 2px;
+  line-height: 1.7;
+  color: rgba(0, 0, 0, 0.75);
+  word-break: break-word;
+}

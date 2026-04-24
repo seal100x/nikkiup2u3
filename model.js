@@ -442,10 +442,12 @@ var shoppingCart = {
   },
   putAll: function(clothes) {
     for (var i in clothes) {
-      this.put(clothes[i]);
+      if (clothes[i]) this.put(clothes[i]);
     }
   },
   put: function(c) {
+    // 防御：某些关卡/数据会产生空项，避免 chooseAccessories 直接崩溃
+    if (!c || !c.type || !c.type.type) return;
     this.cart[c.type.type] = c;
   },
   toList: function(sortBy) {

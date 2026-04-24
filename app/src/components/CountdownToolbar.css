@@ -1,0 +1,110 @@
+/* 搭配赛倒计时 + 快捷入口（浅黄底、左右分布、圆角胶囊） */
+.app-countdown-bar {
+  border-radius: 12px;
+  padding: 10px 14px;
+  background: #fff8e7;
+  border: 1px solid rgba(250, 173, 20, 0.35);
+  box-sizing: border-box;
+}
+
+.app-countdown-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.app-countdown-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.app-countdown-label {
+  color: #6b5344;
+  font-size: 14px;
+  font-weight: 500;
+}
+.app-countdown-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 14px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #faad14;
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 14px;
+  color: #5c4033;
+  letter-spacing: 0.02em;
+}
+.app-countdown-pill--urgent {
+  border-color: #cf1322;
+  color: #cf1322;
+}
+.app-countdown-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.app-countdown-link-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 14px;
+  border-radius: 999px;
+  background: #fff;
+  color: #6366f1;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color 0.15s,
+    background 0.15s;
+}
+.app-countdown-link-pill:hover {
+  color: #4f46e5;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.app-countdown-alert-icon {
+  color: #1677ff;
+  margin-right: 8px;
+}
+
+.app-countdown-alert-text {
+  color: #55719b;
+  font-weight: 500;
+}
+
+.app-countdown-alert-link-btn.ant-btn {
+  margin-left: 8px;
+  background: #fff !important;
+  color: #68768a !important;
+  border-color: #fff !important;
+  border-radius: 999px !important;
+}
+
+.app-countdown-alert-link-btn.ant-btn:hover {
+  color: #5c6b82 !important;
+  border-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+@media (max-width: 640px) {
+  .app-countdown-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .app-countdown-links {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+  }
+}
