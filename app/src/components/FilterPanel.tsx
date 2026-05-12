@@ -154,6 +154,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   const [themeFilterOptions, setThemeFilterOptions] = useState<
     { label: string; value: string }[]
   >([]);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   const [strategyVisible, setStrategyVisible] = useState(false);
   const [strategyHtml, setStrategyHtml] = useState("");
@@ -176,6 +177,17 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       }
     };
     check();
+  }, []);
+
+  useEffect(() => {
+    const detectTouchDevice = () => {
+      const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+      const hasTouchPoints = navigator.maxTouchPoints > 0;
+      setIsTouchDevice(hasCoarsePointer || hasTouchPoints);
+    };
+    detectTouchDevice();
+    window.addEventListener("resize", detectTouchDevice);
+    return () => window.removeEventListener("resize", detectTouchDevice);
   }, []);
 
   // ────────── sync uiFilter → window ──────────
@@ -663,26 +675,55 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
       {/* ─── 顶部：关卡选择 + 一键攻略 ─── */}
       <div className='fp-topbar'>
         <div className='fp-topbar-left'>
-          <Select
-            style={{ width: 150 }}
-            value={themeFilter}
-            options={themeFilterOptions}
-            onChange={handleThemeFilterChange}
-            placeholder='筛选'
-            placement='bottomLeft'
-            popupMatchSelectWidth={false}
-          />
-          <Select
-            style={{ flex: 1, minWidth: 220 }}
-            value={theme}
-            options={filteredThemeOptions}
-            onChange={handleThemeChange}
-            showSearch
-            optionFilterProp='label'
-            placeholder='自定义关卡'
-            placement='bottomLeft'
-            popupMatchSelectWidth={false}
-          />
+          {isTouchDevice ? (
+            <>
+              <select
+                className='fp-native-select fp-native-select--filter'
+                value={themeFilter}
+                onChange={(e) => handleThemeFilterChange(e.target.value)}
+              >
+                {themeFilterOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+              <select
+                className='fp-native-select fp-native-select--theme'
+                value={theme}
+                onChange={(e) => handleThemeChange(e.target.value)}
+              >
+                {filteredThemeOptions.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
+                ))}
+              </select>
+            </>
+          ) : (
+            <>
+              <Select
+                style={{ width: 150 }}
+                value={themeFilter}
+                options={themeFilterOptions}
+                onChange={handleThemeFilterChange}
+                placeholder='筛选'
+                placement='bottomLeft'
+                popupMatchSelectWidth={false}
+              />
+              <Select
+                style={{ flex: 1, minWidth: 220 }}
+                value={theme}
+                options={filteredThemeOptions}
+                onChange={handleThemeChange}
+                showSearch
+                optionFilterProp='label'
+                placeholder='自定义关卡'
+                placement='bottomLeft'
+                popupMatchSelectWidth={false}
+              />
+            </>
+          )}
         </div>
 
         <div className='fp-topbar-right'>

@@ -143,6 +143,9 @@
   .fp-topbar-left > .ant-select {
     min-width: 0 !important;
   }
+  .fp-topbar-left > .fp-native-select {
+    min-width: 0;
+  }
   .fp-topbar-right {
     width: 100%;
     min-width: 0;
@@ -160,6 +163,42 @@
   border-color: var(--fp-border) !important;
   background: var(--fp-surface) !important;
   font-size: 13px;
+}
+
+.fp-native-select {
+  height: 32px;
+  border-radius: var(--fp-radius-sm);
+  border: 1px solid var(--fp-border);
+  background: var(--fp-surface);
+  color: var(--fp-text);
+  padding: 0 28px 0 10px;
+  font-size: 16px;
+  line-height: 1.2;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(0, 0, 0, 0.45) 50%),
+    linear-gradient(135deg, rgba(0, 0, 0, 0.45) 50%, transparent 50%);
+  background-position:
+    calc(100% - 14px) 13px,
+    calc(100% - 9px) 13px;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+}
+.fp-native-select:focus {
+  border-color: var(--fp-primary);
+  box-shadow: 0 0 0 3px var(--fp-primary-weak);
+}
+.fp-native-select--filter {
+  width: 150px;
+  flex: 0 0 auto;
+}
+.fp-native-select--theme {
+  flex: 1;
+  min-width: 220px;
 }
 
 /* 移动端：避免 iOS Safari 因输入字号 <16px 自动缩放页面（Select 的搜索框/输入框） */

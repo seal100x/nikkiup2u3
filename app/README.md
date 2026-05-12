@@ -26,6 +26,7 @@ npm install
 ## 本地开发
 
 ```bash
+cd app
 npm run dev
 ```
 
