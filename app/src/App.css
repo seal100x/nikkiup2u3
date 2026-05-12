@@ -19,11 +19,16 @@
   position: fixed;
   inset: 0;
   z-index: 0;
+  /* 与 nikki-background.svg 底部色接近，避免 cover 接缝或安全区露底 */
+  background-color: #f5f3fc;
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
   opacity: 0.55;
   pointer-events: none;
+  /* 移动浏览器动态工具栏下尽量铺满可视区域 */
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 /* keep all layout children above the bg */
@@ -53,7 +58,8 @@
   }
   .app-bg {
     background-position: center top;
-    background-size: 200% auto;
+    /* 200% auto 在窄长高屏上高度常小于视口，底部透明会透出黑/灰底 */
+    background-size: cover;
     opacity: 0.35;
   }
   .wardrobe-panel-col {

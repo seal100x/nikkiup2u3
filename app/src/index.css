@@ -3,9 +3,10 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* 配装器 UI 按浅色设计；不跟随系统深色，避免与 panel / 表格样式冲突 */
+  color-scheme: light;
+  color: #213547;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,13 +20,15 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #747bff;
 }
 
 html,
 body,
 #root {
-  height: 100%;
+  /* min-height 随内容增高，避免长页滚动区无背景（仅 height:100% 时常见） */
+  min-height: 100%;
+  min-height: 100dvh;
   width: 100%;
 }
 
@@ -47,7 +50,7 @@ button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall) {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -57,19 +60,6 @@ button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):hover 
 button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus,
 button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus-visible {
   outline: none;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall) {
-    background-color: #f9f9f9;
-  }
 }
 
 /* 防止 iOS Safari 在 font-size < 16px 的输入框/选择框获焦时自动缩放页面 */
