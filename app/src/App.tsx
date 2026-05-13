@@ -9,6 +9,7 @@ import AppHeader from "./components/AppHeader";
 import FilterPanel from "./components/FilterPanel";
 import ShoppingCart from "./components/ShoppingCart";
 import WardrobePanel from "./components/WardrobePanel";
+import MobileFab from "./components/MobileFab";
 import nikkiBgRaw from "./assets/nikki-background.svg?raw";
 import "antd/dist/reset.css";
 import "./App.css";
@@ -135,9 +136,11 @@ function App() {
     stars: [],
     misc: [],
   });
-  const [subCatFilter, setSubCatFilter] = useState("");
+  const [subCatFilters, setSubCatFilters] = useState<Record<string, string[]>>({});
 
   const w = useRef(window as any).current;
+  const mobileCartRef = useRef<HTMLDivElement>(null);
+  const clothesTableRef = useRef<HTMLDivElement>(null);
 
   // 用 ref 保存最新 refresh，供全局覆盖函数调用
   const refreshRef = useRef<
@@ -313,7 +316,6 @@ function App() {
 
   const handleCategoryChange = (cat: string) => {
     setCurrentCat(cat);
-    setSubCatFilter(""); // reset subcategory when main category changes
     // 直接操作 uiFilter 中的分类子项，不依赖旧 DOM 的 switchCate
     const hier = w.CATEGORY_HIERARCHY as Record<string, string[]> | undefined;
     if (hier) {
@@ -395,7 +397,7 @@ function App() {
               onQuickFilterChange={handleQuickFilterChange}
               onAddAll={handleAddAll}
             />
-            <div className='app-only-mobile'>
+            <div className='app-only-mobile' ref={mobileCartRef}>
               <ShoppingCart
                 items={cartItems}
                 totalScore={totalScore}
@@ -413,18 +415,34 @@ function App() {
             <SubCategoryBar
               mainCat={currentCat}
               subCats={cats.filter((c) => c.startsWith(currentCat + "-"))}
-              current={subCatFilter}
-              onChange={setSubCatFilter}
+              selected={
+                subCatFilters[currentCat] ??
+                cats.filter((c) => c.startsWith(currentCat + "-"))
+              }
+              onChange={(subs) =>
+                setSubCatFilters((prev) => ({ ...prev, [currentCat]: subs }))
+              }
             />
+            <div ref={clothesTableRef}>
             <ClothesTable
               data={
-                subCatFilter
-                  ? clothesList.filter((item) => item.type?.type === subCatFilter)
-                  : clothesList
+                (() => {
+                  const currentSubCats = cats.filter((c) =>
+                    c.startsWith(currentCat + "-"),
+                  );
+                  const selectedSubCats =
+                    subCatFilters[currentCat] ?? currentSubCats;
+                  if (currentSubCats.length === 0) return clothesList;
+                  if (selectedSubCats.length === 0) return [];
+                  return clothesList.filter((item) =>
+                    selectedSubCats.includes(item.type?.type),
+                  );
+                })()
               }
               onToggleOwn={handleToggleOwn}
               onAddCart={handleAddCart}
             />
+            </div>
           </Col>
           <Col xs={24} lg={8}>
             <div className='app-only-desktop'>
@@ -442,6 +460,10 @@ function App() {
           </Col>
         </Row>
       </Content>
+      <MobileFab
+        onScrollToCart={() => mobileCartRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+        onScrollToClothes={() => clothesTableRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+      />
     </Layout>
   );
 }

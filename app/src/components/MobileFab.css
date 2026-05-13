@@ -1,0 +1,47 @@
+.mobile-fab {
+  display: none !important;
+  position: fixed !important;
+  z-index: 1200;
+}
+
+@media (max-width: 991px) {
+  .mobile-fab {
+    display: inline-flex !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-fab .ant-float-btn-body {
+    background: #fff !important;
+    border: 1.5px solid #7c5cbf !important;
+    box-shadow: 0 2px 8px rgba(124, 92, 191, 0.2) !important;
+    transition: none !important;
+  }
+
+  .mobile-fab.ant-float-btn:hover,
+  .mobile-fab.ant-float-btn:active,
+  .mobile-fab.ant-float-btn:focus,
+  .mobile-fab.ant-float-btn:focus-visible,
+  .mobile-fab.ant-float-btn:hover .ant-float-btn-body,
+  .mobile-fab.ant-float-btn:active .ant-float-btn-body,
+  .mobile-fab.ant-float-btn:focus .ant-float-btn-body,
+  .mobile-fab.ant-float-btn:focus-visible .ant-float-btn-body {
+    background: #fff !important;
+    border: 1px solid #7c5cbf !important;
+    /* box-shadow: 0 2px 8px rgba(124, 92, 191, 0.2) !important; */
+    transform: none !important;
+    opacity: 1 !important;
+    outline: none !important;
+  }
+
+  .mobile-fab .ant-float-btn-icon {
+    color: #7c5cbf !important;
+    transition: none !important;
+  }
+
+  .mobile-fab.ant-float-btn:hover .ant-float-btn-icon,
+  .mobile-fab.ant-float-btn:active .ant-float-btn-icon,
+  .mobile-fab.ant-float-btn:focus .ant-float-btn-icon,
+  .mobile-fab.ant-float-btn:focus-visible .ant-float-btn-icon {
+    color: #7c5cbf !important;
+  }
+}
