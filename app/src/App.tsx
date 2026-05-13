@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Layout, Spin, Row, Col, Modal } from "antd";
 import CategoryTabs from "./components/CategoryTabs";
+import SubCategoryBar from "./components/SubCategoryBar";
 import ClothesTable from "./components/ClothesTable";
 import CountdownToolbar from "./components/CountdownToolbar";
 import AppHeader from "./components/AppHeader";
@@ -134,6 +135,7 @@ function App() {
     stars: [],
     misc: [],
   });
+  const [subCatFilter, setSubCatFilter] = useState("");
 
   const w = useRef(window as any).current;
 
@@ -311,6 +313,7 @@ function App() {
 
   const handleCategoryChange = (cat: string) => {
     setCurrentCat(cat);
+    setSubCatFilter(""); // reset subcategory when main category changes
     // 直接操作 uiFilter 中的分类子项，不依赖旧 DOM 的 switchCate
     const hier = w.CATEGORY_HIERARCHY as Record<string, string[]> | undefined;
     if (hier) {
@@ -407,8 +410,18 @@ function App() {
               counts={catCounts}
               onChange={handleCategoryChange}
             />
+            <SubCategoryBar
+              mainCat={currentCat}
+              subCats={cats.filter((c) => c.startsWith(currentCat + "-"))}
+              current={subCatFilter}
+              onChange={setSubCatFilter}
+            />
             <ClothesTable
-              data={clothesList}
+              data={
+                subCatFilter
+                  ? clothesList.filter((item) => item.type?.type === subCatFilter)
+                  : clothesList
+              }
               onToggleOwn={handleToggleOwn}
               onAddCart={handleAddCart}
             />

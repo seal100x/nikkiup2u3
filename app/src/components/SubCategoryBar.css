@@ -1,0 +1,47 @@
+.sub-cat-wrapper {
+  margin: 4px 0 8px;
+  padding: 8px 12px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.sub-cat-hint-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.sub-cat-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.sub-cat-tag {
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 20px !important;
+  background: rgba(0, 0, 0, 0.03) !important;
+  color: rgba(0, 0, 0, 0.65) !important;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none !important;
+  box-shadow: none !important;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
+  line-height: 22px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.sub-cat-tag.active {
+  border: 1px solid rgba(124, 58, 237, 0.45) !important;
+  background: rgba(124, 58, 237, 0.1) !important;
+  color: #7c3aed !important;
+  font-weight: 700;
+}
