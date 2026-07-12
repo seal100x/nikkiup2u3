@@ -2,12 +2,14 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { Layout, Spin, Row, Col, Modal } from "antd";
 import CategoryTabs from "./components/CategoryTabs";
+import SubCategoryBar from "./components/SubCategoryBar";
 import ClothesTable from "./components/ClothesTable";
 import CountdownToolbar from "./components/CountdownToolbar";
 import AppHeader from "./components/AppHeader";
 import FilterPanel from "./components/FilterPanel";
 import ShoppingCart from "./components/ShoppingCart";
 import WardrobePanel from "./components/WardrobePanel";
+import MobileFab from "./components/MobileFab";
 import nikkiBgRaw from "./assets/nikki-background.svg?raw";
 import "antd/dist/reset.css";
 import "./App.css";
@@ -134,8 +136,11 @@ function App() {
     stars: [],
     misc: [],
   });
+  const [subCatFilters, setSubCatFilters] = useState<Record<string, string[]>>({});
 
   const w = useRef(window as any).current;
+  const mobileCartRef = useRef<HTMLDivElement>(null);
+  const clothesTableRef = useRef<HTMLDivElement>(null);
 
   // 用 ref 保存最新 refresh，供全局覆盖函数调用
   const refreshRef = useRef<
@@ -392,7 +397,7 @@ function App() {
               onQuickFilterChange={handleQuickFilterChange}
               onAddAll={handleAddAll}
             />
-            <div className='app-only-mobile'>
+            <div className='app-only-mobile' ref={mobileCartRef}>
               <ShoppingCart
                 items={cartItems}
                 totalScore={totalScore}
@@ -407,11 +412,37 @@ function App() {
               counts={catCounts}
               onChange={handleCategoryChange}
             />
+            <SubCategoryBar
+              mainCat={currentCat}
+              subCats={cats.filter((c) => c.startsWith(currentCat + "-"))}
+              selected={
+                subCatFilters[currentCat] ??
+                cats.filter((c) => c.startsWith(currentCat + "-"))
+              }
+              onChange={(subs) =>
+                setSubCatFilters((prev) => ({ ...prev, [currentCat]: subs }))
+              }
+            />
+            <div ref={clothesTableRef}>
             <ClothesTable
-              data={clothesList}
+              data={
+                (() => {
+                  const currentSubCats = cats.filter((c) =>
+                    c.startsWith(currentCat + "-"),
+                  );
+                  const selectedSubCats =
+                    subCatFilters[currentCat] ?? currentSubCats;
+                  if (currentSubCats.length === 0) return clothesList;
+                  if (selectedSubCats.length === 0) return [];
+                  return clothesList.filter((item) =>
+                    selectedSubCats.includes(item.type?.type),
+                  );
+                })()
+              }
               onToggleOwn={handleToggleOwn}
               onAddCart={handleAddCart}
             />
+            </div>
           </Col>
           <Col xs={24} lg={8}>
             <div className='app-only-desktop'>
@@ -429,6 +460,10 @@ function App() {
           </Col>
         </Row>
       </Content>
+      <MobileFab
+        onScrollToCart={() => mobileCartRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+        onScrollToClothes={() => clothesTableRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
+      />
     </Layout>
   );
 }

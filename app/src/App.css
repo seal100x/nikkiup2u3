@@ -37,7 +37,21 @@
   z-index: 1;
 }
 
-/* 顶栏样式见 components/AppHeader.css */
+/* 去除 Tabs 溢出菜单按钮的 hover 边框 */
+.ant-tabs-nav-more {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.ant-tabs-nav-more:hover,
+.ant-tabs-nav-more:focus,
+.ant-tabs-nav-more:active {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
 .app-only-mobile {
   display: none;
 }
