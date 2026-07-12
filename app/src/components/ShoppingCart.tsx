@@ -1,7 +1,7 @@
 import React from "react";
-import { Table, Button, Tooltip } from "antd";
-import { DeleteOutlined, ShoppingOutlined } from "@ant-design/icons";
-import { usePreferNoTooltip } from "../hooks/usePreferNoTooltip";
+import { Table, Button } from "antd";
+import { DeleteOutlined, ShoppingOutlined, CopyOutlined } from "@ant-design/icons";
+// import { usePreferNoTooltip } from "../hooks/usePreferNoTooltip";
 import "./panel.css";
 
 interface CartItem {
@@ -27,7 +27,10 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
   onClear,
   onRefresh,
 }) => {
-  const noActionTooltip = usePreferNoTooltip();
+  // const noActionTooltip = usePreferNoTooltip();
+  const handleCopyBackup = (name: string) => {
+    navigator.clipboard.writeText(name);
+  };
   const columns = [
     { title: "名称", dataIndex: "name", key: "name" },
     { title: "分类", dataIndex: ["type", "type"], key: "type", width: 100 },
@@ -41,21 +44,24 @@ const ShoppingCart: React.FC<ShoppingCartProps> = ({
     {
       title: "操作",
       key: "action",
-      width: 60,
+      width: 120,
       render: (_: unknown, record: CartItem) => {
         const btn = (
-          <Button
-            size='small'
-            danger
-            icon={<DeleteOutlined />}
-            onClick={() => onRemove(record.type.type)}
-          />
+          <div>
+            <Button
+              size='small'
+              danger
+              icon={<DeleteOutlined />}
+              onClick={() => onRemove(record.type.type)}
+            />
+            <Button
+              size='small'
+              icon={<CopyOutlined />}
+              onClick={() => handleCopyBackup(record.name)}
+            />
+          </div>
         );
-        return noActionTooltip ? (
-          btn
-        ) : (
-          <Tooltip title='移除'>{btn}</Tooltip>
-        );
+        return btn
       },
     },
   ];
