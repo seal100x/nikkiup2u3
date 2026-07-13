@@ -66,9 +66,11 @@
     color 0.15s,
     background 0.15s;
 }
-.app-countdown-link-pill:hover {
-  color: #4f46e5;
-  background: rgba(255, 255, 255, 0.95);
+@media (hover: hover) and (pointer: fine) {
+  .app-countdown-link-pill:hover {
+    color: #4f46e5;
+    background: rgba(255, 255, 255, 0.95);
+  }
 }
 
 .app-countdown-alert-icon {
@@ -89,9 +91,16 @@
   border-radius: 999px !important;
 }
 
-.app-countdown-alert-link-btn.ant-btn:hover {
-  color: #5c6b82 !important;
-  border-color: rgba(0, 0, 0, 0.18) !important;
+@media (hover: hover) and (pointer: fine) {
+  .app-countdown-alert-link-btn.ant-btn:hover {
+    color: #5c6b82 !important;
+    border-color: rgba(0, 0, 0, 0.18) !important;
+  }
+}
+
+.app-countdown-link-pill:active {
+  transform: scale(0.96);
+  filter: brightness(0.94);
 }
 
 @media (max-width: 640px) {

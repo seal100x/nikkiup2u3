@@ -213,6 +213,12 @@
     font-size: 16px !important;
   }
 }
+
+@media (max-width: 991px) {
+  .fp-topbar-filters-row {
+    display: none;
+  }
+}
 .fp-strategy-btn {
   flex-shrink: 0;
   height: 32px !important;
@@ -234,9 +240,11 @@
     transform 0.15s,
     box-shadow 0.15s !important;
 }
-.fp-strategy-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.3) !important;
+@media (hover: hover) and (pointer: fine) {
+  .fp-strategy-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(124, 58, 237, 0.3) !important;
+  }
 }
 
 /* ── Level hint ── */
@@ -386,8 +394,6 @@
 }
 .fp-toggle:active {
   outline: none !important;
-  box-shadow: none !important;
-  filter: none !important;
 }
 .fp-toggle:first-child {
   border-radius: 20px 0 0 20px;
@@ -404,13 +410,15 @@
   background: linear-gradient(135deg, #8b5df6 0%, #8b5cf6 100%);
   color: #fff;
 }
-.fp-toggle:hover:not(.active-pos):not(.active-neg) {
-  background: rgba(0, 0, 0, 0.03);
-  color: var(--fp-text);
-}
-.fp-toggle:hover {
-  border-color: transparent !important;
-  box-shadow: none !important;
+@media (hover: hover) and (pointer: fine) {
+  .fp-toggle:hover:not(.active-pos):not(.active-neg) {
+    background: rgba(0, 0, 0, 0.03);
+    color: var(--fp-text);
+  }
+  .fp-toggle:hover {
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
 }
 
 .fp-weight-input {
@@ -726,9 +734,11 @@
   outline: none;
   white-space: nowrap;
 }
-.fp-qf-addall:hover {
-  background: rgba(24, 144, 255, 0.12);
-  border-color: rgba(24, 144, 255, 0.5);
+@media (hover: hover) and (pointer: fine) {
+  .fp-qf-addall:hover {
+    background: rgba(24, 144, 255, 0.12);
+    border-color: rgba(24, 144, 255, 0.5);
+  }
 }
 
 .fp-qf-row {
@@ -910,8 +920,10 @@ button.fp-qf-tag.fp-qf-tag--misc.fp-qf-tag--active {
   transition: color 0.15s;
   outline: none;
 }
-.fp-qf-clear:hover {
-  color: #ff4d4f;
+@media (hover: hover) and (pointer: fine) {
+  .fp-qf-clear:hover {
+    color: #ff4d4f;
+  }
 }
 
 /* ── ShoppingCart header ── */
@@ -935,6 +947,11 @@ button.fp-qf-tag.fp-qf-tag--misc.fp-qf-tag--active {
 .sc-panel-actions {
   display: flex;
   gap: 6px;
+}
+.sc-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 .sc-btn-refresh.ant-btn {
   height: 28px !important;

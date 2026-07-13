@@ -10,6 +10,7 @@ import FilterPanel from "./components/FilterPanel";
 import ShoppingCart from "./components/ShoppingCart";
 import WardrobePanel from "./components/WardrobePanel";
 import MobileFab from "./components/MobileFab";
+import MobileWardrobeToolbar from "./components/MobileWardrobeToolbar";
 import nikkiBgRaw from "./assets/nikki-background.svg?raw";
 import "antd/dist/reset.css";
 import "./App.css";
@@ -122,6 +123,23 @@ function applyQuickFilter(list: any[], qf: QuickFilter): any[] {
   });
 }
 
+function getCategoryFromUiFilter(
+  hierarchy: Record<string, string[]> | undefined,
+  uiFilter: Record<string, boolean> | undefined,
+): string | undefined {
+  if (!hierarchy || !uiFilter) return undefined;
+
+  const activeMainCategories = Object.entries(hierarchy)
+    .filter(([main, subs]) =>
+      Boolean(uiFilter[main]) || subs.some((sub) => Boolean(uiFilter[sub])),
+    )
+    .map(([main]) => main);
+
+  if (activeMainCategories.length === 1) return activeMainCategories[0];
+  if (activeMainCategories.length === Object.keys(hierarchy).length) return "全部";
+  return undefined;
+}
+
 function App() {
   const [ready, setReady] = useState(false);
   const [cats, setCats] = useState<string[]>([]);
@@ -130,6 +148,8 @@ function App() {
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [totalScore, setTotalScore] = useState(0);
   const [nameSearch, setNameSearch] = useState("");
+  const [showOwn, setShowOwn] = useState(true);
+  const [showMissing, setShowMissing] = useState(true);
   const [catCounts, setCatCounts] = useState<Record<string, number>>({});
   const [quickFilter, setQuickFilter] = useState<QuickFilter>({
     source: [],
@@ -168,6 +188,14 @@ function App() {
         }
         result = applyQuickFilter(result, qf);
         setClothesList([...result]);
+
+        // 旧版关卡逻辑可能会重建 uiFilter（例如切回“发型”）。
+        // 以实际生效的分类筛选为准，同步 React 受控 Tabs，避免表格与 tab 高亮不一致。
+        const activeCategory = getCategoryFromUiFilter(
+          w.CATEGORY_HIERARCHY,
+          w.uiFilter,
+        );
+        if (activeCategory) setCurrentCat(activeCategory);
 
         // 直接从全量 clothes 统计各主分类已拥有数量
         const allClothes: any[] = w.clothes || [];
@@ -253,6 +281,18 @@ function App() {
   const handleQuickFilterChange = (qf: QuickFilter) => {
     setQuickFilter(qf);
     refresh(undefined, qf);
+  };
+
+  const handleShowOwnChange = (checked: boolean) => {
+    setShowOwn(checked);
+    w.uiFilter.own = checked;
+    refresh();
+  };
+
+  const handleShowMissingChange = (checked: boolean) => {
+    setShowMissing(checked);
+    w.uiFilter.missing = checked;
+    refresh();
   };
 
   const handleAddAll = ({ showOwn, showMissing, nameSearch: ns }: { showOwn: boolean; showMissing: boolean; nameSearch: string }) => {
@@ -391,6 +431,11 @@ function App() {
           <Col xs={24} lg={16}>
             <FilterPanel
               onFilter={refresh}
+              onThemeCategoryReset={() => handleCategoryChange("发型")}
+              showOwn={showOwn}
+              showMissing={showMissing}
+              onShowOwnChange={handleShowOwnChange}
+              onShowMissingChange={handleShowMissingChange}
               nameSearch={nameSearch}
               onNameSearchChange={setNameSearch}
               quickFilter={quickFilter}
@@ -404,6 +449,20 @@ function App() {
                 onRemove={handleRemoveCart}
                 onClear={handleClearCart}
                 onRefresh={handleRefreshCart}
+              />
+            </div>
+            <div className='app-only-mobile'>
+              <MobileWardrobeToolbar
+                showOwn={showOwn}
+                showMissing={showMissing}
+                onShowOwnChange={handleShowOwnChange}
+                onShowMissingChange={handleShowMissingChange}
+                nameSearch={nameSearch}
+                onNameSearchChange={setNameSearch}
+                onSearch={refresh}
+                quickFilter={quickFilter}
+                onQuickFilterChange={handleQuickFilterChange}
+                onAddAll={handleAddAll}
               />
             </div>
             <CategoryTabs

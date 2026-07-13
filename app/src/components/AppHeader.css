@@ -18,9 +18,11 @@
   border-color: rgba(0, 0, 0, 0.12) !important;
   box-shadow: none !important;
 }
-.app-header-history-btn.ant-btn:hover {
-  color: #7c3aed !important;
-  border-color: rgba(124, 58, 237, 0.35) !important;
+@media (hover: hover) and (pointer: fine) {
+  .app-header-history-btn.ant-btn:hover {
+    color: #7c3aed !important;
+    border-color: rgba(124, 58, 237, 0.35) !important;
+  }
 }
 
 .update-log-content {

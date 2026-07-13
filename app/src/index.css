@@ -54,12 +54,30 @@ button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall) {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):hover {
-  border-color: #646cff;
+@media (hover: hover) and (pointer: fine) {
+  button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):hover {
+    border-color: #646cff;
+  }
 }
 button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus,
 button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus-visible {
   outline: none;
+}
+
+/* 所有按钮统一的触摸反馈：选中态由各组件自己管，这里只表达“正在按下”。 */
+button,
+.ant-btn,
+.ant-radio-button-wrapper {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled):active,
+.ant-btn:not(:disabled):active,
+.ant-radio-button-wrapper:not(.ant-radio-button-wrapper-disabled):active {
+  transform: scale(0.96) !important;
+  filter: brightness(0.94) !important;
+  transition-duration: 60ms !important;
 }
 
 /* 防止 iOS Safari 在 font-size < 16px 的输入框/选择框获焦时自动缩放页面 */

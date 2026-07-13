@@ -64,6 +64,11 @@ const QF_MISC = ["尚缺材料", "暂不缺材料", "套装部件", "新品"];
 
 interface FilterPanelProps {
   onFilter: (nameSearchOverride?: string) => void;
+  onThemeCategoryReset: () => void;
+  showOwn: boolean;
+  showMissing: boolean;
+  onShowOwnChange: (checked: boolean) => void;
+  onShowMissingChange: (checked: boolean) => void;
   nameSearch: string;
   onNameSearchChange: (value: string) => void;
   quickFilter: QuickFilter;
@@ -98,6 +103,11 @@ function getThemeFilterOptions(): { label: string; value: string }[] {
 
 const FilterPanel: React.FC<FilterPanelProps> = ({
   onFilter,
+  onThemeCategoryReset,
+  showOwn,
+  showMissing,
+  onShowOwnChange,
+  onShowMissingChange,
   nameSearch,
   onNameSearchChange,
   quickFilter,
@@ -133,9 +143,6 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
     base: "SS",
     weight: "1",
   });
-
-  const [showOwn, setShowOwn] = useState(true);
-  const [showMissing, setShowMissing] = useState(true);
 
   const [advanced, setAdvanced] = useState<Record<string, boolean>>({
     sortbyscore: false,
@@ -553,6 +560,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         newTag2,
         val,
       );
+      onThemeCategoryReset();
     } else {
       // 切回自定义关卡：重置所有风格权重和 tag
       const resetFeats = Object.fromEntries(
@@ -585,6 +593,7 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
         resetTag,
         val,
       );
+      onThemeCategoryReset();
     }
   };
 
@@ -602,15 +611,13 @@ const FilterPanel: React.FC<FilterPanelProps> = ({
   };
 
   const handleOwn = (checked: boolean) => {
-    setShowOwn(checked);
     syncUiFilter(advanced, checked, showMissing);
-    onFilter();
+    onShowOwnChange(checked);
   };
 
   const handleMissing = (checked: boolean) => {
-    setShowMissing(checked);
     syncUiFilter(advanced, showOwn, checked);
-    onFilter();
+    onShowMissingChange(checked);
   };
 
   const handleTagChange = (idx: 1 | 2, field: keyof TagFilter, val: string) => {

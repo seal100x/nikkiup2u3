@@ -59,6 +59,56 @@
   display: block;
 }
 
+.mobile-wardrobe-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+}
+.mobile-wardrobe-toolbar-checks {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+.mobile-wardrobe-toolbar-checks .ant-checkbox-wrapper {
+  margin: 0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.mobile-wardrobe-search {
+  min-width: 0;
+  flex: 1;
+}
+.mobile-wardrobe-toolbar > .ant-btn {
+  flex-shrink: 0;
+}
+.mobile-wardrobe-filter-group + .mobile-wardrobe-filter-group {
+  margin-top: 14px;
+}
+.mobile-wardrobe-filter-panel {
+  margin: -1px 0 8px;
+  --fp-surface: #fff;
+  --fp-border: rgba(0, 0, 0, 0.08);
+}
+.mobile-wardrobe-filter-header {
+  margin-bottom: 10px;
+}
+.mobile-wardrobe-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mobile-wardrobe-filter-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
 @media (max-width: 991px) {
   .app-content {
     padding: 16px 12px;
@@ -78,5 +128,25 @@
   }
   .wardrobe-panel-col {
     margin-top: 12px;
+  }
+
+  .fp-right > .fp-qf {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .mobile-wardrobe-toolbar {
+    gap: 6px;
+    padding: 7px 8px;
+  }
+  .mobile-wardrobe-toolbar-checks {
+    gap: 2px;
+  }
+  .mobile-wardrobe-toolbar-checks .ant-checkbox + span {
+    padding-inline: 4px;
+  }
+  .mobile-wardrobe-toolbar > .ant-btn {
+    padding-inline: 9px;
   }
 }

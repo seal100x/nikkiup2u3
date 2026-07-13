@@ -18,11 +18,9 @@
   }
 
   .mobile-fab.ant-float-btn:hover,
-  .mobile-fab.ant-float-btn:active,
   .mobile-fab.ant-float-btn:focus,
   .mobile-fab.ant-float-btn:focus-visible,
   .mobile-fab.ant-float-btn:hover .ant-float-btn-body,
-  .mobile-fab.ant-float-btn:active .ant-float-btn-body,
   .mobile-fab.ant-float-btn:focus .ant-float-btn-body,
   .mobile-fab.ant-float-btn:focus-visible .ant-float-btn-body {
     background: #fff !important;
@@ -39,9 +37,13 @@
   }
 
   .mobile-fab.ant-float-btn:hover .ant-float-btn-icon,
-  .mobile-fab.ant-float-btn:active .ant-float-btn-icon,
   .mobile-fab.ant-float-btn:focus .ant-float-btn-icon,
   .mobile-fab.ant-float-btn:focus-visible .ant-float-btn-icon {
     color: #7c5cbf !important;
+  }
+
+  .mobile-fab.ant-float-btn:active {
+    transform: scale(0.94) !important;
+    filter: brightness(0.94) !important;
   }
 }
