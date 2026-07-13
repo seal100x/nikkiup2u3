@@ -1,0 +1,152 @@
+#root {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+}
+
+.app-layout {
+  min-height: 100vh;
+  background: transparent;
+  position: relative;
+}
+
+.app-content {
+  padding: 16px 24px;
+}
+
+.app-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  /* 与 nikki-background.svg 底部色接近，避免 cover 接缝或安全区露底 */
+  background-color: #f5f3fc;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  opacity: 0.55;
+  pointer-events: none;
+  /* 移动浏览器动态工具栏下尽量铺满可视区域 */
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* keep all layout children above the bg */
+.app-layout > *:not(.app-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* 去除 Tabs 溢出菜单按钮的 hover 边框 */
+.ant-tabs-nav-more {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.ant-tabs-nav-more:hover,
+.ant-tabs-nav-more:focus,
+.ant-tabs-nav-more:active {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+.app-only-mobile {
+  display: none;
+}
+.app-only-desktop {
+  display: block;
+}
+
+.mobile-wardrobe-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+}
+.mobile-wardrobe-toolbar-checks {
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+.mobile-wardrobe-toolbar-checks .ant-checkbox-wrapper {
+  margin: 0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.mobile-wardrobe-search {
+  min-width: 0;
+  flex: 1;
+}
+.mobile-wardrobe-toolbar > .ant-btn {
+  flex-shrink: 0;
+}
+.mobile-wardrobe-filter-group + .mobile-wardrobe-filter-group {
+  margin-top: 14px;
+}
+.mobile-wardrobe-filter-panel {
+  margin: -1px 0 8px;
+  --fp-surface: #fff;
+  --fp-border: rgba(0, 0, 0, 0.08);
+}
+.mobile-wardrobe-filter-header {
+  margin-bottom: 10px;
+}
+.mobile-wardrobe-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mobile-wardrobe-filter-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+@media (max-width: 991px) {
+  .app-content {
+    padding: 16px 12px;
+  }
+
+  .app-only-mobile {
+    display: block;
+  }
+  .app-only-desktop {
+    display: none;
+  }
+  .app-bg {
+    background-position: center top;
+    /* 200% auto 在窄长高屏上高度常小于视口，底部透明会透出黑/灰底 */
+    background-size: cover;
+    opacity: 0.35;
+  }
+  .wardrobe-panel-col {
+    margin-top: 12px;
+  }
+
+  .fp-right > .fp-qf {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .mobile-wardrobe-toolbar {
+    gap: 6px;
+    padding: 7px 8px;
+  }
+  .mobile-wardrobe-toolbar-checks {
+    gap: 2px;
+  }
+  .mobile-wardrobe-toolbar-checks .ant-checkbox + span {
+    padding-inline: 4px;
+  }
+  .mobile-wardrobe-toolbar > .ant-btn {
+    padding-inline: 9px;
+  }
+}

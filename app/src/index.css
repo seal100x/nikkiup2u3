@@ -1,0 +1,88 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* 配装器 UI 按浅色设计；不跟随系统深色，避免与 panel / 表格样式冲突 */
+  color-scheme: light;
+  color: #213547;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #747bff;
+}
+
+html,
+body,
+#root {
+  /* min-height 随内容增高，避免长页滚动区无背景（仅 height:100% 时常见） */
+  min-height: 100%;
+  min-height: 100dvh;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* 仅作用于非 Ant Design 按钮，避免与 .ant-btn 的焦点环叠加成黑框 */
+/* .fp-qf-tag 由 panel.css 自管边框与悬停色，避免被全局 border 覆盖 */
+button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall) {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+@media (hover: hover) and (pointer: fine) {
+  button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):hover {
+    border-color: #646cff;
+  }
+}
+button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus,
+button:not(.ant-btn):not(.fp-qf-tag):not(.fp-qf-clear):not(.fp-qf-addall):focus-visible {
+  outline: none;
+}
+
+/* 所有按钮统一的触摸反馈：选中态由各组件自己管，这里只表达“正在按下”。 */
+button,
+.ant-btn,
+.ant-radio-button-wrapper {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:not(:disabled):active,
+.ant-btn:not(:disabled):active,
+.ant-radio-button-wrapper:not(.ant-radio-button-wrapper-disabled):active {
+  transform: scale(0.96) !important;
+  filter: brightness(0.94) !important;
+  transition-duration: 60ms !important;
+}
+
+/* 防止 iOS Safari 在 font-size < 16px 的输入框/选择框获焦时自动缩放页面 */
+@supports (-webkit-touch-callout: none) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
