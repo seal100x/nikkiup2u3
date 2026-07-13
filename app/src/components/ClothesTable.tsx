@@ -1,6 +1,6 @@
 import React from "react";
-import { Table, Tag, Button, Checkbox, Tooltip } from "antd";
-import { PlusOutlined, StarFilled } from "@ant-design/icons";
+import { Table, Tag, Button, Checkbox, Tooltip, message } from "antd";
+import { CopyOutlined, PlusOutlined, StarFilled } from "@ant-design/icons";
 import { usePreferNoTooltip } from "../hooks/usePreferNoTooltip";
 
 interface ClothesItem {
@@ -172,19 +172,41 @@ function MobileRow({
   onAddCart: (t: string, id: string) => void;
 }) {
   const noTooltip = usePreferNoTooltip();
+  const copyName = async () => {
+    try {
+      await navigator.clipboard.writeText(r.name);
+      message.success(`已复制：${r.name}`);
+    } catch {
+      // 复制失败时不打断其他操作
+    }
+  };
   const addBtn = (
     <Button
       size='small'
       icon={<PlusOutlined />}
-      onClick={() => onAddCart(r.type.mainType, r.id)}
+      onClick={(event) => {
+        event.stopPropagation();
+        onAddCart(r.type.mainType, r.id);
+      }}
     />
   );
   return (
     <div
+      role='button'
+      tabIndex={0}
+      aria-label={`复制${r.name}`}
+      onClick={copyName}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          void copyName();
+        }
+      }}
       style={{
         borderBottom: "1px solid #f0f0f0",
         padding: "8px 10px",
         background: r.isF ? "#fafafa" : r.own ? "#fff8fa" : "#fff",
+        cursor: "pointer",
       }}
     >
       <div
@@ -197,19 +219,41 @@ function MobileRow({
       >
         <Checkbox
           checked={r.own}
+          onClick={(event) => event.stopPropagation()}
           onChange={() => onToggleOwn(r.type.mainType, r.id)}
         />
-        <span
+        <div
           style={{
             flex: 1,
-            fontWeight: 600,
-            fontSize: 14,
-            color: r.isF ? "#aaa" : "#222",
-            textDecoration: r.isF ? "line-through" : undefined,
+            minWidth: 0,
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
           }}
         >
-          {r.name}
-        </span>
+          <span
+            style={{
+              minWidth: 0,
+              fontWeight: 600,
+              fontSize: 14,
+              color: r.isF ? "#aaa" : "#222",
+              textDecoration: r.isF ? "line-through" : undefined,
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {r.name}
+          </span>
+          <CopyOutlined
+            aria-hidden
+            style={{
+              flexShrink: 0,
+              color: "#8c8c8c",
+              fontSize: 13,
+            }}
+          />
+        </div>
         <span
           style={{
             color: "#fa8c16",

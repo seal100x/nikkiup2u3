@@ -1,5 +1,5 @@
 /* FilterPanel — Soft Sakura theme */
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap');
 
 .panel-card {
   /* White modern theme (layout per reference, but white background) */
@@ -19,7 +19,7 @@
 
   --fp-radius: 12px;
   --fp-radius-sm: 10px;
-  font-family: "Noto Sans SC", sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
   background: var(--fp-bg);
   border-radius: var(--fp-radius);
   border: 1px solid var(--fp-border);
@@ -362,7 +362,7 @@
   background: var(--fp-surface);
   font-size: 13px;
   font-weight: 600;
-  font-family: "Noto Sans SC", sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
   cursor: pointer;
   transition:
     background 0.18s,
@@ -427,7 +427,7 @@
   border-radius: var(--fp-radius-sm) !important;
   border-color: var(--fp-border) !important;
   text-align: center;
-  font-family: "DM Mono", monospace !important;
+  font-family: 'DM Mono', monospace !important;
   font-size: 16px !important;
   background: var(--fp-tag-bg) !important;
   color: var(--fp-text) !important;
@@ -449,7 +449,7 @@
   background: var(--fp-surface);
   font-size: 11px;
   font-weight: 600;
-  font-family: "DM Mono", monospace;
+  font-family: 'DM Mono', monospace;
   cursor: pointer;
   color: var(--fp-muted);
   transition: all 0.15s;
@@ -491,7 +491,7 @@
   font-size: 13px;
   font-weight: 700;
   color: #fa8c16;
-  font-family: "DM Mono", monospace;
+  font-family: 'DM Mono', monospace;
 }
 
 /* ── Right panel ── */
@@ -728,7 +728,7 @@
   color: #1677ff;
   font-size: 12px;
   font-weight: 600;
-  font-family: "Noto Sans SC", sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
   cursor: pointer;
   transition: all 0.15s;
   outline: none;
@@ -773,7 +773,7 @@
   align-items: center;
 }
 .fp-qf-group-label::before {
-  content: "";
+  content: '';
   display: inline-block;
   width: 7px;
   height: 7px;
@@ -814,7 +814,7 @@ button.fp-qf-tag {
   color: rgba(0, 0, 0, 0.65);
   font-size: 12px;
   font-weight: 500;
-  font-family: "Noto Sans SC", sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
   cursor: pointer;
   transition:
     border-color 0.15s,
@@ -916,7 +916,7 @@ button.fp-qf-tag.fp-qf-tag--misc.fp-qf-tag--active {
   border: none;
   cursor: pointer;
   padding: 0 4px;
-  font-family: "Noto Sans SC", sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
   transition: color 0.15s;
   outline: none;
 }
@@ -941,7 +941,7 @@ button.fp-qf-tag.fp-qf-tag--misc.fp-qf-tag--active {
   font-size: 20px;
   color: #fa8c16;
   font-weight: 700;
-  font-family: "DM Mono", monospace;
+  font-family: 'DM Mono', monospace;
   letter-spacing: -0.5px;
 }
 .sc-panel-actions {
